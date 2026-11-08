@@ -1,0 +1,37 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>내 노래 확인 | 블루메 송</title><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{margin:0;color:#303633;background:#f3f4f3;font-family:"Noto Serif KR",serif;line-height:1.8;word-break:keep-all;font-size:17px}a{color:inherit}
+header{position:sticky;top:0;z-index:10;background:#f3f4f3ef;border-bottom:1px solid #d2d8d3;padding:12px 20px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:21px;text-decoration:none;font-weight:700}header a.back{font-size:15px}
+main{max-width:640px;margin:auto;padding:30px 22px 60px}.kicker{font-size:15px;letter-spacing:2px;font-weight:600;color:#6c766f}h1{font-size:30px;line-height:1.45;letter-spacing:-1px;margin:8px 0 14px}h2{font-size:23px;margin:4px 0 10px}
+p{font-size:17px;color:#56605a}.small{font-size:15px;color:#717a74}.box{padding:22px 18px;background:#fff;border:1px solid #d3d9d4;margin:20px 0}
+label{display:block;font-size:16px;margin-bottom:14px}input{display:block;width:100%;margin-top:7px;padding:12px;border:1px solid #cbd3cd;background:#fff;border-radius:3px;font:inherit;font-size:18px}
+.btn,button{display:block;width:100%;text-align:center;border:0;border-radius:3px;background:#645a54;color:#fff;padding:14px 20px;text-decoration:none;font-family:inherit;font-size:18px;cursor:pointer}.btn.green{background:#00704a}
+.err{padding:12px 14px;background:#fbeaea;color:#8a2020;border:1px solid #e3b5b5}
+.steps{list-style:none;padding:0;margin:14px 0;display:grid;gap:6px}.steps li{padding:10px 14px;border:1px solid #d3d9d4;border-radius:6px;color:#8b948e;font-size:17px}.steps li.done{color:#303633;background:#eef5f1;border-color:#b9d6c8}.steps li.now{color:#fff;background:#00704a;border-color:#00704a;font-weight:700}
+.oid{font-family:Arial,sans-serif;font-weight:700;letter-spacing:1px;color:#00704a}audio{width:100%;margin:14px 0}
+.price{margin:16px 0;border-top:1px solid #d3d9d4;padding-top:14px}.price s{color:#717a74}.price strong{display:block;font-size:34px;color:#645a54}
+.pay-fallback{border:2px dashed #00704a;padding:16px;background:#f4faf7;margin-top:14px}.pay-fallback b{color:#00704a}
+footer{padding:30px 22px;background:#35362f;color:#e5eae6;font-size:16px}footer p.ai-note{color:#bec7c0;font-size:15px;max-width:1050px;margin:12px auto 0}</style></head><body><header><a class="logo" href="index.html">Bloome Song</a><a class="back" href="index.html">처음으로</a></header><main><span class="kicker">MY SONG</span><h1>내 노래 확인</h1><p>신청할 때 받은 접수번호와 휴대폰 번호 끝 4자리를 넣어 주세요.</p><form id="status-form" class="box" novalidate><label>접수번호<input name="order" placeholder="BS-261109-AB12" autocomplete="off" autocapitalize="characters" maxlength="16" required></label><label>휴대폰 번호 끝 4자리<input name="phone4" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="1234" required></label><button type="submit" id="status-btn">확인하기</button><div id="status-error" class="err" role="alert" hidden style="margin-top:14px"></div></form><div id="status-result" class="box" role="status" tabindex="-1" hidden><span class="small">접수번호</span> <span class="oid" id="r-oid"></span><h2 id="r-title"></h2><ol class="steps" id="r-steps"></ol><div id="r-preview" hidden><h2>미리듣기가 도착했어요</h2><audio id="r-audio" controls controlslist="nodownload" preload="metadata"></audio><p class="small">마음에 드시면 전체곡을 받아 보세요.</p><a class="btn green" id="r-checkout" href="checkout.html">전체곡 받기</a></div><p class="small" id="r-wait" hidden></p></div><p class="small">문의: <a href="mailto:bloome.korea@gmail.com">bloome.korea@gmail.com</a></p></main><footer><b>Bloome Song · 블루메 송</b><p class="ai-note">본 페이지의 영상, 이미지는 AI로 만든 영상일 수 있으며, 고객으로부터 동의받은 리뷰 영상도 일부 포함합니다.</p></footer><script src="assets/config.js"></script><script>
+(function(){
+ var C=window.BLOOME_CONFIG||{},f=document.getElementById('status-form'),er=document.getElementById('status-error'),out=document.getElementById('status-result'),btn=document.getElementById('status-btn');
+ var STEPS=['접수','제작중','미리듣기발송','결제완료','완료'],LABEL={'접수':'신청 접수','제작중':'노래 만드는 중','미리듣기발송':'미리듣기 도착','결제완료':'결제 완료','완료':'전체곡 전달 완료'};
+ var MSG={bad_input:'접수번호와 끝 4자리를 다시 확인해 주세요.',not_found:'일치하는 신청을 찾지 못했어요. 접수번호와 끝 4자리를 다시 확인해 주세요.',too_many:'조회를 너무 많이 시도했어요. 1시간 뒤 다시 시도해 주세요.',server:'잠시 문제가 생겼어요. 다시 시도해 주세요.',network:'연결이 불안정해요. 잠시 뒤 다시 시도해 주세요.',not_ready:'조회 기능 준비 중이에요.'};
+ var q=new URLSearchParams(location.search);if(q.get('order'))f.order.value=q.get('order');
+ function fail(c){er.hidden=false;er.textContent=MSG[c]||MSG.server}
+ f.addEventListener('submit',function(e){e.preventDefault();er.hidden=true;out.hidden=true;
+  var order=f.order.value.trim().toUpperCase(),p4=f.phone4.value.replace(/\D/g,'');
+  if(!/^BS-\d{6}-[A-Z0-9]{4}$/.test(order)||p4.length!==4)return fail('bad_input');
+  if(!C.APPS_SCRIPT_URL)return fail('not_ready');
+  btn.disabled=true;btn.textContent='확인하는 중…';
+  fetch(C.APPS_SCRIPT_URL+'?action=status&order='+encodeURIComponent(order)+'&phone4='+p4,{redirect:'follow'}).then(function(r){return r.json()}).then(function(r){
+   if(!r.ok)return fail(r.error);
+   out.hidden=false;document.getElementById('r-oid').textContent=r.orderId;
+   var i=Math.max(0,STEPS.indexOf(r.status));document.getElementById('r-title').textContent='지금 단계: '+(LABEL[r.status]||r.status);
+   var ol=document.getElementById('r-steps');ol.innerHTML='';STEPS.forEach(function(s,k){var li=document.createElement('li');li.textContent=LABEL[s];li.className=k<i?'done':(k===i?'now':'');ol.appendChild(li)});
+   var pv=document.getElementById('r-preview'),w=document.getElementById('r-wait');
+   if(r.previewUrl){pv.hidden=false;w.hidden=true;document.getElementById('r-audio').src=r.previewUrl;document.getElementById('r-checkout').href='checkout.html?order='+encodeURIComponent(r.orderId);
+     if(r.status==='결제완료'||r.status==='완료')document.getElementById('r-checkout').hidden=true;}
+   else{pv.hidden=true;w.hidden=false;w.textContent='미리듣기가 준비되면 문자로 알려 드릴게요. ('+(C.PREVIEW_ETA||'')+' 보내드려요)'}
+   out.focus();
+  }).catch(function(){fail('network')}).finally(function(){btn.disabled=false;btn.textContent='확인하기'});
+ });
+})();
+</script></body></html>
