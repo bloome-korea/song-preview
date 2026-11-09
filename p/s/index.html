@@ -1,0 +1,89 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>미리듣기 | 블루메 송</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/p/bloome_preview.css">
+</head><body>
+<header><a class="logo" href="../../index.html">Bloome Song</a><span class="hidden-flag">LINK ONLY · NOINDEX</span></header>
+<main id="main">
+<p class="small">불러오는 중…</p>
+</main>
+<footer><b>Bloome Song · 블루메 송</b>
+<p class="ai-note">본 페이지의 영상·이미지는 AI로 만든 것일 수 있습니다. 이 노래는 고객님의 이야기로 가사를 쓰고 AI 음악 도구(Suno)로 만든 곳입니다. (인공지능 기본법 고지)</p>
+</footer>
+<script src="../../assets/p/smartstore_links.js"></script>
+<script src="../../assets/p/bloome_price.js"></script>
+<script src="../../assets/p/bloome_song.js"></script>
+<script>
+(function(){
+  const main=document.getElementById('main');
+  BLOOME_SONG.load().then(function(song){
+    document.title=song.title+' · 미리듣기 | 블루메 송';
+    const cover=song.coverUrl?'<img class="cover" src="'+song.coverUrl+'" alt="">':'';
+    const lyrics=song.lyrics?'<p class="lyrics" id="lyrics"></p>':'';
+    main.innerHTML=
+      '<span class="badge" id="badge"></span> '+
+      '<span class="hand" id="hand"></span>'+
+      '<h1 id="title"></h1>'+
+      '<p class="small">1분 미리듣기만 제공해요. 전체 파일은 이 페이지에 없습니다.</p>'+
+      '<div class="paper">'+cover+lyrics+
+      '<div class="player"><span class="kicker" style="color:#a9b5ad">1분 미리듣기</span>'+
+      '<audio id="aud" controls preload="auto"></audio>'+
+      '<p class="small" style="color:#c9d0cb;margin:8px 0 0">재생이 끝나거나 ‘전체곡 받기’를 누르면 결제 화면으로 이동해요.</p></div>'+
+      '<div class="pricebox" id="pricebox"></div>'+
+      '<button type="button" class="btn green" id="go">전체곡 받기</button></div>'+
+      '<div class="stage-nav" id="stageNav">'+
+      '<a data-st="9900" href="#">9900</a><a data-st="19800" href="#">19800</a><a data-st="29800" href="#">29800</a>'+
+      '<a data-st="closed" href="#">closed</a><a data-st="reopen" href="#">reopen</a><a data-st="" href="#">live</a></div>'+
+      '<div class="note">전자상거래법 제17조 제2항: 맞춤 제작·디지털은 제작 착수 후 청약철회가 제한될 수 있어요.</div>';
+
+    document.getElementById('badge').textContent=song.badge;
+    document.getElementById('hand').textContent=song.hand;
+    document.getElementById('title').textContent=song.title;
+    if(song.lyrics) document.getElementById('lyrics').textContent=song.lyrics;
+    const aud=document.getElementById('aud');
+    if(song.previewUrl) aud.src=song.previewUrl;
+
+    const q0=new URLSearchParams(location.search);
+    if(q0.get('debug')==='1'){
+      const nav=document.getElementById('stageNav');
+      nav.classList.add('show');
+      nav.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click',function(e){
+          e.preventDefault();
+          const st=a.getAttribute('data-st');
+          const p=new URLSearchParams(location.search);
+          p.set('debug','1'); p.set('id',song.id);
+          if(st) p.set('stage',st); else p.delete('stage');
+          location.search=p.toString();
+        });
+      });
+    }
+
+    const P=BLOOME_PRICE, box=document.getElementById('pricebox'), go=document.getElementById('go');
+    let state=P.parseAnchor(song.storageKey);
+    function paint(){
+      state=P.parseAnchor(song.storageKey);
+      box.innerHTML=P.renderPriceInner(state);
+      if(state.expired) go.textContent='고객센터 문의 / 결제 화면';
+      else go.textContent='전체곡 받기';
+    }
+    paint();
+    setInterval(function(){
+      if(state.expired||state.reopened||state.leftSec==null) return;
+      state.leftSec--;
+      if(state.leftSec<=0) paint();
+      else P.tickCountdown(box, state.leftSec);
+    },1000);
+
+    function toPay(){ location.href='pay.html'+P.carryParams({id:song.id}); }
+    go.addEventListener('click', toPay);
+    aud.addEventListener('ended', toPay);
+    aud.addEventListener('timeupdate', function(){ if(aud.currentTime>=59.5) toPay(); });
+  }).catch(function(err){
+    main.innerHTML='<div class="err"><h2>미리듣기를 열 수 없어요</h2><p>'+String(err.message||err)+'</p></div>';
+  });
+})();
+</script>
+</body></html>

@@ -1,0 +1,82 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>결제 | 블루메 송</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/p/bloome_preview.css">
+</head><body>
+<header><a class="logo" href="../../index.html">Bloome Song</a><span class="hidden-flag">LINK ONLY · NOINDEX</span></header>
+<main>
+<span class="badge">PRIVATE · PAY</span>
+<span class="hand">전체곡 받기</span>
+<h1 id="title">불러오는 중…</h1>
+<p class="small">결제 금액은 미리듣기를 보내드린 시각 기준이에요.</p>
+<div id="panel"></div>
+<div class="stage-nav" id="stageNav">
+<a data-st="9900" href="#">9900</a><a data-st="19800" href="#">19800</a><a data-st="29800" href="#">29800</a>
+<a data-st="closed" href="#">closed</a><a data-st="reopen" href="#">reopen</a>
+</div>
+<p class="small"><a id="backPreview" href="index.html">← 미리듣기로</a></p>
+</main>
+<footer><b>Bloome Song · 블루메 송</b>
+<p class="ai-note">본 페이지의 영상·이미지는 AI로 만든 것일 수 있습니다. 이 노래는 고객님의 이야기로 가사를 쓰고 AI 음악 도구(Suno)로 만든 곳입니다. (인공지능 기본법 고지)</p>
+</footer>
+<script src="../../assets/p/smartstore_links.js"></script>
+<script src="../../assets/p/bloome_price.js"></script>
+<script src="../../assets/p/bloome_song.js"></script>
+<script>
+(function(){
+  const panel=document.getElementById('panel');
+  BLOOME_SONG.load().then(function(song){
+    document.title=song.title+' · 결제 | 블루메 송';
+    document.getElementById('title').textContent=song.title;
+    const q0=new URLSearchParams(location.search);
+    if(q0.get('debug')==='1'){
+      const nav=document.getElementById('stageNav');
+      nav.classList.add('show');
+      nav.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click',function(e){
+          e.preventDefault();
+          const st=a.getAttribute('data-st');
+          const p=new URLSearchParams(location.search);
+          p.set('debug','1'); p.set('id',song.id);
+          if(st) p.set('stage',st); else p.delete('stage');
+          location.search=p.toString();
+        });
+      });
+    }
+    const P=BLOOME_PRICE, links=window.BLOOME_SMARTSTORE_LINKS||{};
+    function render(){
+      const st=P.parseAnchor(song.storageKey);
+      if(st.expired){
+        panel.innerHTML='<div class="paper expired"><h2>결제 시간이 지났어요</h2>'+
+          '<p>미리듣기를 보내드린 뒤 24시간이 지나 결제가 닫혔어요. 파일은 지우지 않았어요. 고객센터로 문의해 주세요.</p>'+
+          '<a class="btn green" href="#">고객센터에 문의하기</a></div>';
+        return;
+      }
+      const url=links[st.amount]||'';
+      const has=!!url;
+      panel.innerHTML='<div class="paper"><div class="pricebox" id="pricebox">'+
+        P.renderPriceInner(st)+'</div>'+
+        '<p>네이버 스마트스토어에서 결제해요. 네이버페이·카드 모두 가능해요.</p>'+
+        (has
+          ? '<a class="btn green" href="'+url+'" target="_blank" rel="noopener">네이버페이·카드로 결제하기 (스마트스토어)</a>'
+          : '<button class="btn green" type="button" disabled>결제 링크 준비 중이에요</button>')+
+        '<p class="small" style="margin-top:14px">결제 후 주문자명/연락처로 확인해 전체곡을 보내드려요.</p></div>';
+    }
+    render();
+    const back=document.getElementById('backPreview');
+    if(back) back.href='index.html'+P.carryParams({id:song.id});
+    setInterval(function(){
+      const st=P.parseAnchor(song.storageKey);
+      if(st.expired||st.reopened||st.leftSec==null) return;
+      const box=document.getElementById('pricebox');
+      if(!P.tickCountdown(box, st.leftSec)) render();
+    },1000);
+  }).catch(function(err){
+    panel.innerHTML='<div class="err"><h2>결제 화면을 열 수 없어요</h2><p>'+String(err.message||err)+'</p></div>';
+    document.getElementById('title').textContent='블루메 송';
+  });
+})();
+</script>
+</body></html>
