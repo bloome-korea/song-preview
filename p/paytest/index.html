@@ -1,12 +1,26 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>결제 테스트 · 블루메 송</title>
-<style>body{margin:0;background:#f7f3ec;font-family:'Noto Serif KR',serif;color:#2b2622;display:flex;min-height:100vh;align-items:center;justify-content:center}.c{max-width:360px;padding:32px 24px;text-align:center}h1{font-size:20px;font-weight:600}p{font-size:14px;line-height:1.7;color:#6b625a}button{margin-top:16px;width:100%;padding:16px;border:0;border-radius:10px;background:#3a2f28;color:#fff;font-size:16px;font-family:inherit}button:disabled{opacity:.5}#m{margin-top:16px;font-size:13px;white-space:pre-wrap}</style></head>
-<body><div class="c"><h1>결제 테스트</h1><p>내부 확인용 페이지예요.<br>1,000원이 결제되고(페이앱 최소 금액), 확인 후 취소할 수 있어요.</p>
-<button id="pay">1,000원 결제하기</button><button id="chk" style="background:#8a7d70">결제 상태 확인</button><div id="m"></div></div>
+<style>body{margin:0;background:#f7f3ec;font-family:'Noto Serif KR',serif;color:#2b2622;display:flex;min-height:100vh;align-items:center;justify-content:center}.c{max-width:360px;padding:32px 24px;text-align:center}h1{font-size:20px;font-weight:600}p{font-size:14px;line-height:1.7;color:#6b625a}button{margin-top:12px;width:100%;padding:16px;border:0;border-radius:10px;background:#3a2f28;color:#fff;font-size:16px;font-family:inherit}button:disabled{opacity:.5}#chk{background:#8a7d70}#cancel{background:#a65d4a}#m{margin-top:16px;font-size:13px;white-space:pre-wrap;text-align:left}#done{display:none}.done #done{display:block}.done #paybox{display:none}</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body><div class="c" id="wrap">
+<div id="done"><h1>결제가 완료됐어요</h1><p>테스트 결제가 승인됐어요. 아래에서 상태를 확인하고, 확인 후 취소해 주세요.</p></div>
+<div id="paybox"><h1>결제 테스트</h1><p>내부 확인용 페이지예요.<br>1,000원이 결제되고(페이앱 최소 금액), 확인 후 취소할 수 있어요.</p>
+<button id="pay">1,000원 결제하기</button></div>
+<button id="chk">결제 상태 확인</button>
+<button id="cancel">테스트 결제 취소</button>
+<div id="m"></div></div>
 <script>
 const API='https://script.google.com/macros/s/AKfycbztrD0YkxCbYa3ZAjefPJWwygqLsSsChlpSJhYffi28dnUN_oXT2WecigZv8n1UHJYZ/exec';
 const m=document.getElementById('m');
-function call(a){return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:a}),redirect:'follow'}).then(r=>r.json());}
+const q=new URLSearchParams(location.search);
+const isDone=q.get('done')==='1';
+if(isDone) document.getElementById('wrap').classList.add('done');
+function call(a,extra){return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({action:a},extra||{})),redirect:'follow'}).then(r=>r.json());}
+function showStatus(r){const map={'1':'결제요청','4':'결제완료','8':'요청취소','9':'승인취소','32':'요청취소','request_fail':'요청실패','cancel_fail':'취소실패'};m.textContent=(r.rows||[]).map(x=>x.at.slice(0,19)+'  '+(map[x.pay_state]||x.pay_state)+'  '+x.amount+'원 '+(x.pay_type||'')+(x.mul_no?' #'+x.mul_no:'')).join('\n')||'기록 없음';}
 document.getElementById('pay').onclick=function(){const b=this;b.disabled=true;m.textContent='결제창 여는 중…';
  call('pay_test').then(r=>{if(r.ok&&r.payurl){location.href=r.payurl;}else{m.textContent='실패: '+(r.message||r.reason||r.error||'')+(r.code?' ('+r.code+')':'');b.disabled=false;}}).catch(e=>{m.textContent='오류: '+e;b.disabled=false;});};
-document.getElementById('chk').onclick=function(){m.textContent='확인 중…';call('pay_test_status').then(r=>{const map={'1':'결제요청','4':'결제완료','8':'요청취소','9':'승인취소','32':'요청취소','request_fail':'요청실패'};m.textContent=(r.rows||[]).map(x=>x.at.slice(0,24)+'  '+(map[x.pay_state]||x.pay_state)+'  '+x.amount+'원 '+(x.pay_type||'')).join('\n')||'기록 없음';}).catch(e=>m.textContent='오류: '+e);};
+document.getElementById('chk').onclick=function(){m.textContent='확인 중…';call('pay_test_status').then(showStatus).catch(e=>m.textContent='오류: '+e);};
+document.getElementById('cancel').onclick=function(){const b=this;if(!confirm('paytest 결제완료 건을 취소할까요?'))return;b.disabled=true;m.textContent='취소 중…';
+ call('pay_test_cancel').then(r=>{m.textContent=(r.message||'')+'\n'+(r.cancelled&&r.cancelled.length?'취소: '+r.cancelled.join(', '):'')+(r.failed&&r.failed.length?'\n실패: '+r.failed.join(', '):'');b.disabled=false;}).catch(e=>{m.textContent='오류: '+e;b.disabled=false;});};
+if(isDone){m.textContent='확인 중…';call('pay_test_status').then(showStatus).catch(e=>m.textContent='오류: '+e);}
 </script></body></html>
