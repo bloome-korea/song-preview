@@ -1,21 +1,153 @@
 <!doctype html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>이동 중… | 블루메 송</title>
+<title>결제 | 블루메 송</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/p/bloome_preview.css">
+</head><body>
+<header><a class="logo" href="../../index.html">Bloome Song</a><span class="hidden-flag">LINK ONLY · NOINDEX</span></header>
+<main>
+<span class="badge">PRIVATE · PAY</span>
+<span class="hand">전체곡 받기</span>
+<h1 id="title">불러오는 중…</h1>
+<p class="small">결제 금액은 미리듣기를 보내드린 시각 기준이에요.</p>
+<div id="panel"></div>
+<div class="stage-nav" id="stageNav">
+<a data-st="9900" href="#">9900</a><a data-st="19800" href="#">19800</a><a data-st="29800" href="#">29800</a>
+<a data-st="closed" href="#">closed</a><a data-st="reopen" href="#">reopen</a>
+</div>
+<p class="small"><a id="backPreview" href="index.html">← 미리듣기로</a></p>
+</main>
+<footer><b>Bloome Song · 블루메 송</b>
+<p class="ai-note">본 페이지의 영상·이미지는 AI로 만든 것일 수 있습니다. 이 노래는 고객님의 이야기로 가사를 쓰고 AI 음악 도구(Suno)로 만든 곳입니다. (인공지능 기본법 고지)</p>
+</footer>
+<script src="../../assets/p/smartstore_links.js"></script>
+<script src="../../assets/p/payapp_config.js"></script>
+<script src="../../assets/p/bloome_price.js"></script>
+<script src="../../assets/p/bloome_song.js"></script>
 <script>
 (function(){
-  var id='34e7b0559904';
-  var q=location.search||"";
-  var dest="../s/pay.html";
-  if(q.indexOf("id=")<0){
-    dest += (q ? q+"&" : "?") + "id="+encodeURIComponent(id);
-  } else {
-    dest += q;
+  const panel=document.getElementById('panel');
+  function postPayRequest(body){
+    const cfg=window.BLOOME_PAYAPP||{};
+    const url=cfg.APPS_SCRIPT_URL;
+    if(!url) return Promise.reject(new Error('not_ready'));
+    // text/plain → CORS preflight 없음 (v16 apply.js / api.js 와 동일)
+    return fetch(url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(body),redirect:'follow'}).then(function(r){return r.json();});
   }
-  location.replace(dest);
+  BLOOME_SONG.load().then(function(song){
+    document.title=song.title+' · 결제 | 블루메 송';
+    document.getElementById('title').textContent=song.title;
+    const q0=new URLSearchParams(location.search);
+    if(q0.get('debug')==='1'){
+      const nav=document.getElementById('stageNav');
+      nav.classList.add('show');
+      nav.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click',function(e){
+          e.preventDefault();
+          const st=a.getAttribute('data-st');
+          const p=new URLSearchParams(location.search);
+          p.set('debug','1'); p.set('id',song.id);
+          if(st) p.set('stage',st); else p.delete('stage');
+          location.search=p.toString();
+        });
+      });
+    }
+    const P=BLOOME_PRICE, links=window.BLOOME_SMARTSTORE_LINKS||{};
+    const payappOn=!!window.BLOOME_PAYAPP_ENABLED;
+
+    function sParam(){
+      const q=new URLSearchParams(location.search);
+      if(q.get('s')) return q.get('s');
+      try{
+        const ms=localStorage.getItem(song.storageKey);
+        if(ms && /^\d+$/.test(ms)){
+          const d=new Date(+ms);
+          // yyyymmddHHMM KST
+          const kst=new Date(d.getTime()+9*3600000);
+          const p=function(n){return (n<10?'0':'')+n;};
+          return ''+kst.getUTCFullYear()+p(kst.getUTCMonth()+1)+p(kst.getUTCDate())+p(kst.getUTCHours())+p(kst.getUTCMinutes());
+        }
+      }catch(e){}
+      return '';
+    }
+
+    function payButtonHtml(st){
+      if(payappOn){
+        return '<button class="btn green" type="button" id="payBtn">카드·네이버페이·카카오페이로 결제하기</button>'+
+          '<p class="small" id="payMsg" style="margin-top:10px"></p>';
+      }
+      const url=links[st.amount]||'';
+      return url
+        ? '<a class="btn green" href="'+url+'" target="_blank" rel="noopener">네이버페이·카드로 결제하기 (스마트스토어)</a>'
+        : '<button class="btn green" type="button" disabled>결제 링크 준비 중이에요</button>';
+    }
+
+    function wirePayBtn(st){
+      if(!payappOn) return;
+      const btn=document.getElementById('payBtn');
+      const msg=document.getElementById('payMsg');
+      if(!btn) return;
+      btn.addEventListener('click',function(){
+        btn.disabled=true; btn.textContent='결제창 여는 중…';
+        if(msg) msg.textContent='';
+        postPayRequest({
+          action:'pay_request',
+          id:song.id,
+          s:sParam(),
+          title:song.title
+        }).then(function(r){
+          if(!r || !r.ok){
+            const err=(r&&r.reason==='disabled')?'아직 페이앱 결제가 꺼져 있어요.':
+              (r&&r.error==='expired')?'결제 시간이 지났어요. 고객센터로 문의해 주세요.':
+              (r&&r.message)||'결제를 시작하지 못했어요. 잠시 뒤 다시 시도해 주세요.';
+            if(msg) msg.textContent=err;
+            btn.disabled=false; btn.textContent='카드·네이버페이·카카오페이로 결제하기';
+            return;
+          }
+          location.href=r.payurl;
+        }).catch(function(){
+          if(msg) msg.textContent='연결이 불안정해요. 잠시 뒤 다시 시도해 주세요.';
+          btn.disabled=false; btn.textContent='카드·네이버페이·카카오페이로 결제하기';
+        });
+      });
+    }
+
+    function render(){
+      const st=P.parseAnchor(song.storageKey);
+      if(st.expired){
+        panel.innerHTML='<div class="paper expired"><h2>결제 시간이 지났어요</h2>'+
+          '<p>미리듣기를 보내드린 뒤 24시간이 지나 결제가 닫혔어요. 파일은 지우지 않았어요. 고객센터로 문의해 주세요.</p>'+
+          '<a class="btn green" href="#">고객센터에 문의하기</a></div>';
+        return;
+      }
+      const via=payappOn
+        ? '결제 버튼을 누르면 지금 금액으로 결제창이 열려요. 시간이 지나면 이전 결제창은 서버에서 취소돼요.'
+        : '네이버 스마트스토어에서 결제해요. 네이버페이·카드 모두 가능해요.';
+      panel.innerHTML='<div class="paper"><div class="pricebox" id="pricebox">'+
+        P.renderPriceInner(st)+'</div>'+
+        '<p>'+via+'</p>'+
+        payButtonHtml(st)+
+        '<p class="small" style="margin-top:14px">결제 후 주문자명/연락처로 확인해 전체곡을 보내드려요.</p></div>';
+      wirePayBtn(st);
+    }
+    render();
+    let lastKey=(function(t){return t.expired+'|'+t.amount;})(P.parseAnchor(song.storageKey));
+    const back=document.getElementById('backPreview');
+    if(back) back.href='index.html'+P.carryParams({id:song.id});
+    setInterval(function(){
+      const st=P.parseAnchor(song.storageKey);
+      const k=st.expired+'|'+st.amount; if(k!==lastKey){ lastKey=k; render(); return; }
+      if(st.expired) return;
+      if(st.reopened||st.leftSec==null) return;
+      const box=document.getElementById('pricebox');
+      if(!P.tickCountdown(box, st.leftSec)) render();
+    },1000);
+  }).catch(function(err){
+    panel.innerHTML='<div class="err"><h2>결제 화면을 열 수 없어요</h2><p>'+String(err.message||err)+'</p></div>';
+    document.getElementById('title').textContent='블루메 송';
+  });
 })();
 </script>
-<meta http-equiv="refresh" content="0;url=../s/pay.html?id=34e7b0559904">
-</head><body>
-<p style="font-family:sans-serif;padding:24px;color:#56605a">미리듣기 페이지로 이동 중…</p>
 </body></html>
