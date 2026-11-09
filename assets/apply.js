@@ -1,4 +1,4 @@
-/* Bloome Song v16 — 신청 폼(간편 회원가입 포함) → Apps Script */
+/* Bloome Song v16.1 — 신청 폼(간편 회원가입 포함) → Apps Script → 완료 페이지 */
 (function () {
   var B = window.BLOOME, C = B.C;
   var form = document.getElementById('request-form');
@@ -27,6 +27,8 @@
   function showErr(code, field) {
     err.hidden = false; err.textContent = B.msg(code);
     var el = field && f[field]; if (el && el.focus) el.focus();
+    // 실패 시 입력값은 그대로 두고, 완료 페이지로 가지 않음
+    try { err.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
   }
   function utm() {
     var o = [];
@@ -56,26 +58,13 @@
     if (!C.APPS_SCRIPT_URL) return showErr('not_ready');
     btn.disabled = true; btn.textContent = '보내는 중…';
     B.post(d).then(function (r) {
-      if (!r.ok) return showErr(r.error, r.field);
+      if (!r || !r.ok) return showErr((r && r.error) || 'server', r && r.field);
       B.set('s', r.s); B.set('t', ''); B.set('uid', method === 'email' ? d.email.toLowerCase() : d.phone.replace(/\D/g, ''));
-      form.hidden = true; out.hidden = false;
-      if (r.prepay) {   // 무료 미리듣기를 이미 받은 아이디: 결제 후 제작 (금액은 결제 화면에서 서버가 계산해 보여 줌)
-        out.innerHTML = '<b>신청이 접수됐어요. 고마워요!</b>' +
-          '<p>무료 미리듣기는 처음 한 번만 드려요. 이번 노래는 결제 후 만들어 드려요.</p>' +
-          '<p class="small">결제가 확인되면 바로 만들기 시작하고, 완성되면 ' + (method === 'email' ? '이메일' : '문자') + '로 알려 드려요. 금액은 다음 화면에서 확인하실 수 있어요.</p>' +
-          '<a class="btn" id="prepay-link" href="#">결제하러 가기</a><p class="small" style="margin-top:12px">아이디 <span class="uid"></span> · 접수번호(참고용) <span class="oid-small"></span></p>';
-        out.querySelector('#prepay-link').href = 'checkout.html?o=' + encodeURIComponent(r.orderId);
-        out.querySelector('.uid').textContent = r.idLabel || '';
-        out.querySelector('.oid-small').textContent = r.orderId;
-        out.focus(); return;
-      }
-      out.innerHTML = '<b>신청이 접수됐어요. 고마워요!</b>' +
-        '<p>' + (C.PREVIEW_ETA || '미리듣기는 1시간~24시간 안에 보내드려요') + '. 준비되면 ' + (method === 'email' ? '이메일' : '문자') + '로 바로 들을 수 있는 링크를 보내 드려요.</p>' +
-        '<p class="small">나중에는 <b>‘내 노래 찾기’</b>에서 아이디(<span class="uid"></span>)와 비밀번호 4자리로 언제든 확인할 수 있어요.</p>' +
-        '<a class="btn" id="status-link" href="status.html">내 노래 찾기</a><p class="small" style="margin-top:12px">접수번호(참고용) <span class="oid-small"></span></p>';
-      out.querySelector('.uid').textContent = r.idLabel || '';
-      out.querySelector('.oid-small').textContent = r.orderId;
-      out.focus();
+      // 성공 시에만 완료 페이지로 이동 (실패면 폼·입력값 유지)
+      var url = 'done.html?m=' + encodeURIComponent(method);
+      if (r.prepay) url += '&prepay=1';
+      if (r.orderId) url += '&o=' + encodeURIComponent(r.orderId);
+      location.href = url;
     }).catch(function () { showErr('network'); })
       .finally(function () { btn.disabled = false; btn.textContent = '무료로 만들어 보기'; });
   });
