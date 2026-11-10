@@ -2,8 +2,10 @@
 (function () {
   var B = window.BLOOME; if (!B) return;
   var css = '' +
-    '#bc-btn{position:fixed;right:16px;bottom:18px;z-index:40;display:flex;align-items:center;gap:8px;padding:13px 18px;border:0;border-radius:30px;background:#00704a;color:#fff;font:700 17px "Noto Serif KR",serif;box-shadow:0 6px 18px #0004;cursor:pointer}' +
-    'body.has-sticky #bc-btn{bottom:84px}#bc-btn svg{width:22px;height:22px}' +
+    '#bc-btn{position:fixed;right:14px;top:58%;z-index:40;display:flex;align-items:center;gap:9px;padding:16px 22px;border:0;border-radius:32px;background:#c44b32;color:#fff;font:700 19px "Noto Serif KR",serif;box-shadow:0 8px 22px rgba(196,75,50,.45);cursor:pointer;transform:translateY(-50%);animation:bc-bob 2.8s ease-in-out infinite}' +
+    '@keyframes bc-bob{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 8px))}}' +
+    '@media (prefers-reduced-motion:reduce){#bc-btn{animation:none}}' +
+    '#bc-btn svg{width:24px;height:24px}' +
     '#bc-panel{position:fixed;right:12px;bottom:12px;z-index:41;width:min(400px,calc(100vw - 24px));height:min(640px,calc(100vh - 24px));display:flex;flex-direction:column;background:#fff;border:1px solid #c9d0cb;border-radius:14px;box-shadow:0 12px 40px #0005;overflow:hidden;font-family:"Noto Serif KR",serif}' +
     '#bc-panel[hidden]{display:none}#bc-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#00704a;color:#fff}#bc-head b{font-size:18px}#bc-head button{background:none;border:0;color:#fff;font-size:26px;line-height:1;cursor:pointer;padding:0 4px;width:auto}' +
     '#bc-log{flex:1;overflow-y:auto;padding:14px;background:#f3f4f3}.bc-m{max-width:88%;margin:0 0 10px;padding:11px 14px;border-radius:12px;font-size:17px;line-height:1.65;white-space:pre-line;word-break:keep-all}.bc-bot{background:#fff;border:1px solid #d3d9d4;color:#303633}.bc-me{margin-left:auto;background:#645a54;color:#fff}.bc-m a{color:#00704a;font-weight:700}' +
@@ -20,7 +22,7 @@
   var ETA = (B.C.PREVIEW_ETA || '미리듣기는 1시간~24시간 안에 보내드려요');
   var FAQ = [
     { k: 'price', q: '가격·결제', kw: ['가격', '얼마', '결제', '비용', '금액', '입금', '계좌', '카드', '무료'],
-      a: '노래 만들기와 1분 미리듣기는 무료예요.\n전체곡 금액은 미리듣기를 받은 뒤 ‘내 노래 찾기’와 결제 화면에서 정확히 보여 드려요. 처음 들어 보신 때부터 빨리 결제하실수록 저렴한 시간대별 가격이에요. 페이지를 닫았다 다시 열어도 처음 들어 보신 때부터 이어서 계산되고, 24시간이 지나면 그 노래의 듣기·결제 화면이 닫혀요. 두 곡이 준비된 경우에는 두 곡 다 받기(두 번째 곡 반값)도 고르실 수 있어요.\n결제는 지금은 계좌이체로 받고 있고, 카드 결제는 준비 중이에요.' },
+      a: '노래 만들기와 1분 미리듣기는 무료예요.\n전체곡 금액은 미리듣기를 받은 뒤 ‘내 노래 찾기’와 결제 화면에서 정확히 보여 드려요. 처음 들어 보신 때부터 빨리 결제하실수록 저렴한 시간대별 가격이에요. 페이지를 닫았다 다시 열어도 처음 들어 보신 때부터 이어서 계산되고, 24시간이 지나면 그 노래의 듣기·결제 화면이 닫혀요. 두 곡이 준비된 경우에는 두 곡 다 받기(두 번째 곡 반값)도 고르실 수 있어요.\n결제는 카드·네이버페이 또는 계좌이체로 하실 수 있어요. ‘전체곡 받기’를 누르면 바로 고르실 수 있어요.' },
     { k: 'eta', q: '미리듣기는 언제 와요?', kw: ['언제', '시간', '얼마나', '기다', '미리듣기', '도착', '늦'],
       a: ETA + '.\n준비되면 신청하실 때 고른 방법(문자 또는 이메일)으로 바로 들을 수 있는 링크를 보내 드려요.' },
     { k: 'edit', q: '수정 요청', kw: ['수정', '바꾸', '변경', '다시', '다른 버전', '가사', '마음에 안'],
