@@ -19,7 +19,7 @@ window.BLOOME_CONFIG = {
     CEO: "조은정",
     ADDRESS: "경기도 성남시 수정구 위례서일로 34, 1층 112호 (창곡동, 위례성희프라자)",
     REG_NO: "446-45-01389",  // 사업자등록번호 (블루메)
-    PRIVACY_OFFICER: "",  // 개인정보 보호책임자 이름·직책
+    PRIVACY_OFFICER: "박원재",  // 개인정보 보호책임자 이름·직책
     PRIVACY_CONTACT: "bloome.korea@gmail.com"
   }
 };
