@@ -31,101 +31,30 @@ footer{padding:30px 22px;background:#35362f;color:#e5eae6;font-size:16px}footer 
 .soft-note{display:flex;gap:12px;align-items:center;margin:12px 0 4px;padding:12px 14px;background:#fbf6ee;border:1px solid #eadfcd;border-radius:10px}.soft-note img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;background:#f7f1e6}.soft-note p{margin:0;font-size:16px;color:#5d534c;line-height:1.6}.soft-note small{display:block;font-size:14px;color:#8a817b;margin-top:2px}
 .expired{text-align:center;padding:18px 10px 6px}.expired img{width:150px;height:150px;border-radius:50%;object-fit:cover;background:#f7f1e6}.expired h2{font-size:21px;margin:12px 0 6px;color:#5d534c}.expired p{font-size:16px;margin:0 0 12px}
 .ref{font-size:13px;color:#9aa49d;margin:12px 0 0;font-family:Arial,sans-serif}audio{width:100%;margin:12px 0}
-</style></head><body><header><a class="logo" href="index.html">Bloome Song</a><a class="back" href="index.html">처음으로</a></header><main><span class="kicker">FULL SONG</span><h1>전체곡 받기</h1><div id="co-login" hidden><p>결제할 노래를 찾기 위해 아이디와 비밀번호 4자리를 넣어 주세요.</p><form id="co-login-form" class="box" novalidate><label>휴대폰 번호 또는 이메일<input name="id" autocomplete="username" maxlength="120" required></label><label>비밀번호 4자리<input name="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" required></label><button type="submit">불러오기</button><div class="err" id="co-login-err" hidden style="margin-top:12px"></div></form></div>
-<div id="co-main" hidden><div class="box" id="co-song"><h2 id="co-title"></h2><div id="co-price"></div><div id="co-picks" class="picks" hidden></div><p class="total" id="co-total" hidden></p></div>
-<div class="box" id="pay-bank"><h2>계좌이체</h2><p class="small">아래 계좌로 위 금액을 보내신 뒤 ‘입금했어요’를 눌러 주세요.</p><p class="bank" id="bank-text"></p><p class="small" id="bank-tip">입금자명은 신청자 이름으로 해 주시면 확인이 빨라요.</p>
-<form id="deposit-form" novalidate style="margin-top:16px"><label>입금자명<input name="depositor" maxlength="30" autocomplete="name" required></label><button type="submit" class="btn green" id="deposit-btn">입금했어요</button><div id="deposit-error" class="err" role="alert" hidden style="margin-top:12px"></div></form>
-<div id="deposit-ok" class="ok" role="status" tabindex="-1" hidden></div></div>
-<div class="box" id="pay-card"><h2>카드 결제</h2>
-<!-- PG 결제 연결 자리 (대행사 미정). 계약 후 config.js 의 PG_* 공개 키 입력 → #pg-slot 에 결제창.
-     금액은 반드시 Apps Script(서버)가 계산한 price.amount 를 쓰고, 결제 후 서버가 대행사 API 로 금액·상태를 검증한 뒤 결제완료 처리 -->
-<div id="pg-slot"></div><div class="muted-box" id="pg-pending">카드 결제는 준비 중이에요. 지금은 계좌이체로 받을 수 있어요.</div></div>
-<p class="ref" id="co-ref"></p></div><p class="small">문의: <a href="mailto:bloome.korea@gmail.com">bloome.korea@gmail.com</a> · 오른쪽 아래 ‘문의하기’</p></main><footer><b>Bloome Song · 블루메 송</b><div class="biz" id="biz">상호 <span data-biz="NAME">블루메</span> · 대표 <span data-biz="CEO">조은정</span> · 사업자등록번호 <span data-biz="REG_NO"></span> · 통신판매업 신고번호 <span data-biz="MAIL_ORDER_NO"></span><br>주소 <span data-biz="ADDRESS" style="white-space:normal">경기도 성남시 수정구 위례서일로 34, 1층 112호 (창곡동, 위례성희프라자)</span><br>문의 <a href="mailto:bloome.korea@gmail.com">bloome.korea@gmail.com</a> · <a href="privacy.html"><b>개인정보처리방침</b></a></div><p class="ai-note">본 페이지의 영상, 이미지는 AI로 만든 영상일 수 있으며, 고객으로부터 동의받은 리뷰 영상도 일부 포함합니다.</p></footer><script src="assets/config.js"></script><script src="assets/api.js"></script><script src="assets/site.js"></script><script>
-(function(){var B=window.BLOOME,C=B.C;
- var TIERS=[[9900,'처음 들어 보신 때부터 1시간 안'],[19800,'1시간 ~ 12시간'],[29800,'12시간 ~ 24시간']];
- var timers=[];function clearTimers(){timers.forEach(clearInterval);timers=[]}
- function fmtLeft(s){s=Math.max(0,s);var h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;function p(n){return(n<10?'0':'')+n}return (h?h+'시간 ':'')+p(m)+'분 '+p(x)+'초'}
- function softNote(sec){var d=document.createElement('div');d.className='soft-note';d.innerHTML='<img src="assets/girl_letter_cry.jpg" alt="" width="72" height="72"><p>24시간이 지나면 노래가 파기될 수 있어요. 그러면 다시 다운로드 받을 수 없어요.<small></small></p>';
-  var sm=d.querySelector('small');
-  if(sec!=null){var end=Date.now()+sec*1000,t=function(){sm.textContent='남은 시간 '+fmtLeft(Math.round((end-Date.now())/1000))};t();var iv=setInterval(t,1000);timers.push(iv);d._iv=iv}
-  else sm.textContent='24시간은 처음 들어 보신 때부터 시작돼요. 아직 시작 전이에요.';return d}
- function expiredBox(){var d=document.createElement('div');d.className='expired';d.innerHTML='<img src="assets/girl_letter_cry.jpg" alt="편지를 꼭 안고 우는 아이 그림" width="150" height="150"><h2>이 노래의 듣기·결제 시간이 지났어요</h2><p>처음 들어 보신 뒤 24시간이 지나 이 화면이 닫혔어요.<br>다시 받고 싶으시면 고객센터에 문의해 주세요.</p>';
-  var b=document.createElement('button');b.type='button';b.className='btn green';b.textContent='고객센터에 문의하기';b.onclick=function(){window.BLOOME_CHAT&&window.BLOOME_CHAT.open(true)};d.appendChild(b);return d}
- function kstDate(s){var m=String(s).match(/(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})/);if(!m)return s;var dt=new Date(Date.UTC(+m[1],m[2]-1,+m[3])),W='일월화수목금토'[dt.getUTCDay()],h=+m[4];
-  return (+m[2])+'월 '+(+m[3])+'일('+W+') '+(h<12?'오전 ':'오후 ')+((h%12)||12)+'시'+(+m[5]?' '+(+m[5])+'분':'')}
- function priceBox(pr,onExpire){var d=document.createElement('div');d.className='pricebox';
-  if(pr.locked){d.innerHTML='<span class="now">입금 확인 중 · 확정 금액</span><span class="amt"></span><p>‘입금했어요’를 누르신 때의 금액으로 확정됐어요. ('+(pr.tier||'')+')</p>';d.querySelector('.amt').textContent=B.won(pr.amount);return d}
-  if(pr.discount){d.className='pricebox discount';d.innerHTML='<span class="now">특별 할인가</span><s class="was"></s><span class="amt"></span><p class="until"></p><p>다시 찾아 주셔서 고마워요. 기간 안에 결제하시면 이 가격으로 받으실 수 있어요.</p>';
-   d.querySelector('.was').textContent=B.won(pr.regular||29800);d.querySelector('.amt').textContent=B.won(pr.amount);d.querySelector('.until').textContent=pr.endsAt?kstDate(pr.endsAt)+'까지':'';return d}
-  if(pr.prepay){d.innerHTML='<span class="now">선결제 · 기본 가격</span><span class="amt"></span><p>무료 미리듣기는 처음 한 번만 드려요. 결제가 확인되면 바로 만들기 시작하고, 완성되면 전체곡을 바로 받으실 수 있어요.</p>';d.querySelector('.amt').textContent=B.won(pr.amount);return d}
-  if(pr.fixed){d.innerHTML='<span class="now">재구매 혜택 · 시간과 관계없이 고정</span><span class="amt"></span><p>한 곡 더 만들어 주셔서 고마워요.</p>';d.querySelector('.amt').textContent=B.won(pr.amount);return d}
-  d.innerHTML='<span class="now">지금 결제하면 (한 곡)</span><span class="amt"></span><div class="cd" hidden></div><ul class="tiers"></ul><p>빨리 결제하실수록 저렴해요. 처음 들어 보신 때부터 1시간 안에는 9,900원, 1시간~12시간은 19,800원, 12시간~24시간은 29,800원이에요.<br>페이지를 닫았다가 다시 열어도 처음 들어 보신 때부터 이어서 계산돼요. 24시간 안에는 언제 결제하셔도 같은 노래를 받으세요.</p>';
-  d.querySelector('.amt').textContent=B.won(pr.amount);
-  var ul=d.querySelector('.tiers'),ci=TIERS.findIndex(function(t){return t[0]===pr.amount});
-  TIERS.forEach(function(t,i){var li=document.createElement('li');li.className=i===ci?'cur':(i<ci?'past':'');li.innerHTML='<span></span><b></b>';li.firstChild.textContent=t[1];li.lastChild.textContent=B.won(t[0]);ul.appendChild(li)});
-  var cd=d.querySelector('.cd');
-  if(pr.notStarted){cd.hidden=false;cd.className='cd paused';cd.innerHTML='<b></b> 동안 9,900원이에요<small>아직 시작 전이에요. 1분 미리듣기를 처음 들으시는 순간부터 시간이 흘러요.</small>';cd.firstChild.textContent=fmtLeft(pr.fullSec||3600)}
-  else if(pr.nextInSec!=null&&pr.nextAmount){var end=Date.now()+pr.nextInSec*1000;cd.hidden=false;
-   var tick=function(){var left=Math.round((end-Date.now())/1000);cd.innerHTML='<b></b> 남음 · 그 뒤에는 '+B.won(pr.nextAmount)+'으로 바뀌어요';cd.firstChild.textContent=fmtLeft(left);if(left<=0){clearInterval(iv);onExpire&&onExpire()}};
-   var iv=setInterval(tick,1000);timers.push(iv);d._iv=iv;tick()}
-  return d}
-
+</style></head><body><header><a class="logo" href="index.html">Bloome Song</a><a class="back" href="status.html">내 노래 찾기로</a></header><main><span class="kicker">FULL SONG</span><h1>전체곡 받기</h1><div id="co-login" hidden><p>결제할 노래를 찾기 위해 아이디와 비밀번호 4자리를 넣어 주세요.</p><form id="co-login-form" class="box" novalidate><label>휴대폰 번호 또는 이메일<input name="id" autocomplete="username" maxlength="120" required></label><label>비밀번호 4자리<input name="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" required></label><button type="submit">불러오기</button><div class="err" id="co-login-err" hidden style="margin-top:12px"></div></form></div>
+<div id="co-main" hidden><div id="co-panel"></div></div>
+<p class="small">문의: <a href="mailto:bloome.korea@gmail.com">bloome.korea@gmail.com</a> · 오른쪽 ‘문의하기’</p></main><footer><b>Bloome Song · 블루메 송</b><div class="biz" id="biz">상호 <span data-biz="NAME">블루메</span> · 대표 <span data-biz="CEO">조은정</span> · 사업자등록번호 <span data-biz="REG_NO"></span> · 통신판매업 신고번호 <span data-biz="MAIL_ORDER_NO"></span><br>주소 <span data-biz="ADDRESS" style="white-space:normal">경기도 성남시 수정구 위례서일로 34, 1층 112호 (창곡동, 위례성희프라자)</span><br>문의 <a href="mailto:bloome.korea@gmail.com">bloome.korea@gmail.com</a> · <a href="privacy.html"><b>개인정보처리방침</b></a></div><p class="ai-note">본 페이지의 영상, 이미지는 AI로 만든 영상일 수 있으며, 고객으로부터 동의받은 리뷰 영상도 일부 포함합니다.</p></footer><script src="assets/config.js"></script><script src="assets/api.js"></script><script src="assets/site.js"></script><script src="assets/pay-modal.js"></script><script>
+(function(){var B=window.BLOOME;
  function $(i){return document.getElementById(i)}
- var q=new URLSearchParams(location.search),want=(q.get('o')||'').toUpperCase(),cur=null,isAddon=q.get('addon')==='1',pickSel=q.get('pick')==='both'?'both':(q.get('pick')==='2'?'2':'1');
+ var q=new URLSearchParams(location.search),want=(q.get('o')||'').toUpperCase(),isAddon=q.get('addon')==='1',pickSel=q.get('pick')==='both'?'both':(q.get('pick')==='2'?'2':'1');
  if(q.get('t')){B.set('t',q.get('t').replace(/[^A-Za-z0-9]/g,''));B.set('s','')}
- $('bank-text').textContent=C.BANK_INFO?C.BANK_INFO:'계좌번호 준비 중';
- if(!C.BANK_INFO){$('bank-tip').textContent='계좌번호를 준비하고 있어요. ‘문의하기’로 남겨 주시면 입금 방법을 바로 안내해 드릴게요.';
-  var ib=document.createElement('button');ib.type='button';ib.className='btn';ib.id='bank-ask';ib.textContent='문의하기로 입금 방법 안내받기';ib.onclick=function(){window.BLOOME_CHAT&&window.BLOOME_CHAT.open(true)};$('bank-tip').after(ib)}
- if(C.PG_PROVIDER&&C.PG_STORE_ID){$('pg-pending').hidden=true}
- // v5: PayApp 카드·네이버페이 결제 (금액은 서버가 계산, 결제 후 status.html 로 돌아와 전체곡 받기). config.js 에 PAYAPP_ENABLED:false 를 넣으면 숨김
- var PAYAPP_ON=C.PAYAPP_ENABLED!==false,PA_LABEL='카드·네이버페이로 결제하기';
- if(PAYAPP_ON){$('pg-pending').hidden=true;var pcard=$('pay-card');pcard.querySelector('h2').textContent='카드·네이버페이 결제';
-  $('pg-slot').innerHTML='<p class="small">버튼을 누르면 결제창이 열려요. 결제가 끝나면 이 사이트로 돌아와 바로 전체곡을 받을 수 있어요.</p><button type="button" class="btn green" id="pa-btn"></button><div class="err" id="pa-err" role="alert" hidden style="margin-top:12px"></div>';
-  $('pa-btn').textContent=PA_LABEL;$('pay-bank').parentNode.insertBefore(pcard,$('pay-bank'));
-  window.addEventListener('pageshow',function(){var b=$('pa-btn');if(b){b.disabled=false;b.textContent=PA_LABEL}});
-  $('pa-btn').onclick=function(){if(!cur)return;var b=this,er=$('pa-err');er.hidden=true;b.disabled=true;b.textContent='결제창 여는 중…';
-   function fail(t){er.hidden=false;er.textContent=t;b.disabled=false;b.textContent=PA_LABEL}
-   B.post(Object.assign({action:'pay_request',mode:'order',order:cur.orderId,pick:pickSel},B.auth())).then(function(r){
-    if(r&&r.ok&&r.payurl){location.href=r.payurl;return}
-    if(r&&(r.error==='already_paid'||r.paid)){location.href='status.html?paid='+encodeURIComponent(cur.orderId);return}
-    if(r&&(r.error==='session'||r.error==='bad_token')){B.set('s','');B.set('t','');$('co-main').hidden=true;$('co-login').hidden=false;return fail(B.msg(r.error))}
-    fail(r&&r.reason==='disabled'?'카드 결제가 아직 열리지 않았어요. 계좌이체로 결제해 주세요.':(r&&r.error==='payapp'?'결제창을 열지 못했어요. 잠시 뒤 다시 시도해 주세요.':B.msg(r&&r.error)))
-   }).catch(function(){fail(B.msg('network'))})}}
  function pick(r){var pp=r.orders.filter(function(o){return o.prepay&&!o.paid&&o.status==='선결제대기'&&o.orderId===want})[0];if(pp)return pp;
   if(isAddon){var ao=r.orders.filter(function(o){return o.paid&&o.addon&&o.addon.state!=='결제완료'});return ao.filter(function(o){return o.orderId===want})[0]||ao[0]}
   var os=r.orders.filter(function(o){return (o.hasPreview||o.expired||(o.prepay&&o.status==='선결제대기'))&&!o.paid});return os.filter(function(o){return o.orderId===want})[0]||os[0]}
- function show(r){clearTimers();
-  var paidO=!isAddon&&want&&r.orders.filter(function(x){return x.orderId===want&&x.paid})[0];if(paidO){location.replace('status.html?paid='+encodeURIComponent(want));return}
+ function show(r){
+  var paidO=!isAddon&&want&&r.orders.filter(function(x){return x.orderId===want&&x.paid})[0];
+  if(paidO){location.replace('status.html?paid='+encodeURIComponent(want));return}
   var o=pick(r);$('co-login').hidden=true;$('co-main').hidden=false;
-  if(!o){$('co-title').textContent='결제할 노래가 없어요';$('co-price').innerHTML='<p>미리듣기를 받은 노래가 있으면 여기에서 결제할 수 있어요. <a href="status.html">내 노래 찾기</a></p>';$('pay-bank').hidden=true;$('pay-card').hidden=true;return}
-  cur=o;$('co-title').textContent=(o.prepay&&o.status==='선결제대기'?'새 노래 신청 · 선결제 · ':'전체곡 받기 · ')+(o.purpose||'내 노래')+(o.recipient?' · '+o.recipient+' 님':'');
-  var pb=$('co-price');pb.innerHTML='';$('co-ref').textContent='접수번호(참고용) '+o.orderId;
-  $('pay-card').hidden=false;
-  if(isAddon){$('pay-card').hidden=true;$('co-title').textContent='나머지 곡도 받기 · '+o.addon.song+'번 곡';var ab=document.createElement('div');ab.className='pricebox';ab.innerHTML='<span class="now">나머지 곡 금액</span><span class="amt"></span><p>먼저 받으신 곡 금액의 반값이에요. 시간이 지나도 이 금액 그대로예요.</p>';ab.querySelector('.amt').textContent=B.won(o.addon.amount);pb.appendChild(ab);
-   if(o.addon.state==='입금확인요청'){$('deposit-form').hidden=true;$('deposit-ok').hidden=false;$('deposit-ok').textContent='입금 확인을 요청하셨어요. 확인되면 내 노래 찾기에서 받을 수 있어요.'}return}
-  if(o.expired){pb.appendChild(expiredBox());$('pay-bank').hidden=true;$('pay-card').hidden=true;return}
-  pb.appendChild(priceBox(o.price,load));if(!o.depositRequested&&!o.reopened&&!o.prepay)pb.appendChild(softNote(o.expireInSec));
-  if(o.hasSong2&&!o.depositRequested&&!o.price.locked){var ps=$('co-picks');ps.hidden=false;ps.innerHTML='';
-   [['1','1번 곡만 받기',o.price.amount],['2','2번 곡만 받기',o.price.amount],['both','두 곡 다 받기 ('+B.won(o.price.amount)+' + '+B.won(o.price.secondAmount)+')',o.price.bothAmount]].forEach(function(x){
-    var l=document.createElement('label');l.innerHTML='<span><input type="radio" name="pick"><span></span></span><b></b>';var inp=l.querySelector('input');inp.value=x[0];inp.checked=x[0]===pickSel;
-    l.querySelector('span span').textContent=x[1];l.querySelector('b').textContent=B.won(x[2]);inp.onchange=function(){pickSel=x[0];showTotal(o)};ps.appendChild(l)});showTotal(o)}
-  else if(!o.depositRequested&&!o.price.locked){pickSel='1';showTotal(o)}
-  if(o.depositRequested){$('deposit-form').hidden=true;$('deposit-ok').hidden=false;$('deposit-ok').textContent='입금 확인을 요청하셨어요. 확인되면 내 노래 찾기에서 전체곡을 받을 수 있어요.'}}
- function showTotal(o){var t=pickSel==='both'?o.price.bothAmount:o.price.amount,el=$('co-total');el.hidden=false;el.innerHTML='결제 금액 <b></b>';el.querySelector('b').textContent=B.won(t);
-  [].forEach.call(document.querySelectorAll('#co-picks label'),function(l){l.classList.toggle('on',l.querySelector('input').checked)})}
+  if(!o){window.BLOOME_PAY.mount($('co-panel'),null);return}
+  if(o.hasSong2&&q.get('pick')!=='1'&&q.get('pick')!=='2'&&q.get('pick')!=='both')pickSel=o.pick||'1';
+  window.BLOOME_PAY.mount($('co-panel'),{order:o,pick:pickSel,addon:isAddon,onDone:function(res){
+   if(res&&res.already==='paid'){location.replace('status.html?paid='+encodeURIComponent(o.orderId))}
+  }});
+ }
  function load(){var a=B.auth();if(!a){$('co-login').hidden=false;return}
   B.post(Object.assign({action:'orders'},a)).then(function(r){if(!r.ok){B.set('s','');B.set('t','');$('co-login').hidden=false;return}show(r)}).catch(function(){$('co-login').hidden=false})}
  $('co-login-form').onsubmit=function(e){e.preventDefault();var f=this,er=$('co-login-err');er.hidden=true;
   B.post({action:'login',id:f.id.value.trim(),pin:f.pin.value}).then(function(r){if(!r.ok){er.hidden=false;er.textContent=B.msg(r.error);return}B.set('s',r.s);B.set('uid',r.uid||'');show(r)}).catch(function(){er.hidden=false;er.textContent=B.msg('network')})};
- var f=$('deposit-form'),er=$('deposit-error'),btn=$('deposit-btn');
- f.onsubmit=function(e){e.preventDefault();er.hidden=true;var d=f.depositor.value.trim();if(!d){er.hidden=false;er.textContent='입금자명을 적어 주세요.';return}
-  btn.disabled=true;btn.textContent='보내는 중…';
-  B.post(Object.assign({action:'deposit',order:cur&&cur.orderId,depositor:d,pick:pickSel},isAddon?{addon:1}:{},B.auth())).then(function(r){
-   if(!r.ok){er.hidden=false;er.textContent=B.msg(r.error);return}
-   f.hidden=true;var ok=$('deposit-ok');ok.hidden=false;
-   ok.innerHTML=r.already==='paid'?'이미 결제가 확인됐어요. <a href="status.html">내 노래 찾기</a>에서 전체곡을 받아 주세요.':'입금 확인을 요청했어요'+(r.amount?' (확정 금액 <b></b>)':'')+'. 확인되면 <a href="status.html">내 노래 찾기</a>에서 전체곡을 받을 수 있어요.';
-   var bb=ok.querySelector('b');if(bb)bb.textContent=B.won(r.amount);ok.focus();window.__bloomeDeposit=r;
-  }).catch(function(){er.hidden=false;er.textContent=B.msg('network')}).finally(function(){btn.disabled=false;btn.textContent='입금했어요'})};
  load();
 })();
 </script><script src="assets/chat.js"></script></body></html>
