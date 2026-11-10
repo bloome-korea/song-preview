@@ -31,9 +31,10 @@ footer{padding:30px 22px;background:#35362f;color:#e5eae6;font-size:16px}footer 
 .soft-note{display:flex;gap:12px;align-items:center;margin:12px 0 4px;padding:12px 14px;background:#fbf6ee;border:1px solid #eadfcd;border-radius:10px}.soft-note img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;background:#f7f1e6}.soft-note p{margin:0;font-size:16px;color:#5d534c;line-height:1.6}.soft-note small{display:block;font-size:14px;color:#8a817b;margin-top:2px}
 .expired{text-align:center;padding:18px 10px 6px}.expired img{width:150px;height:150px;border-radius:50%;object-fit:cover;background:#f7f1e6}.expired h2{font-size:21px;margin:12px 0 6px;color:#5d534c}.expired p{font-size:16px;margin:0 0 12px}
 .ref{font-size:13px;color:#9aa49d;margin:12px 0 0;font-family:Arial,sans-serif}audio{width:100%;margin:12px 0}
+.rv-cta{margin:14px 0 0;padding:14px 16px;background:#faf7f1;border:1px dashed #cdb9a2;border-radius:8px}.rv-cta p{margin:0 0 8px;font-size:15px;color:#5d534c}.rv-cta .btn{background:#8a6a4f}
 </style></head><body><header><a class="logo" href="index.html">Bloome Song</a><a class="back" href="index.html">처음으로</a></header><main><span class="kicker">MY SONG</span><h1>내 노래 찾기</h1><div id="login-box"><p>신청할 때 쓴 <b>휴대폰 번호(또는 이메일)</b>와 <b>비밀번호 4자리</b>를 넣어 주세요. 문자로 받은 링크를 누르면 바로 열려요.</p>
-<form id="login-form" class="box" novalidate><label>휴대폰 번호 또는 이메일<input name="id" autocomplete="username" placeholder="010-1234-5678" maxlength="120" required></label><label>비밀번호 4자리<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="current-password" required></label><button type="submit" id="login-btn">내 노래 찾기</button><div id="login-error" class="err" role="alert" hidden style="margin-top:14px"></div><p class="small" style="margin:12px 0 0">비밀번호를 잊으셨다면 오른쪽 ‘문의하기’ → ‘고객센터 연결’로 알려 주세요.</p></form></div>
-<div id="my" hidden><div class="who"><b id="who-label"></b><button type="button" id="logout-btn">로그아웃</button></div><div id="orders" role="region" aria-label="내 노래 목록" tabindex="-1"></div></div><p class="small">문의: <a href="mailto:bloome.korea@gmail.com">bloome.korea@gmail.com</a> · 오른쪽 ‘문의하기’</p></main><footer><b>Bloome Song · 블루메 송</b><div class="biz" id="biz">상호 <span data-biz="NAME">블루메</span> · 대표 <span data-biz="CEO">조은정</span> · 사업자등록번호 <span data-biz="REG_NO"></span> · 통신판매업 신고번호 <span data-biz="MAIL_ORDER_NO"></span><br>주소 <span data-biz="ADDRESS" style="white-space:normal">경기도 성남시 수정구 위례서일로 34, 1층 112호 (창곡동, 위례성희프라자)</span><br>문의 <a href="mailto:bloome.korea@gmail.com">bloome.korea@gmail.com</a> · <a href="privacy.html"><b>개인정보처리방침</b></a></div><p class="ai-note">본 페이지의 영상, 이미지는 AI로 만든 영상일 수 있으며, 고객으로부터 동의받은 리뷰 영상도 일부 포함합니다.</p></footer><script src="assets/config.js"></script><script src="assets/api.js"></script><script src="assets/site.js"></script><script src="assets/pay-modal.js"></script><script>
+<form id="login-form" class="box" novalidate><label>휴대폰 번호 또는 이메일<input name="id" autocomplete="username" placeholder="010-1234-5678" maxlength="120" required></label><label>비밀번호 4자리<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="current-password" required></label><button type="submit" id="login-btn">내 노래 찾기</button><div id="login-error" class="err" role="alert" hidden style="margin-top:14px"></div><p class="small" style="margin:12px 0 0">비밀번호를 잊으셨다면 오른쪽 말풍선 버튼(문의하기) → ‘고객센터 연결’로 알려 주세요.</p></form></div>
+<div id="my" hidden><div class="who"><b id="who-label"></b><button type="button" id="logout-btn">로그아웃</button></div><div id="orders" role="region" aria-label="내 노래 목록" tabindex="-1"></div></div><p class="small">문의: <a href="mailto:bloome.korea@gmail.com">bloome.korea@gmail.com</a> · 오른쪽 말풍선 버튼(문의하기)</p></main><footer><b>Bloome Song · 블루메 송</b><div class="biz" id="biz">상호 <span data-biz="NAME">블루메</span> · 대표 <span data-biz="CEO">조은정</span> · 사업자등록번호 <span data-biz="REG_NO"></span> · 통신판매업 신고번호 <span data-biz="MAIL_ORDER_NO"></span><br>주소 <span data-biz="ADDRESS" style="white-space:normal">경기도 성남시 수정구 위례서일로 34, 1층 112호 (창곡동, 위례성희프라자)</span><br>문의 <a href="mailto:bloome.korea@gmail.com">bloome.korea@gmail.com</a> · <a href="privacy.html"><b>개인정보처리방침</b></a></div><p class="ai-note">본 페이지의 영상, 이미지는 AI로 만든 영상일 수 있으며, 고객으로부터 동의받은 리뷰 영상도 일부 포함합니다.</p></footer><script src="assets/config.js"></script><script src="assets/api.js"></script><script src="assets/site.js"></script><script src="assets/pay-modal.js"></script><script src="assets/song-download.js"></script><script>
 (function(){var B=window.BLOOME,C=B.C;
  var TIERS=[[9900,'처음 들어 보신 때부터 1시간 안'],[19800,'1시간 ~ 12시간'],[29800,'12시간 ~ 24시간']];
  var timers=[];function clearTimers(){timers.forEach(clearInterval);timers=[]}
@@ -83,7 +84,7 @@ footer{padding:30px 22px;background:#35362f;color:#e5eae6;font-size:16px}footer 
    if(!paidWant)return;var o=(r.orders||[]).filter(function(x){return x.orderId===paidWant})[0];
    if(o&&o.paid){payNote('결제가 확인됐어요. 아래에서 전체곡을 받으세요.','ok');paidWant='';try{history.replaceState(null,'',location.pathname+(q.get('t')?'?t='+encodeURIComponent(q.get('t')):''))}catch(e){}var c=document.querySelector('[data-order="'+o.orderId+'"]');if(c&&c.scrollIntoView)c.scrollIntoView({block:'start'});return}
    if(++paidTries<=20){payNote('결제를 확인하고 있어요… 잠시만 기다려 주세요.','ok');setTimeout(load,3000)}
-   else{payNote('결제 확인이 늦어지고 있어요. 잠시 뒤 새로고침해 주세요. 계속 안 되면 오른쪽 ‘문의하기’로 알려 주세요.','err');paidWant=''}
+   else{payNote('결제 확인이 늦어지고 있어요. 잠시 뒤 새로고침해 주세요. 계속 안 되면 오른쪽 말풍선 버튼(문의하기)으로 알려 주세요.','err');paidWant=''}
   }).catch(function(){showLogin('network')})}
  lf.addEventListener('submit',function(e){e.preventDefault();le.hidden=true;var id=lf.id.value.trim(),pin=lf.pin.value.replace(/\D/g,'');
   if(!id||pin.length!==4){le.hidden=false;le.textContent=B.msg('bad_login');return}
@@ -102,7 +103,7 @@ footer{padding:30px 22px;background:#35362f;color:#e5eae6;font-size:16px}footer 
   if(focusOrder&&!r.viaToken){var fc=box.querySelector('[data-order="'+focusOrder+'"]');focusOrder='';if(fc&&fc.scrollIntoView)fc.scrollIntoView({block:'start'})}}
  function card(o){var a=document.createElement('article');a.className='order';a.dataset.order=o.orderId;
   var top=document.createElement('div');top.className='o-top';top.innerHTML='<b></b><span></span>';top.firstChild.textContent=(o.purpose||'내 노래')+(o.recipient?' · '+o.recipient+' 님':'');top.lastChild.textContent=o.date;a.appendChild(top);
-  var st=o.status==='정리완료'?'구매확정':(o.paid&&['접수','제작중','미리듣기발송'].indexOf(o.status)>=0?'결제완료':o.status),i=Math.max(0,STEPS.indexOf(st));
+  var st=(o.status==='정리완료'||o.purchaseConfirmed)?'구매확정':(o.paid&&['접수','제작중','미리듣기발송'].indexOf(o.status)>=0?'결제완료':o.status),i=Math.max(0,STEPS.indexOf(st));
   var ol=document.createElement('ol');ol.className='steps mini';STEPS.forEach(function(s,k){var li=document.createElement('li');li.textContent=LABEL[s];li.className=k<i?'done':(k===i?'now':'');ol.appendChild(li)});a.appendChild(ol);
   if(o.status==='정리완료'){add(a,'p','구매를 확정해 주셔서 고마워요. 개인정보 보호를 위해 이야기와 원곡 파일은 삭제했어요.')}
   else if(!o.prepay&&!o.hasPreview&&['접수','제작중'].indexOf(o.status)>=0){add(a,'p',(C.PREVIEW_ETA||'미리듣기는 1시간~24시간 안에 보내드려요')+'. 준비되면 문자(또는 이메일)로 알려 드릴게요.')}
@@ -132,6 +133,10 @@ footer{padding:30px 22px;background:#35362f;color:#e5eae6;font-size:16px}footer 
    if(o.addon&&o.addon.state!=='결제완료'){var ad=add(a,'div','');ad.className='bundle';add(ad,'h3','나머지 곡도 받기 · '+o.addon.song+'번 곡');
     if(o.addon.state==='입금확인요청')add(ad,'p','입금 확인을 요청하셨어요. 확인되면 여기에서 '+o.addon.song+'번 곡도 받을 수 있어요.');
     else{add(ad,'p','먼저 받으신 곡 금액의 반값이에요. 원하실 때만 받으시면 돼요.');ad.appendChild(payBtn('btn green addon','나머지 곡도 받기 (+'+B.won(o.addon.amount)+')',o,'1',true))}}}
+  // checkout_v2: 전체곡을 받은 주문 → 완료 페이지(리뷰·구매확정)로
+  if(o.paid&&(o.delivered||o.purchaseConfirmed||['완료','구매확정','정리완료'].indexOf(o.status)>=0)){var rc=add(a,'div','');rc.className='rv-cta';
+   if(o.reviewed)add(rc,'p','리뷰를 남겨 주셔서 고마워요.').style.margin='0';
+   else{add(rc,'p','노래는 어떠셨나요? 리뷰를 남기시면 모든 분께 스벅 아메리카노 최대 두 잔, 베스트 리뷰는 3만원 상품권도 드려요.');var rl=document.createElement('a');rl.className='btn';rl.textContent='리뷰 남기기';rl.href=B.thanksUrl(o.orderId);rc.appendChild(rl)}}
   if(o.paid){var rp=document.createElement('a');rp.className='btn repeat';rp.textContent='한 곡 더 만들기 — 지금 신청하면 9,900원';rp.href='index.html?repeat=1#apply';a.appendChild(rp);
    add(a,'p','같은 아이디로 신청하시면 미리듣기 후 시간과 관계없이 9,900원으로 받을 수 있어요.').className='small'}
   var ref=add(a,'p','접수번호(참고용) '+o.orderId);ref.className='ref';return a}
@@ -150,11 +155,14 @@ footer{padding:30px 22px;background:#35362f;color:#e5eae6;font-size:16px}footer 
   function sch(){if(!g)return;var t=au.currentTime,n=ctx.currentTime,G=g.gain;G.cancelScheduledValues(n);G.setValueAtTime(Math.max(0,Math.min(1,(LEN-t)/2)),n);if(!au.paused){var st=LEN-2-t;if(st>0){G.setValueAtTime(1,n+st);G.linearRampToValueAtTime(0,n+st+2)}else G.linearRampToValueAtTime(0,n+Math.max(.01,LEN-t))}}
   au.addEventListener('play',function(){if(ctx&&ctx.state==='suspended')ctx.resume();sch()});au.addEventListener('seeked',sch);au.addEventListener('pause',sch);
   au.addEventListener('timeupdate',function(){var t=au.currentTime;if(!g)au.volume=Math.max(0,Math.min(1,(LEN-t)/2));window.__bloomeFade={t:t,gain:g?g.gain.value:au.volume,len:LEN};if(t>=LEN)au.pause()})}
- function full(o,b,m,n){b.disabled=true;b.textContent='파일 준비 중…';B.post(Object.assign({action:'full',order:o.orderId,song:n||1},B.auth())).then(function(r){
-   if(!r.ok){m.textContent=B.msg(r.error);return}var u=URL.createObjectURL(B.b64blob(r.b64,r.mime)),x=document.createElement('a');x.href=u;x.download=r.name;document.body.appendChild(x);x.click();x.remove();m.textContent='파일을 받았어요. 소중한 분께 선물해 주세요.';
-   // v6: 서버가 상태를 '완료'로 바꿈 → 단계 표시도 바로 '전달 완료'로
-   var c=b.closest&&b.closest('article.order'),k=STEPS.indexOf('완료');if(c&&k>=0)[].forEach.call(c.querySelectorAll('ol.steps li'),function(li,i){li.className=i<k?'done':(i===k?'now':'')})})
-  .catch(function(){m.textContent=B.msg('network')}).finally(function(){b.disabled=false;b.textContent=b.dataset.label||'전체곡 파일 받기'})}
+ // checkout_v2: 전체곡 받기 성공 → 파일 저장 시작 → 잠시 뒤 완료 페이지(thanks.html)로 이동. 실패하면 이 화면에 머물며 안내.
+ function full(o,b,m,n){b.disabled=true;b.textContent='파일 준비 중…';var moving=false;B.download(o.orderId,n||1).then(function(r){
+   if(!r||!r.ok){m.textContent=B.msg(r&&r.error);return}
+   m.textContent='파일을 받았어요. 잠시 뒤 완료 화면으로 넘어가요…';moving=true;b.textContent='완료 화면으로 이동 중…';
+   // 서버가 상태를 '완료'로 바꿈 → 단계 표시도 바로 '전달 완료'로
+   var c=b.closest&&b.closest('article.order'),k=STEPS.indexOf(o.purchaseConfirmed?'구매확정':'완료');if(c&&k>=0)[].forEach.call(c.querySelectorAll('ol.steps li'),function(li,i){li.className=i<k?'done':(i===k?'now':'')});
+   setTimeout(function(){location.href=B.thanksUrl(o.orderId)},B.afterDownloadDelay||1600)})
+  .catch(function(){m.textContent=B.msg('network')}).finally(function(){if(!moving){b.disabled=false;b.textContent=b.dataset.label||'전체곡 파일 받기'}})}
  function altVersion(o,b){if(!confirm('다른 버전은 주문마다 한 번만 무료로 받을 수 있어요. 요청할까요?'))return;b.disabled=true;
   B.post(Object.assign({action:'alt_version',order:o.orderId},B.auth())).then(function(r){var p=document.createElement('p');p.className=r.ok?'ok':'err';
    p.textContent=r.ok?'다른 버전을 요청했어요. 준비되면 같은 자리에서 새 미리듣기로 바뀌어요.':B.msg(r.error);b.replaceWith(p)}).catch(function(){b.disabled=false})}
