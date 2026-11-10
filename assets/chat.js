@@ -1,11 +1,20 @@
-/* Bloome Song v16 고객 응대 채팅 위젯 — 규칙 기반 FAQ + 고객센터 연결(운영자에게 즉시 메일, 답변은 시트에서) */
+/* Bloome Song v16 고객 응대 채팅 위젯 — 규칙 기반 FAQ + 고객센터 연결(운영자에게 즉시 메일, 답변은 시트에서)
+   checkout_v2: '문의하기' = 오른쪽 중간의 동그란 말풍선 버튼 하나(글자 없음, aria-label '문의하기').
+   페이지마다 있는 전역 button{width:100%;padding:…} 규칙에 늘어나지 않도록 크기·여백을 !important 로 고정. */
 (function () {
   var B = window.BLOOME; if (!B) return;
   var css = '' +
-    '#bc-btn{position:fixed;right:14px;top:58%;z-index:40;display:flex;align-items:center;gap:9px;padding:16px 22px;border:0;border-radius:32px;background:#c44b32;color:#fff;font:700 19px "Noto Serif KR",serif;box-shadow:0 8px 22px rgba(196,75,50,.45);cursor:pointer;transform:translateY(-50%);animation:bc-bob 2.8s ease-in-out infinite}' +
-    '@keyframes bc-bob{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 8px))}}' +
-    '@media (prefers-reduced-motion:reduce){#bc-btn{animation:none}}' +
-    '#bc-btn svg{width:24px;height:24px}' +
+    '#bc-btn,button#bc-btn{position:fixed;right:16px;left:auto;bottom:auto;top:58%;z-index:40;display:flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box;' +
+      'width:60px!important;height:60px!important;min-width:0!important;max-width:60px!important;min-height:0!important;max-height:60px!important;padding:0!important;margin:0!important;' +
+      'border:2px solid #fbf6ee;border-radius:50%!important;background:#c44b32;color:#fff;font-size:0;line-height:0;text-indent:0;letter-spacing:0;' +
+      'box-shadow:0 6px 16px rgba(140,52,34,.38),0 1px 0 rgba(255,255,255,.25) inset;cursor:pointer;-webkit-tap-highlight-color:transparent;transform:translateY(-50%);animation:bc-bob 3.2s ease-in-out infinite;transition:background-color .2s,box-shadow .2s}' +
+    '#bc-btn[hidden]{display:none!important}' +
+    '#bc-btn:hover{background:#ad3f29;box-shadow:0 8px 20px rgba(140,52,34,.45)}' +
+    '#bc-btn:focus-visible{outline:3px solid #8a6a4f;outline-offset:3px}' +
+    '@keyframes bc-bob{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 7px))}}' +
+    '@media (prefers-reduced-motion:reduce){#bc-btn{animation:none!important;transition:none}}' +
+    '@media (max-width:600px){#bc-btn,button#bc-btn{right:12px;width:56px!important;height:56px!important;max-width:56px!important;max-height:56px!important}}' +
+    '#bc-btn svg{display:block;width:28px;height:28px;flex:none;pointer-events:none}' +
     '#bc-panel{position:fixed;right:12px;bottom:12px;z-index:41;width:min(400px,calc(100vw - 24px));height:min(640px,calc(100vh - 24px));display:flex;flex-direction:column;background:#fff;border:1px solid #c9d0cb;border-radius:14px;box-shadow:0 12px 40px #0005;overflow:hidden;font-family:"Noto Serif KR",serif}' +
     '#bc-panel[hidden]{display:none}#bc-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#00704a;color:#fff}#bc-head b{font-size:18px}#bc-head button{background:none;border:0;color:#fff;font-size:26px;line-height:1;cursor:pointer;padding:0 4px;width:auto}' +
     '#bc-log{flex:1;overflow-y:auto;padding:14px;background:#f3f4f3}.bc-m{max-width:88%;margin:0 0 10px;padding:11px 14px;border-radius:12px;font-size:17px;line-height:1.65;white-space:pre-line;word-break:keep-all}.bc-bot{background:#fff;border:1px solid #d3d9d4;color:#303633}.bc-me{margin-left:auto;background:#645a54;color:#fff}.bc-m a{color:#00704a;font-weight:700}' +
@@ -28,9 +37,11 @@
     { k: 'edit', q: '수정 요청', kw: ['수정', '바꾸', '변경', '다시', '다른 버전', '가사', '마음에 안'],
       a: '미리듣기를 들어 보시고 ‘이 노래 말고 다른 버전 받기’를 주문마다 한 번 무료로 요청할 수 있어요.\n가사나 분위기를 바꾸고 싶으시면 아래 ‘고객센터 연결’로 남겨 주세요. 확인 후 답변 드릴게요.' },
     { k: 'refund', q: '환불', kw: ['환불', '취소', '철회', '반품'],
-      a: '환불·청약철회 기준은 안내 페이지로 정리하고 있어요.\n지금은 ‘고객센터 연결’로 주문과 사정을 남겨 주시면 담당자가 직접 확인해 답변 드려요.' },
+      a: '환불·청약철회 기준은 안내 페이지로 정리하고 있어요.\n지금은 ‘고객센터 연결’로 주문과 사정을 남겨 주시면 담당자가 직접 확인해 답변 드려요.\n구매확정을 하신 주문은 환불이 어려워요.' },
+    { k: 'review', q: '리뷰 이벤트', kw: ['리뷰', '후기', '아메리카노', '스벅', '스타벅스', '상품권', '구매확정', '확정'],
+      a: '전체곡을 받으신 뒤 완료 화면이나 <a href="status.html">내 노래 찾기</a>에서 ‘리뷰 남기기’를 눌러 주세요.\n리뷰는 구매확정 후 남길 수 있어요. (구매확정 후에는 환불이 어려워요)\n리뷰를 남기신 모든 분께 스타벅스 아메리카노를 최대 두 잔까지 드리고, 베스트 리뷰로 뽑혀 홈페이지 등에 게시되면 스타벅스 3만원 상품권을 드려요.' },
     { k: 'privacy', q: '개인정보 삭제', kw: ['개인정보', '삭제', '탈퇴', '지워', '사연 삭제'],
-      a: '사연·받는 분 정보·원곡 파일은 구매확정 즉시 삭제해요. 구매하지 않은 신청은 30일 뒤 삭제해요.\n회원 정보 삭제(탈퇴)를 원하시면 ‘고객센터 연결’이나 bloome.korea@gmail.com 으로 요청해 주세요.\n자세한 내용: <a href="privacy.html">개인정보처리방침</a>' },
+      a: '사연·받는 분 정보·원곡 파일은 구매확정 이후에도 다시 받으실 수 있도록 잠시 보관한 뒤, 운영 확인 후 삭제해요. 구매하지 않은 신청은 30일 뒤 삭제해요.\n회원 정보 삭제(탈퇴)를 원하시면 ‘고객센터 연결’이나 bloome.korea@gmail.com 으로 요청해 주세요.\n자세한 내용: <a href="privacy.html">개인정보처리방침</a>' },
     { k: 'find', q: '내 노래 찾기', kw: ['찾기', '로그인', '비밀번호', '비번', '링크', '조회', '어디서', '확인'],
       a: '<a href="status.html">내 노래 찾기</a>에서 신청할 때 쓴 휴대폰 번호(또는 이메일)와 비밀번호 4자리를 넣으면 내 노래가 모두 보여요.\n문자로 받은 링크를 누르면 로그인 없이 바로 열려요.\n비밀번호를 잊으셨으면 ‘고객센터 연결’로 알려 주세요.' },
     { k: 'ai', q: 'AI로 만드나요?', kw: ['ai', '인공지능', '누가 만들', '사람이', '작곡'],
@@ -38,8 +49,8 @@
   ];
 
   var btn = document.createElement('button');
-  btn.id = 'bc-btn'; btn.type = 'button'; btn.setAttribute('aria-label', '고객 문의 채팅 열기');
-  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.4 1.3 4.6 3.4 6.1L4.5 21l4.2-2.3c1 .2 2.1.3 3.3.3 5.5 0 10-3.6 10-8s-4.5-8-10-8z"/></svg>문의하기';
+  btn.id = 'bc-btn'; btn.type = 'button'; btn.setAttribute('aria-label', '문의하기'); btn.title = '문의하기';
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.4 1.3 4.6 3.4 6.1L4.5 21l4.2-2.3c1 .2 2.1.3 3.3.3 5.5 0 10-3.6 10-8s-4.5-8-10-8z"/><circle cx="8" cy="11" r="1.3" fill="#c44b32"/><circle cx="12" cy="11" r="1.3" fill="#c44b32"/><circle cx="16" cy="11" r="1.3" fill="#c44b32"/></svg>';
   var panel = document.createElement('div');
   panel.id = 'bc-panel'; panel.hidden = true; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', '블루메 송 고객 문의');
   panel.innerHTML = '<div id="bc-head"><b>블루메 송 도우미</b><button type="button" id="bc-close" aria-label="채팅 닫기">×</button></div>' +
@@ -89,7 +100,7 @@
     f.onsubmit = function (e) {
       e.preventDefault(); var er = f.querySelector('.bc-err'); er.hidden = true;
       var body = { action: 'inquiry', message: f.message.value.trim(), contact: f.contact.value.trim(), name: f.name.value.trim(), website: f.website.value,
-        page: location.pathname.split('/').pop() || 'index.html', order: (new URLSearchParams(location.search)).get('o') || '' };
+        page: location.pathname.split('/').pop() || 'index.html', order: (function (u) { return u.get('o') || u.get('order') || ''; })(new URLSearchParams(location.search)) };
       if (a) { if (a.s) body.s = a.s; if (a.t) body.t = a.t; }
       if (body.message.length < 2) { er.hidden = false; er.textContent = '문의 내용을 적어 주세요.'; return; }
       if (!body.contact && !a) { er.hidden = false; er.textContent = '답변 받을 휴대폰 번호나 이메일을 적어 주세요.'; return; }

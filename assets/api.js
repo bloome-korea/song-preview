@@ -1,4 +1,4 @@
-/* Bloome Song v16 공통: Apps Script 호출 · 로그인 세션 · 파일 변환 */
+/* Bloome Song v16 공통: Apps Script 호출 · 로그인 세션 · 파일 변환 (checkout_v2: 구매확정·리뷰 안내 문구 추가) */
 (function () {
   var C = window.BLOOME_CONFIG || {};
   var SS = window.sessionStorage, LS = window.localStorage;
@@ -27,7 +27,11 @@
     session: '로그인이 끝났어요. 다시 로그인해 주세요.', bad_token: '링크가 맞지 않거나 만료됐어요. 휴대폰 번호(또는 이메일)와 비밀번호로 찾아 주세요.',
     not_found: '주문을 찾지 못했어요.', not_paid: '결제 확인 후 받을 수 있어요.', too_big: '파일이 커서 바로 받을 수 없어요. 고객센터로 알려 주세요.',
     bad_audio: '미리듣기 파일을 여는 중 문제가 생겼어요. 고객센터로 알려 주세요.', no_order: '입금할 주문을 찾지 못했어요. 내 노래 찾기에서 확인해 주세요.',
-    expired: '미리듣기를 보내 드린 뒤 24시간이 지나 이 노래의 듣기·결제가 닫혔어요. 고객센터에 문의해 주세요.', alt_used: '다른 버전은 주문당 한 번만 요청할 수 있어요.', contact: '연락받을 휴대폰 번호나 이메일을 다시 확인해 주세요.', bad_action: '잠시 문제가 생겼어요.'
+    expired: '미리듣기를 보내 드린 뒤 24시간이 지나 이 노래의 듣기·결제가 닫혔어요. 고객센터에 문의해 주세요.', alt_used: '다른 버전은 주문당 한 번만 요청할 수 있어요.', contact: '연락받을 휴대폰 번호나 이메일을 다시 확인해 주세요.', bad_action: '잠시 문제가 생겼어요.',
+    // checkout_v2: 구매확정 · 리뷰
+    not_delivered: '전체곡을 받으신 뒤에 구매확정과 리뷰를 남길 수 있어요.', not_confirmed: '구매확정을 해주셔야 리뷰를 남길 수 있어요.',
+    already_reviewed: '이미 리뷰를 남겨 주셨어요. 고마워요!', review_consent: '홈페이지 등 리뷰 사용에 동의해 주셔야 보낼 수 있어요.',
+    review_short: '리뷰를 조금만 더 적어 주세요. (10자 이상)', refunded: '환불된 주문이라 리뷰를 남길 수 없어요.'
   };
   window.BLOOME = { C: C, post: post, get: get, set: set, auth: auth, b64blob: b64blob, won: won, MSG: MSG, inqKeys: inqKeys, addInqKey: addInqKey,
     msg: function (c) { return MSG[c] || MSG.server; } };
