@@ -68,13 +68,22 @@ footer{padding:30px 22px;background:#35362f;color:#e5eae6;font-size:16px}footer 
  function $(i){return document.getElementById(i)}
  if(q.get('t')){B.set('t',q.get('t').replace(/[^A-Za-z0-9]/g,''));B.set('s','')}
  function showLogin(code){$('login-box').hidden=false;$('my').hidden=true;if(code){le.hidden=false;le.textContent=B.msg(code)}}
- function load(){var a=B.auth();if(!a)return showLogin();
-  B.post(Object.assign({action:'orders'},a)).then(function(r){if(!r.ok){B.set('s','');B.set('t','');return showLogin(r.error)}render(r)}).catch(function(){showLogin('network')})}
+ // v5: PayApp 결제 후 복귀(status.html?paid=접수번호) → 서버에 결제 재확인(pay_check) 후 결제완료가 될 때까지 잠깐 자동 새로고침
+ var paidWant=(q.get('paid')||'').toUpperCase().replace(/[^A-Z0-9-]/g,''),paidTries=0;
+ function payNote(text,cls){var n=$('pay-note');if(!n){n=document.createElement('div');n.id='pay-note';n.setAttribute('role','status');var m=$('my');m.parentNode.insertBefore(n,m)}n.className=cls||'ok';n.textContent=text;n.hidden=!text}
+ function load(){var a=B.auth();if(!a){if(paidWant)payNote('결제가 끝났어요. 신청할 때 쓴 휴대폰 번호와 비밀번호 4자리를 넣으면 바로 전체곡을 받을 수 있어요.','ok');return showLogin()}
+  var chk=paidWant?B.post(Object.assign({action:'pay_request',mode:'check',order:paidWant},a)).catch(function(){return null}):Promise.resolve(null);
+  chk.then(function(){return B.post(Object.assign({action:'orders'},a))}).then(function(r){if(!r.ok){B.set('s','');B.set('t','');return showLogin(r.error)}render(r);
+   if(!paidWant)return;var o=(r.orders||[]).filter(function(x){return x.orderId===paidWant})[0];
+   if(o&&o.paid){payNote('결제가 확인됐어요. 아래에서 전체곡을 받으세요.','ok');paidWant='';try{history.replaceState(null,'',location.pathname+(q.get('t')?'?t='+encodeURIComponent(q.get('t')):''))}catch(e){}var c=document.querySelector('[data-order="'+o.orderId+'"]');if(c&&c.scrollIntoView)c.scrollIntoView({block:'start'});return}
+   if(++paidTries<=20){payNote('결제를 확인하고 있어요… 잠시만 기다려 주세요.','ok');setTimeout(load,3000)}
+   else{payNote('결제 확인이 늦어지고 있어요. 잠시 뒤 새로고침해 주세요. 계속 안 되면 오른쪽 아래 ‘문의하기’로 알려 주세요.','err');paidWant=''}
+  }).catch(function(){showLogin('network')})}
  lf.addEventListener('submit',function(e){e.preventDefault();le.hidden=true;var id=lf.id.value.trim(),pin=lf.pin.value.replace(/\D/g,'');
   if(!id||pin.length!==4){le.hidden=false;le.textContent=B.msg('bad_login');return}
   lb.disabled=true;lb.textContent='찾는 중…';
   B.post({action:'login',id:id,pin:pin}).then(function(r){if(!r.ok){le.hidden=false;le.textContent=B.msg(r.error)+(r.left?' (남은 시도 '+r.left+'번)':'');return}
-   B.set('s',r.s);B.set('t','');B.set('uid',r.uid||'');lf.pin.value='';render(r)}).catch(function(){le.hidden=false;le.textContent=B.msg('network')}).finally(function(){lb.disabled=false;lb.textContent='내 노래 찾기'})});
+   B.set('s',r.s);B.set('t','');B.set('uid',r.uid||'');lf.pin.value='';if(paidWant)load();else render(r)}).catch(function(){le.hidden=false;le.textContent=B.msg('network')}).finally(function(){lb.disabled=false;lb.textContent='내 노래 찾기'})});
  $('logout-btn').onclick=function(){var a=B.auth();if(a&&a.s)B.post({action:'logout',s:a.s}).catch(function(){});B.set('s','');B.set('t','');B.set('uid','');clearTimers();showLogin();if(q.get('t'))history.replaceState(null,'','status.html')};
  function render(r){clearTimers();$('login-box').hidden=true;$('my').hidden=false;if(r.uid)B.set('uid',r.uid);
   $('who-label').textContent=r.viaToken?'문자 링크로 연 내 노래':(r.idLabel+' 님의 노래');

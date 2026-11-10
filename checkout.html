@@ -77,14 +77,31 @@ footer{padding:30px 22px;background:#35362f;color:#e5eae6;font-size:16px}footer 
  if(!C.BANK_INFO){$('bank-tip').textContent='계좌번호를 준비하고 있어요. ‘문의하기’로 남겨 주시면 입금 방법을 바로 안내해 드릴게요.';
   var ib=document.createElement('button');ib.type='button';ib.className='btn';ib.id='bank-ask';ib.textContent='문의하기로 입금 방법 안내받기';ib.onclick=function(){window.BLOOME_CHAT&&window.BLOOME_CHAT.open(true)};$('bank-tip').after(ib)}
  if(C.PG_PROVIDER&&C.PG_STORE_ID){$('pg-pending').hidden=true}
+ // v5: PayApp 카드·네이버페이 결제 (금액은 서버가 계산, 결제 후 status.html 로 돌아와 전체곡 받기). config.js 에 PAYAPP_ENABLED:false 를 넣으면 숨김
+ var PAYAPP_ON=C.PAYAPP_ENABLED!==false,PA_LABEL='카드·네이버페이로 결제하기';
+ if(PAYAPP_ON){$('pg-pending').hidden=true;var pcard=$('pay-card');pcard.querySelector('h2').textContent='카드·네이버페이 결제';
+  $('pg-slot').innerHTML='<p class="small">버튼을 누르면 결제창이 열려요. 결제가 끝나면 이 사이트로 돌아와 바로 전체곡을 받을 수 있어요.</p><button type="button" class="btn green" id="pa-btn"></button><div class="err" id="pa-err" role="alert" hidden style="margin-top:12px"></div>';
+  $('pa-btn').textContent=PA_LABEL;$('pay-bank').parentNode.insertBefore(pcard,$('pay-bank'));
+  window.addEventListener('pageshow',function(){var b=$('pa-btn');if(b){b.disabled=false;b.textContent=PA_LABEL}});
+  $('pa-btn').onclick=function(){if(!cur)return;var b=this,er=$('pa-err');er.hidden=true;b.disabled=true;b.textContent='결제창 여는 중…';
+   function fail(t){er.hidden=false;er.textContent=t;b.disabled=false;b.textContent=PA_LABEL}
+   B.post(Object.assign({action:'pay_request',mode:'order',order:cur.orderId,pick:pickSel},B.auth())).then(function(r){
+    if(r&&r.ok&&r.payurl){location.href=r.payurl;return}
+    if(r&&(r.error==='already_paid'||r.paid)){location.href='status.html?paid='+encodeURIComponent(cur.orderId);return}
+    if(r&&(r.error==='session'||r.error==='bad_token')){B.set('s','');B.set('t','');$('co-main').hidden=true;$('co-login').hidden=false;return fail(B.msg(r.error))}
+    fail(r&&r.reason==='disabled'?'카드 결제가 아직 열리지 않았어요. 계좌이체로 결제해 주세요.':(r&&r.error==='payapp'?'결제창을 열지 못했어요. 잠시 뒤 다시 시도해 주세요.':B.msg(r&&r.error)))
+   }).catch(function(){fail(B.msg('network'))})}}
  function pick(r){var pp=r.orders.filter(function(o){return o.prepay&&!o.paid&&o.status==='선결제대기'&&o.orderId===want})[0];if(pp)return pp;
   if(isAddon){var ao=r.orders.filter(function(o){return o.paid&&o.addon&&o.addon.state!=='결제완료'});return ao.filter(function(o){return o.orderId===want})[0]||ao[0]}
   var os=r.orders.filter(function(o){return (o.hasPreview||o.expired||(o.prepay&&o.status==='선결제대기'))&&!o.paid});return os.filter(function(o){return o.orderId===want})[0]||os[0]}
- function show(r){clearTimers();var o=pick(r);$('co-login').hidden=true;$('co-main').hidden=false;
+ function show(r){clearTimers();
+  var paidO=!isAddon&&want&&r.orders.filter(function(x){return x.orderId===want&&x.paid})[0];if(paidO){location.replace('status.html?paid='+encodeURIComponent(want));return}
+  var o=pick(r);$('co-login').hidden=true;$('co-main').hidden=false;
   if(!o){$('co-title').textContent='결제할 노래가 없어요';$('co-price').innerHTML='<p>미리듣기를 받은 노래가 있으면 여기에서 결제할 수 있어요. <a href="status.html">내 노래 찾기</a></p>';$('pay-bank').hidden=true;$('pay-card').hidden=true;return}
   cur=o;$('co-title').textContent=(o.prepay&&o.status==='선결제대기'?'새 노래 신청 · 선결제 · ':'전체곡 받기 · ')+(o.purpose||'내 노래')+(o.recipient?' · '+o.recipient+' 님':'');
   var pb=$('co-price');pb.innerHTML='';$('co-ref').textContent='접수번호(참고용) '+o.orderId;
-  if(isAddon){$('co-title').textContent='나머지 곡도 받기 · '+o.addon.song+'번 곡';var ab=document.createElement('div');ab.className='pricebox';ab.innerHTML='<span class="now">나머지 곡 금액</span><span class="amt"></span><p>먼저 받으신 곡 금액의 반값이에요. 시간이 지나도 이 금액 그대로예요.</p>';ab.querySelector('.amt').textContent=B.won(o.addon.amount);pb.appendChild(ab);
+  $('pay-card').hidden=false;
+  if(isAddon){$('pay-card').hidden=true;$('co-title').textContent='나머지 곡도 받기 · '+o.addon.song+'번 곡';var ab=document.createElement('div');ab.className='pricebox';ab.innerHTML='<span class="now">나머지 곡 금액</span><span class="amt"></span><p>먼저 받으신 곡 금액의 반값이에요. 시간이 지나도 이 금액 그대로예요.</p>';ab.querySelector('.amt').textContent=B.won(o.addon.amount);pb.appendChild(ab);
    if(o.addon.state==='입금확인요청'){$('deposit-form').hidden=true;$('deposit-ok').hidden=false;$('deposit-ok').textContent='입금 확인을 요청하셨어요. 확인되면 내 노래 찾기에서 받을 수 있어요.'}return}
   if(o.expired){pb.appendChild(expiredBox());$('pay-bank').hidden=true;$('pay-card').hidden=true;return}
   pb.appendChild(priceBox(o.price,load));if(!o.depositRequested&&!o.reopened&&!o.prepay)pb.appendChild(softNote(o.expireInSec));
