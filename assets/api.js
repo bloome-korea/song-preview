@@ -1,4 +1,4 @@
-/* Bloome Song v16 공통: Apps Script 호출 · 로그인 세션 · 파일 변환 (checkout_v2: 구매확정·리뷰 안내 문구 추가) */
+/* Bloome Song v16 공통: Apps Script 호출 · 로그인 세션 · 파일 변환 (checkout_v2: 구매확정·리뷰 안내 문구 추가 · checkout_v3: 리뷰 사진·영상 첨부 문구) */
 (function () {
   var C = window.BLOOME_CONFIG || {};
   var SS = window.sessionStorage, LS = window.localStorage;
@@ -30,8 +30,15 @@
     expired: '미리듣기를 보내 드린 뒤 24시간이 지나 이 노래의 듣기·결제가 닫혔어요. 고객센터에 문의해 주세요.', alt_used: '다른 버전은 주문당 한 번만 요청할 수 있어요.', contact: '연락받을 휴대폰 번호나 이메일을 다시 확인해 주세요.', bad_action: '잠시 문제가 생겼어요.',
     // checkout_v2: 구매확정 · 리뷰
     not_delivered: '전체곡을 받으신 뒤에 구매확정과 리뷰를 남길 수 있어요.', not_confirmed: '구매확정을 해주셔야 리뷰를 남길 수 있어요.',
-    already_reviewed: '이미 리뷰를 남겨 주셨어요. 고마워요!', review_consent: '홈페이지 등 리뷰 사용에 동의해 주셔야 보낼 수 있어요.',
-    review_short: '리뷰를 조금만 더 적어 주세요. (10자 이상)', refunded: '환불된 주문이라 리뷰를 남길 수 없어요.'
+    already_reviewed: '이미 리뷰를 남겨 주셨어요. 고마워요!', review_consent: '리뷰와 사진·영상의 홈페이지 등 사용에 동의해 주셔야 보낼 수 있어요.',
+    review_short: '리뷰를 조금만 더 적어 주세요. (10자 이상)', refunded: '환불된 주문이라 리뷰를 남길 수 없어요.',
+    // checkout_v3: 리뷰 사진·영상 첨부
+    review_file_type: '사진(JPG·PNG·HEIC 등)이나 영상(MP4·MOV 등)만 올릴 수 있어요. 다른 파일을 골라 주세요.',
+    review_file_big: '파일이 커서 올리지 못했어요. 사진은 한 장에 6MB, 영상은 한 개에 30MB까지 올릴 수 있어요.',
+    review_photo_big: '사진이 커서 올리지 못했어요. 다른 사진을 골라 주세요. (한 장에 6MB까지)',
+    review_video_big: '영상이 커서 올리지 못했어요. 1분 안팎으로 잘라 주시면 좋아요.',
+    review_file_many: '사진은 6장, 영상은 2개까지 올릴 수 있어요.',
+    review_upload: '사진·영상을 올리는 중 문제가 생겼어요. 인터넷 연결을 확인하시고 ‘리뷰 보내기’를 한 번 더 눌러 주세요.'
   };
   window.BLOOME = { C: C, post: post, get: get, set: set, auth: auth, b64blob: b64blob, won: won, MSG: MSG, inqKeys: inqKeys, addInqKey: addInqKey,
     msg: function (c) { return MSG[c] || MSG.server; } };
