@@ -8,14 +8,24 @@ body{margin:0;background:#f7f3ec;font-family:'Noto Serif KR',serif;color:#2b2622
 .c{max-width:380px;padding:40px 28px;text-align:center}
 h1{font-size:22px;font-weight:600;margin:0 0 16px;letter-spacing:-0.02em}
 p{font-size:15px;line-height:1.75;color:#6b625a;margin:0 0 12px}
+.btn{display:block;margin:22px 0 0;padding:14px 20px;border-radius:3px;background:#00704a;color:#fff;text-decoration:none;font-size:17px}
 .note{font-size:13px;color:#8a7d70;margin-top:28px}
 </style>
 </head>
 <body>
 <div class="c">
   <h1>결제가 완료됐어요</h1>
-  <p>고마워요. 전체곡 링크는 문자나 카톡으로 보내드릴게요.</p>
-  <p>잠시만 기다려 주세요.</p>
-  <p class="note">이 창은 닫으셔도 괜찮아요.</p>
+  <p id="msg">고마워요. 내 노래 페이지로 돌아가 전체곡을 받아 주세요.</p>
+  <a class="btn" id="go" href="../../status.html">내 노래 페이지로 가기</a>
+  <p class="note" id="note">잠시 뒤 자동으로 이동해요.</p>
 </div>
+<script>
+(function(){
+  // v5: PayApp returnurl = /p/paydone/?o=접수번호 → status.html?paid=접수번호 (서버 결제 재확인 후 전체곡 다운로드 표시)
+  var o=(new URLSearchParams(location.search).get('o')||'').toUpperCase().replace(/[^A-Z0-9-]/g,'');
+  var url='../../status.html'+(o?'?paid='+encodeURIComponent(o):'');
+  document.getElementById('go').href=url;
+  setTimeout(function(){location.replace(url)},1500);
+})();
+</script>
 </body></html>
