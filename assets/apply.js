@@ -75,12 +75,16 @@
     if (document.referrer) o.push('ref=' + document.referrer);
     return o.join('&').slice(0, 600);
   }
+  function vocalOf() {
+    var v = (f.vocalGender && f.vocalGender.value) || '상관없음';
+    return (v === '여자' || v === '남자' || v === '상관없음') ? v : '상관없음';
+  }
   form.addEventListener('submit', function (e) {
     e.preventDefault(); err.hidden = true;
     var method = f.method.value === 'email' ? 'email' : 'phone';
     var d = {
       action: 'apply', relationship: f.relationship.value.trim(), recipient: f.recipient.value.trim(), occasion: f.occasion.value.trim(),
-      story: f.story.value.trim(), mood: f.mood.value, name: f.name.value.trim(), method: method,
+      story: f.story.value.trim(), mood: f.mood.value, vocalGender: vocalOf(), name: f.name.value.trim(), method: method,
       phone: method === 'phone' ? f.phone.value.trim() : '', email: method === 'email' ? f.email.value.trim() : '',
       pin: f.pin.value, pin2: f.pin2.value, signup: f.signup.checked, consent: f.consent.checked, marketing: !!(f.marketing && f.marketing.checked),
       website: f.website.value, utm: utm(), repeat: repeat ? 1 : 0
