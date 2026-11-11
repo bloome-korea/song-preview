@@ -244,7 +244,15 @@
   /* sample players: see assets/wave.js */
 
   /* ---------- start ---------- */
-  var h = /#step-(\d)/.exec(location.hash), start = h ? +h[1] : (S.step || 1);
+  /* Arriving from a link (landing CTA etc.) always opens step 1; saved answers stay prefilled.
+     Only a reload or back/forward navigation restores the step the user was on. */
+  function navType() {
+    try { var e = performance.getEntriesByType('navigation')[0]; if (e && e.type) return e.type; } catch (x) {}
+    try { var t = performance.navigation.type; return t === 1 ? 'reload' : t === 2 ? 'back_forward' : 'navigate'; } catch (x) {}
+    return 'navigate';
+  }
+  var restore = /^(reload|back_forward)$/.test(navType());
+  var h = /#step-(\d)/.exec(location.hash), start = restore ? (h ? +h[1] : (S.step || 1)) : 1;
   start = Math.min(start, firstInvalid());
   S.step = start; history.replaceState({ step: start }, '', location.search + '#step-' + start); show(start); render(); setLoggedIn(true);
 })();
