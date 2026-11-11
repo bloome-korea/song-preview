@@ -1,0 +1,224 @@
+/* Bloome Song Studio — dark skin for v1 flow pages (status · checkout · thanks · done · privacy).
+   Loaded after each page's own v1 <style>; every rule is prefixed with html.dk so it also wins over
+   the styles that pay-modal.js / review.js / chat.js inject at runtime. Layout stays v1; colors/type change. */
+:root{--bg:#0F1012;--s1:#17181B;--s2:#1A1C20;--s3:#20232A;--line:#2A2C31;--line2:#5C6068;--tx:#F1F1EE;--tx2:#C9CACE;--mute:#A3A5AB;
+--acc:#F2B84B;--acc-ink:#14130F;--ok:#8FD3B0;--okb:rgba(143,211,176,.08);--okl:rgba(143,211,176,.35);--bad:#FF9E9E;--badb:rgba(255,120,120,.08);--badl:rgba(255,120,120,.38);
+--hot:#FF9B6A;--hotb:rgba(255,155,106,.08);--hotl:rgba(255,155,106,.45);--r:4px;
+--sans:"IBM Plex Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo",sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace}
+html.dk{color-scheme:dark;background:var(--bg)}
+html.dk body{background:var(--bg)!important;background-image:none!important;color:var(--tx);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html.dk a{color:inherit}
+html.dk ::selection{background:var(--acc);color:var(--acc-ink)}
+html.dk :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+/* header / footer */
+html.dk header.dkh{position:sticky;top:0;z-index:10;display:block;padding:0;background:rgba(15,16,18,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+html.dk .dkh .in{max-width:1200px;margin:0 auto;height:60px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+html.dk .mark{font-family:var(--mono);font-weight:500;font-size:15px;letter-spacing:.2em;color:var(--tx);text-decoration:none;white-space:nowrap}
+html.dk .mark small{font-size:9px;letter-spacing:.24em;color:var(--mute);margin-left:8px}
+html.dk .dkh .back{font-size:14px;color:var(--tx);text-decoration:none;border:1px solid var(--line2);border-radius:var(--r);padding:6px 12px;white-space:nowrap}
+html.dk footer.dkf{background:var(--bg);border-top:1px solid var(--line);color:var(--mute);font-size:13px;line-height:1.75;padding:40px 0 56px}
+html.dk .dkf .in{max-width:1200px;margin:0 auto;padding:0 20px}
+html.dk .dkf .mark{font-size:14px}
+html.dk .dkf p{margin:12px 0 0;font-size:13px;color:var(--mute)}
+html.dk .dkf .ko-name{margin-top:6px;color:var(--tx2)}
+html.dk .dkf a{color:var(--tx2)}
+html.dk .dkf .biz-pending{color:var(--line2)}
+html.dk .dkf .ai{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+@media(min-width:900px){html.dk .dkh .in,html.dk .dkf .in{padding:0 40px}}
+
+/* type */
+html.dk main{color:var(--tx)}
+html.dk .kicker{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.16em;color:var(--acc);text-transform:uppercase}
+html.dk h1{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--tx)}
+html.dk h2{font-weight:700;letter-spacing:-.01em;color:var(--tx)}
+html.dk h3{color:var(--tx)}
+html.dk p{color:var(--tx2)}
+html.dk .small,html.dk .hint{color:var(--mute)}
+html.dk b,html.dk strong{color:var(--tx)}
+html.dk .nw{font-family:var(--mono)}
+
+/* surfaces */
+html.dk .box,html.dk .order,html.dk .song,html.dk .muted-box{background:var(--s1);border:1px solid var(--line);border-radius:6px;color:var(--tx2)}
+html.dk .muted-box{border-style:dashed}
+html.dk .o-top{color:var(--mute)}html.dk .o-top b{color:var(--tx)}html.dk .o-top span{font-family:var(--mono);font-size:13px}
+html.dk .oid,html.dk .ref{font-family:var(--mono);color:var(--mute)}
+html.dk .oid{color:var(--acc)}
+
+/* forms */
+html.dk label{color:var(--tx2)}
+html.dk input,html.dk textarea,html.dk select{background:var(--s2);color:var(--tx);border:1px solid var(--line2);border-radius:var(--r);font-family:var(--sans)}
+html.dk input::placeholder,html.dk textarea::placeholder{color:#6E727A}
+html.dk input:focus,html.dk textarea:focus{outline:none;border-color:var(--acc)}
+html.dk input[type=checkbox],html.dk input[type=radio]{accent-color:var(--acc)}
+
+/* buttons: default = light, .green/.full = amber (primary), .alt/.ghost/.secondary = outline */
+html.dk .btn,html.dk button{background:var(--tx);color:var(--acc-ink);border:1px solid var(--tx);border-radius:var(--r);font-family:var(--sans);font-weight:700}
+html.dk .btn.green,html.dk .btn.full,html.dk .btn.share{background:var(--acc);border-color:var(--acc);color:var(--acc-ink);box-shadow:none}
+html.dk .btn.alt,html.dk .btn.ghost,html.dk .btn.secondary,html.dk .btn.repeat,html.dk .full-cta.mini .btn.full{background:transparent;color:var(--tx);border:1px solid var(--line2);box-shadow:none;font-weight:600}
+html.dk .btn.repeat{border-color:var(--acc);color:var(--acc)}
+html.dk .btn[disabled],html.dk button[disabled]{opacity:.55}
+html.dk .who button{background:transparent;color:var(--tx2);border:1px solid var(--line2);font-weight:500}
+html.dk .btn.play{font-size:22px}
+html.dk .btn:hover{filter:brightness(1.06)}
+
+/* notices */
+html.dk .ok,html.dk #pay-note.ok{background:var(--okb);color:var(--ok);border:1px solid var(--okl);border-radius:var(--r)}
+html.dk .err,html.dk #pay-note.err{background:var(--badb);color:var(--bad);border:1px solid var(--badl);border-radius:var(--r)}
+
+/* status: progress + prices */
+html.dk .steps li{background:transparent;border:1px solid var(--line);color:var(--line2)}
+html.dk .steps li.done{background:var(--s2);color:var(--tx2);border-color:var(--line2)}
+html.dk .steps li.now{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+html.dk .done-title{color:var(--acc)}
+html.dk .pricebox{background:var(--s2);border:1px solid var(--acc);border-radius:6px}
+html.dk .pricebox .now{color:var(--acc);font-family:var(--mono);font-size:13px;letter-spacing:.04em}
+html.dk .pricebox .amt,html.dk .pm-amt,html.dk .total b,html.dk .picks label b,html.dk .pm-picks label b,html.dk .bank,html.dk .pm-bank .pm-bank-no{font-family:var(--mono);color:var(--tx);font-weight:500;letter-spacing:-.01em}
+html.dk .pricebox .cd{color:var(--tx2)}html.dk .pricebox .cd b{font-family:var(--mono);color:var(--hot);font-weight:500}
+html.dk .pricebox .cd.paused b{color:var(--tx2)}html.dk .pricebox .cd small{color:var(--mute)}
+html.dk .pricebox p{color:var(--tx2)}
+html.dk .pricebox p.tier-note{color:var(--hot)}
+html.dk .tiers li{background:var(--s1);border:1px solid var(--line);color:var(--tx2)}
+html.dk .tiers li b{font-family:var(--mono);font-weight:500;color:var(--tx)}
+html.dk .tiers li.cur{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}html.dk .tiers li.cur b{color:var(--acc-ink)}
+html.dk .tiers li.past{color:var(--line2)}html.dk .tiers li.past b{color:var(--line2)}
+html.dk .pricebox.discount{border-color:var(--hot);background:var(--hotb)}
+html.dk .pricebox.discount .now,html.dk .pricebox .until{color:var(--hot)}
+html.dk .pricebox .was{font-family:var(--mono);color:var(--mute)}
+html.dk .price{border-top-color:var(--line)}html.dk .price strong{color:var(--tx);font-family:var(--mono)}
+html.dk .bundle,html.dk .pay-fallback{background:var(--s2);border:1px dashed var(--acc);border-radius:6px}
+html.dk .bundle h3,html.dk .pay-fallback b{color:var(--acc)}
+html.dk .picks label{background:var(--s1);border:1px solid var(--line2);color:var(--tx2)}
+html.dk .picks label.on{background:var(--s2);border:2px solid var(--acc)}
+html.dk .total{color:var(--tx2)}
+html.dk .full-cta p{color:var(--tx2)}
+html.dk .soft-note{background:var(--s1);border:1px solid var(--line);border-radius:6px}
+html.dk .soft-note img,html.dk .expired img{background:var(--s2);filter:saturate(.85)}
+html.dk .soft-note p{color:var(--tx2)}html.dk .soft-note small{font-family:var(--mono);color:var(--hot)}
+html.dk .expired h2{color:var(--tx)}
+html.dk .rv-cta{background:var(--s2);border:1px dashed var(--line2);border-radius:6px}
+html.dk .rv-cta p{color:var(--tx2)}
+html.dk .rv-cta .btn{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+html.dk audio{filter:none}
+html.dk #other-login a{color:var(--acc)}
+
+/* boot loader */
+html.dk .boot-orb{border-color:var(--acc);background:radial-gradient(circle at 50% 45%,#2A2410 28%,#F2B84B33 100%);animation-name:dk-pulse}
+@keyframes dk-pulse{0%,100%{box-shadow:0 0 0 0 rgba(242,184,75,.25);transform:scale(.96)}50%{box-shadow:0 0 0 12px rgba(242,184,75,0);transform:scale(1)}}
+html.dk .boot-title{color:var(--tx)}html.dk .boot-sub{color:var(--mute)}
+
+/* legal (privacy) */
+html.dk .legal h2{color:var(--tx);font-size:19px}
+html.dk .legal li,html.dk .legal td,html.dk .legal th,html.dk .legal p{color:var(--tx2)}
+html.dk .legal th{color:var(--tx);background:var(--s2)}
+html.dk .legal td,html.dk .legal th{border-color:var(--line)}
+html.dk .legal .tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 8px}
+html.dk .legal table{min-width:520px}
+
+/* thanks letter */
+html.dk body.ty{background:var(--bg)!important}
+html.dk .letter{background:var(--s1);background-image:none;border:1px solid var(--line);border-radius:6px;box-shadow:none}
+html.dk .letter:before{background:var(--acc)}
+html.dk .letter .kicker{color:var(--acc)}
+html.dk .ty-to,html.dk .ty-sign{font-family:var(--sans);font-size:17px;font-weight:500;color:var(--tx2)}
+html.dk .ty-sign{font-family:var(--mono);font-size:14px;letter-spacing:.06em;color:var(--mute)}
+html.dk .ty-seal circle:first-child{fill:var(--acc)}html.dk .ty-seal circle+circle{stroke:#14130F55}html.dk .ty-seal path{stroke:var(--acc-ink)}
+html.dk .letter h1{color:var(--tx)}
+html.dk .ty-lead{color:var(--tx2)}
+html.dk .ty-gift{background:var(--s2);border:1px dashed var(--line2)}
+html.dk .ty-gift p{color:var(--tx2)}html.dk .ty-gift b{color:var(--acc)}
+html.dk .ty-gift p.ty-media{border-top-color:var(--line);color:var(--mute)}html.dk .ty-gift p.ty-media b{color:var(--tx)}
+html.dk .ty-reviewed{background:var(--okb);color:var(--ok);border-color:var(--okl)}
+html.dk .ty-more{border-top-color:var(--line)}html.dk .ty-more p,html.dk .ty-msg{color:var(--mute)}
+html.dk .ty-links a{color:var(--tx2)}
+html.dk .ty-loading{color:var(--mute)}
+
+/* done */
+html.dk #done-main.card{background:var(--s1);border:1px solid var(--line);border-radius:6px;box-shadow:none}
+html.dk .hand{font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--acc);transform:none;text-transform:uppercase}
+html.dk .sub{font-family:var(--sans);font-size:17px;font-weight:500;color:var(--tx2)}
+html.dk .prepay-note{background:var(--s2);border:1px solid var(--acc);color:var(--tx2);border-radius:6px}
+html.dk .closed-state h2{color:var(--tx)}
+html.dk .eq{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:56px;margin:18px auto 14px}
+html.dk .eq i{display:block;width:5px;height:100%;border-radius:2px;background:var(--acc);transform-origin:50% 100%;animation:dk-eq 1.1s ease-in-out infinite}
+html.dk .eq i:nth-child(2n){background:#C9CACE;animation-duration:1.35s}
+html.dk .eq i:nth-child(3n){animation-duration:.9s}
+@keyframes dk-eq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){html.dk .eq i{animation:none;transform:scaleY(.6)}}
+html.dk .toast,html.dk #share-toast{background:var(--tx);color:var(--acc-ink)}
+
+/* ---------- pay-modal.js (payment popup / inline panel) ---------- */
+html.dk #pm-overlay{background:rgba(0,0,0,.66)}
+html.dk #pm-dialog,html.dk .pm-sheet{background:var(--s1);color:var(--tx);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 60px rgba(0,0,0,.6);font-family:var(--sans)}
+html.dk #pm-dialog:before{background:var(--acc)}
+html.dk #pm-close{background:transparent;color:var(--tx2);border:0;width:40px}
+html.dk .pm-kicker{font-family:var(--mono);color:var(--acc);letter-spacing:.14em}
+html.dk .pm-title{color:var(--tx)}
+html.dk .pm-sub,html.dk .pm-panel .small{color:var(--mute)}
+html.dk .pm-guide,html.dk .pm-bank{background:var(--s2);border:1px solid var(--line);color:var(--tx2)}
+html.dk .pm-bank .pm-bank-name{color:var(--mute)}html.dk .pm-bank .pm-bank-who{color:var(--tx)}
+html.dk .pm-opt{background:var(--s2);border:1px solid var(--line2)}
+html.dk .pm-opt.on{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
+html.dk .pm-opt-h{color:var(--tx)}html.dk .pm-opt-h input{accent-color:var(--acc)}
+html.dk .pm-panel{border-top-color:var(--line)}
+html.dk .pm-panel label{color:var(--tx2)}
+html.dk .pm-panel input[type=text],html.dk .pm-panel input:not([type]),html.dk .pm-panel input[type=tel],html.dk .pm-panel input[type=search]{background:var(--bg);color:var(--tx);border:1px solid var(--line2)}
+html.dk .pm-panel .btn,html.dk .pm-panel button.btn{background:var(--tx);color:var(--acc-ink);border:1px solid var(--tx)}
+html.dk .pm-panel .btn.green{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+html.dk .pm-wait{background:var(--okb);color:var(--ok);border:1px solid var(--okl)}
+html.dk .pm-err{background:var(--badb);color:var(--bad);border:1px solid var(--badl)}
+html.dk .pm-picks label{background:var(--s2);border:1px solid var(--line2);color:var(--tx2)}
+html.dk .pm-picks label.on{background:var(--s3);border:2px solid var(--acc)}
+
+/* ---------- review.js (review dialog with photo/video) ---------- */
+html.dk #rv-overlay{background:rgba(0,0,0,.66)}
+html.dk #rv-dialog{background:var(--s1);color:var(--tx);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 60px rgba(0,0,0,.6);font-family:var(--sans)}
+html.dk #rv-dialog:before{background:var(--acc)}
+html.dk #rv-close{color:var(--tx2)!important;border:0!important}
+html.dk .rv-kicker{font-family:var(--mono);color:var(--acc);letter-spacing:.14em}
+html.dk .rv-title,html.dk .rv-label,html.dk .rv-media .rv-mh,html.dk .rv-prog{color:var(--tx)}
+html.dk .rv-p{color:var(--tx2)}html.dk .rv-p b{color:var(--acc)}
+html.dk #rv-dialog .rv-btn{background:var(--acc);color:var(--acc-ink);border:1px solid var(--acc)}
+html.dk #rv-dialog .rv-btn.ghost{background:transparent;color:var(--tx);border:1px solid var(--line2)}
+html.dk #rv-text{background:var(--bg);color:var(--tx);border:1px solid var(--line2)}
+html.dk .rv-count,html.dk .rv-media .rv-mh small,html.dk .rv-agree small,html.dk .rv-prog small{color:var(--mute)}
+html.dk .rv-gift{background:var(--s2);border:1px dashed var(--line2);color:var(--tx2)}html.dk .rv-gift b{color:var(--acc)}
+html.dk .rv-agree,html.dk .rv-media{background:var(--s2);border:1px solid var(--line2);color:var(--tx2)}
+html.dk .rv-agree b{color:var(--tx)}html.dk .rv-agree input{accent-color:var(--acc)}
+html.dk .rv-media .rv-hint{color:var(--mute)}
+html.dk #rv-dialog .rv-pick button{background:var(--bg);border:2px dashed var(--line2);color:var(--tx)}
+html.dk #rv-dialog .rv-pick button small{color:var(--mute)}
+html.dk .rv-thumbs li{background:var(--s2);border-color:var(--line)}
+html.dk .rv-thumbs .rv-ph{color:var(--mute)}
+html.dk .rv-thumbs li.ok .rv-tag{background:#2E6B4F}html.dk .rv-thumbs li.fail .rv-tag{background:#9A3B2B}
+html.dk .rv-err{background:var(--badb);color:var(--bad);border:1px solid var(--badl)}html.dk .rv-mnote{color:var(--bad)}
+html.dk .rv-bar{background:var(--line)}html.dk .rv-bar i{background:var(--acc)}
+html.dk .rv-done .rv-big{color:var(--acc)}
+html.dk .rv-done svg circle{fill:var(--acc)}
+
+/* ---------- chat.js (inquiry FAB + panel) ---------- */
+html.dk body button#bc-btn,html.dk body #bc-btn{background:var(--acc);border-color:var(--bg);color:var(--acc-ink);box-shadow:0 6px 16px rgba(0,0,0,.45);top:auto!important;bottom:calc(16px + env(safe-area-inset-bottom))!important;right:16px!important;left:auto!important;animation:none!important;transform:none!important}
+html.dk body #bc-btn svg circle{fill:var(--acc)}
+@media (max-width:600px){html.dk body button#bc-btn,html.dk body #bc-btn{width:48px!important;height:48px!important;max-width:48px!important;max-height:48px!important;right:12px!important}}
+html.dk #bc-panel{background:var(--s1);border:1px solid var(--line);font-family:var(--sans);box-shadow:0 12px 40px rgba(0,0,0,.6)}
+html.dk #bc-head{background:var(--s2);color:var(--tx);border-bottom:1px solid var(--line)}
+html.dk #bc-head button{background:none;border:0;color:var(--tx2)}
+html.dk #bc-log{background:var(--bg)}
+html.dk .bc-bot{background:var(--s2);border:1px solid var(--line);color:var(--tx2)}
+html.dk .bc-me{background:var(--acc);color:var(--acc-ink)}
+html.dk .bc-m a{color:var(--acc)}
+html.dk .bc-chips button{background:transparent;border:1px solid var(--line2);color:var(--tx);font-family:var(--sans);font-weight:500}
+html.dk #bc-foot{background:var(--s1);border-top-color:var(--line)}
+html.dk #bc-form input,html.dk #bc-inq input,html.dk #bc-inq textarea{background:var(--bg);color:var(--tx);border:1px solid var(--line2);font-family:var(--sans)}
+html.dk #bc-form button{background:var(--tx);color:var(--acc-ink);border:0}
+html.dk #bc-human,html.dk #bc-inq .send{background:var(--acc);color:var(--acc-ink);font-family:var(--sans)}
+html.dk #bc-kakao{font-family:var(--sans)}
+html.dk #bc-inq label{color:var(--tx2)}
+html.dk #bc-inq .cancel{background:var(--s3);color:var(--tx)}
+html.dk .bc-ans{background:var(--okb);color:var(--ok)}
+html.dk .bc-err{color:var(--bad)}html.dk .bc-small{color:var(--mute)}
+/* demo banner */
+html.dk .dk-demo{background:var(--acc);color:var(--acc-ink);text-align:center;font-size:13px;font-weight:700;padding:8px 12px}
+html.dk #orders:focus,html.dk [tabindex="-1"]:focus{outline:none}
+html.dk footer.dkf{text-align:left}
+html.dk #rv-text:focus,html.dk #rv-agree:focus-visible{outline:2px solid var(--acc)}
