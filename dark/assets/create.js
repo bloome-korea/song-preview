@@ -241,16 +241,7 @@
   document.addEventListener('focusin', function (e) { if (/INPUT|TEXTAREA/.test(e.target.tagName)) setTimeout(function () { try { e.target.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (x) {} }, 280); });
   function focusSoon(id) { setTimeout(function () { var el = $(id); if (el && !el.closest('[hidden]')) el.focus({ preventScroll: true }); }, 60); }
 
-  /* ---------- sample players ---------- */
-  var cur = null, curBtn = null;
-  function fmt(s) { s = Math.max(0, Math.floor(s)); return ('0' + Math.floor(s / 60)).slice(-2) + ':' + ('0' + s % 60).slice(-2); }
-  document.querySelectorAll('[data-play]').forEach(function (b) {
-    var a = new Audio(b.getAttribute('data-play')); a.preload = 'none';
-    var box = b.closest('[data-track]'), bar = box.querySelector('.bar i'), t = box.querySelector('.t-now');
-    a.addEventListener('timeupdate', function () { if (a.duration) bar.style.width = (a.currentTime / a.duration * 100) + '%'; t.textContent = fmt(a.currentTime); });
-    a.addEventListener('ended', function () { b.classList.remove('on'); });
-    b.addEventListener('click', function () { if (cur && cur !== a) { cur.pause(); curBtn.classList.remove('on'); } if (a.paused) { a.play(); b.classList.add('on'); } else { a.pause(); b.classList.remove('on'); } cur = a; curBtn = b; });
-  });
+  /* sample players: see assets/wave.js */
 
   /* ---------- start ---------- */
   var h = /#step-(\d)/.exec(location.hash), start = h ? +h[1] : (S.step || 1);
