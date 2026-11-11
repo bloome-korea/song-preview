@@ -1,6 +1,7 @@
 /* Bloome Song Studio (dark) — waveform for the v1 preview players on status.html (1번/2번 곡 1분 미리듣기).
    It does not replace anything: it finds the <audio> that status.html's own previewUI() creates and attaches a
-   waveform to that same element. v1 play/pause/fade/loop and the "preview ended → price panel" hook stay untouched.
+   waveform to that same element. v1 play/pause/fade/loop stay in status.html. As a backup, when playback reaches
+   the 60s cap it also calls audio._onPreviewLoop (opens the payment panel) in case timeupdate is sparse.
    - amber progress fill synced to currentTime · sine undulation only while playing · freeze on pause
    - tap/drag/arrow keys seek (sets audio.currentTime) · prefers-reduced-motion: fill only
    Bars come from the real audio when it can be decoded locally (blob URL), else from a soft placeholder shape. */
@@ -51,11 +52,18 @@
     var cap = 60; // v1 fade() loops at min(duration, preview seconds); learn that from window.__bloomeFade
     function len() { var d = au.duration; d = d && isFinite(d) ? d : cap; return Math.min(d, cap); }
     au.addEventListener('timeupdate', function () { var f = window.__bloomeFade; if (f && f.len > 0 && Math.abs(f.t - au.currentTime) < 0.01) cap = f.len; });
+    var looped = false;
+    function maybeLoop(t, L) {
+      if (t >= L - 0.12 && !au.paused) {
+        if (!looped) { looped = true; if (typeof au._onPreviewLoop === 'function') au._onPreviewLoop(); }
+      } else if (t < 1) looped = false;
+    }
     function paint() {
       var L = len(), t = au.currentTime || 0, r = Math.min(1, Math.max(0, t / L)), k = Math.round(r * bars.length);
       if (k !== lit) { for (var i = 0; i < bars.length; i++) bars[i].classList.toggle('on', i < k); lit = k; }
       tm.firstChild.textContent = fmt(t); tm.lastChild.textContent = fmt(L);
       wv.setAttribute('aria-valuenow', Math.round(r * 100)); wv.setAttribute('aria-valuetext', fmt(t) + ' / ' + fmt(L));
+      maybeLoop(t, L);
     }
     function loop(now) {
       paint();
