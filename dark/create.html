@@ -1,0 +1,235 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<title>노래 신청 | 블루메 송 스튜디오</title><meta name="robots" content="noindex,nofollow"><meta property="og:title" content="노래 신청 | 블루메 송 스튜디오"><meta property="og:description" content="8가지 질문에 답하면 사연으로 맞춤 노래를 만들어 드려요"><meta property="og:type" content="website"><meta property="og:url" content="https://bloomelove.com/song-preview/dark/create.html"><meta property="og:site_name" content="블루메 송 스튜디오"><meta property="og:locale" content="ko_KR"><meta property="og:image" content="https://bloomelove.com/song-preview/assets/og-share.jpg?v=2"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="그 사람 이름이 나오는 노래 — 블루메 송 스튜디오"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bloomelove.com/song-preview/assets/og-share.jpg?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1012;--s1:#17181B;--s2:#1A1C20;--line:#2A2C31;--line2:#5C6068;--tx:#F1F1EE;--tx2:#C9CACE;--mute:#A3A5AB;--acc:#F2B84B;--ink:#14130F;--r:4px;
+--sans:"IBM Plex Sans KR",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;--navh:76px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:16px;line-height:1.6;word-break:keep-all;overflow-x:hidden;min-height:100svh}
+a{color:var(--tx)}
+button{font:inherit;color:inherit}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--mute)}
+header{position:sticky;top:0;z-index:10;background:rgba(15,16,18,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hrow{display:grid;grid-template-columns:72px 1fr 72px;align-items:center;height:52px;padding:0 16px;max-width:640px;margin:0 auto}
+.back{font-size:14px;color:var(--tx2);text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
+.mark{justify-self:center;font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.16em;text-decoration:none;white-space:nowrap}
+.mark small{font-size:9px;color:var(--mute);margin-left:6px}
+.count{justify-self:end;font-size:12px;color:var(--mute);white-space:nowrap}
+.count b{color:var(--acc);font-weight:600}
+.prog{height:3px;background:var(--line)}
+.prog i{display:block;height:100%;width:12.5%;background:var(--acc);transition:width .35s ease}
+main{max-width:640px;margin:0 auto;padding:28px 20px calc(var(--navh) + 40px)}
+.step{display:none}
+.step.on{display:block;animation:in .32s ease both}
+.step.on.back-in{animation-name:inb}
+@keyframes in{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+@keyframes inb{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.step.on{animation:none}.prog i{transition:none}}
+.q{font-size:26px;line-height:1.35;font-weight:700;letter-spacing:-.01em;margin:10px 0 8px}
+.qs{font-size:15px;color:var(--tx2);margin-bottom:24px}
+.block{margin-top:28px}
+.lbl{display:block;font-size:14px;font-weight:600;color:var(--tx2);margin-bottom:10px}
+.lbl .opt{font-weight:400;color:var(--mute)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--line2);border-radius:var(--r);background:transparent;font-size:15px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,background .15s}
+.chip[aria-pressed=true],.chip[aria-checked=true]{border-color:var(--acc);background:rgba(242,184,75,.1);color:var(--tx);font-weight:600}
+.chip:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.chip.ghost{border-style:dashed;color:var(--tx2)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.seg .chip{justify-content:center}
+.seg.two{grid-template-columns:1fr 1fr}
+input[type=text],input[type=tel],input[type=email],input[type=password],textarea{display:block;width:100%;min-width:0;height:52px;padding:0 16px;background:var(--s1);border:1px solid var(--line2);border-radius:var(--r);color:var(--tx);font:inherit;font-size:16px;-webkit-appearance:none;appearance:none;scroll-margin:90px 0 calc(var(--navh) + 24px)}
+textarea{height:auto;min-height:150px;padding:14px 16px;line-height:1.65;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--acc)}
+::placeholder{color:#6E727A}
+.more{margin-top:10px}
+.more[hidden]{display:none}
+.hint{font-size:13px;color:var(--mute);margin-top:8px;line-height:1.55}
+.cnt{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--mute);margin-top:8px}
+.cnt .ok{color:var(--acc)}
+.preview{margin-top:24px;background:var(--s1);border:1px solid var(--line);border-radius:6px;padding:18px}
+.preview .pl{font-size:12px;color:var(--mute)}
+.kick{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mute)}
+.kick .mono{color:var(--acc)}
+.preview .sung{font-size:22px;font-weight:700;margin-top:10px;line-height:1.4}
+.preview .sung em{font-style:normal;color:var(--acc)}
+.preview p{font-size:13px;color:var(--mute);margin-top:6px}
+.wave{display:flex;align-items:center;gap:3px;height:22px;margin-top:12px}
+.wave i{display:block;width:3px;border-radius:2px;background:var(--line2)}
+.textlink{background:none;border:0;color:var(--tx2);font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;margin-top:12px;padding:6px 0}
+.note{font-size:14px;color:var(--tx2);background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin-top:12px}
+/* summary */
+.sum{background:var(--s1);border:1px solid var(--line);border-radius:6px}
+.sum .hd{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line)}
+.sum .hd b{font-size:17px}
+.row{display:grid;grid-template-columns:84px 1fr auto;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);align-items:start}
+.row:last-child{border-bottom:0}
+.row dt{font-size:13px;color:var(--mute);padding-top:1px}
+.row dd{font-size:15px;color:var(--tx);white-space:pre-line;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.row dd.empty{color:var(--mute)}
+.edit{background:none;border:0;color:var(--acc);font-size:13px;cursor:pointer;padding:2px 0;white-space:nowrap}
+.sec{margin-top:36px;padding-top:28px;border-top:1px solid var(--line)}
+.sec h2{font-size:20px;font-weight:700;margin-bottom:6px}
+.sec .qs{margin-bottom:18px}
+.field{margin-top:22px}
+.pin{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.privacy{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;font-size:13px;color:var(--tx2);margin-top:24px}
+.privacy summary{cursor:pointer;font-weight:600}
+.privacy ul{margin:10px 0 0 16px;color:var(--mute);line-height:1.6}
+.check[hidden],.field[hidden],.note[hidden]{display:none}
+.checks{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.5;cursor:pointer}
+.check input{width:20px;height:20px;margin-top:1px;flex:none;accent-color:var(--acc)}
+.check em{font-style:normal;color:var(--acc);font-size:13px}
+.check .opt{color:var(--mute);font-size:13px}
+.check small{display:block;font-size:13px;color:var(--mute);margin-top:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:54px;padding:0 20px;border-radius:var(--r);border:1px solid var(--acc);font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.primary{background:var(--acc);color:var(--ink)}
+.btn.line{background:transparent;border-color:var(--line2);color:var(--tx)}
+.btn:disabled{background:#2A2C31;border-color:#2A2C31;color:#6E727A;cursor:not-allowed}
+.submitrow{display:grid;grid-template-columns:96px 1fr;gap:8px;margin-top:28px}
+.fnote{font-size:13px;color:var(--mute);text-align:center;margin-top:10px}
+.why.err{color:#F2B84B}
+.why a{color:inherit}
+.note b{color:var(--acc)}
+.why{font-size:13px;color:var(--mute);text-align:center;margin-top:6px;min-height:20px}
+/* nav */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(15,16,18,.97);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.nav .in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:96px 1fr;gap:8px}
+.nav .btn{height:52px}
+body.kb .nav{position:static;border-top:0;background:transparent;padding:0 20px 24px}
+body.kb main{padding-bottom:20px}
+body.s8 .nav{display:none}
+body.s8 main{padding-bottom:48px}
+/* samples */
+.carousel{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:4px 20px 12px;scrollbar-width:none}
+.carousel::-webkit-scrollbar{display:none}
+.tcard{flex:0 0 78%;scroll-snap-align:start;background:var(--s1);border:1px solid var(--line);border-radius:6px;padding:14px;display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center}
+.cover{width:56px;height:56px;border-radius:var(--r);display:flex;flex-direction:column;justify-content:space-between;padding:6px;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:rgba(241,241,238,.75)}
+.cover b{font-size:18px;font-weight:500;color:var(--tx);align-self:flex-end;line-height:1}
+.c1{background:#3B3326}.c2{background:#26302B}.c3{background:#3A2C28}.c4{background:#262B36}.c5{background:#332A31}
+.tinfo b{display:block;font-size:15px;line-height:1.4}
+.tinfo span{display:block;font-size:12px;color:var(--mute);margin-top:2px}
+.tctl{grid-column:1/-1;display:grid;grid-template-columns:40px 1fr;grid-template-rows:auto auto;column-gap:12px;align-items:center}
+.pbtn{grid-row:1/3;width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:transparent;display:grid;place-items:center;cursor:pointer}
+.pbtn svg{width:14px;height:14px;fill:var(--tx)}
+.pbtn .i-pause{display:none}.pbtn.on .i-play{display:none}.pbtn.on .i-pause{display:block}
+.pbtn.on{background:var(--acc);border-color:var(--acc)}.pbtn.on svg{fill:var(--ink)}
+.time{font-family:var(--mono);font-size:11px;color:var(--mute)}
+.bar{height:2px;background:var(--line);margin-top:6px}.bar i{display:block;height:100%;width:0;background:var(--acc)}
+.get{list-style:none;margin-top:14px;border-top:1px solid var(--line2)}
+.get li{display:grid;grid-template-columns:32px 1fr;gap:8px;padding:14px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--tx2)}
+.get li span{font-family:var(--mono);font-size:13px;color:var(--acc);padding-top:2px}
+.foot{margin-top:32px;font-size:12px;color:var(--mute);text-align:center}
+.foot a{color:var(--mute)}
+</style></head><body>
+<header><div class="hrow"><a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>홈으로</a>
+<a class="mark" href="index.html" aria-label="블루메 송 스튜디오">BLOOME SONG<small>STUDIO</small></a>
+<span class="count" aria-live="polite">8단계 중 <b id="stepNo">1</b>단계</span></div><div class="prog"><i id="progBar"></i></div></header>
+<main>
+<form id="create" novalidate autocomplete="on">
+
+<section class="step" data-step="1">
+<p class="kick"><span class="mono">STEP 01</span><span>받는 분</span></p><h1 class="q">누구를 위한 노래인가요?</h1><p class="qs">노래를 받으실 분과의 관계를 골라 주세요.</p>
+<div class="chips" id="relChips" role="radiogroup" aria-label="관계"></div>
+<div class="more" id="relMore" hidden><input type="text" id="relCustom" maxlength="40" placeholder="예: 대학 동기, 우리 강아지 보리"></div>
+</section>
+
+<section class="step" data-step="2">
+<p class="kick"><span class="mono">STEP 02</span><span>이름</span></p><h1 class="q" id="q2">받는 분의 이름을 알려 주세요.</h1><p class="qs" id="qs2">노래 가사에 이름이 들어가요.</p>
+<label class="lbl" for="recipient" id="lblName">받는 분 이름</label>
+<input type="text" id="recipient" maxlength="40" placeholder="예: 정희" autocomplete="off">
+<button type="button" class="textlink" id="noName">이름은 넣지 않을래요</button>
+<div class="block"><span class="lbl">노래에서 어떻게 부를까요? <span class="opt">(선택)</span></span>
+<div class="chips" id="callChips" role="radiogroup" aria-label="부르는 방법">
+<button type="button" class="chip" data-v="name" role="radio" aria-checked="false">이름 그대로</button>
+<button type="button" class="chip" data-v="nick" role="radio" aria-checked="false">애칭 입력</button>
+<button type="button" class="chip" data-v="title" role="radio" aria-checked="false">호칭(엄마·여보 등)</button></div>
+<div class="more" id="nickMore" hidden><input type="text" id="nickname" maxlength="30" placeholder="예: 우리 쭈니"></div>
+<div class="more" id="titleMore" hidden><input type="text" id="calltitle" maxlength="30" placeholder="예: 엄마, 여보, 할머니"></div></div>
+<div class="preview" aria-live="polite"><span class="pl">노래 속에서 이렇게 불러요</span><div class="sung" id="sung">“<em>정희야</em>, 들어 볼래?”</div><div class="wave" id="pw"></div><p id="sungNote">가사 흐름에 따라 표현은 조금 달라질 수 있어요.</p></div>
+</section>
+
+<section class="step" data-step="3">
+<p class="kick"><span class="mono">STEP 03</span><span>계기</span></p><h1 class="q">어떤 날을 위한 노래인가요?</h1><p class="qs">노래의 분위기와 가사 방향이 여기서 정해져요.</p>
+<div class="chips" id="occChips" role="radiogroup" aria-label="계기"></div>
+<div class="more" id="occMore" hidden><input type="text" id="occCustom" maxlength="150" placeholder="예: 전역 축하, 이사 기념"></div>
+</section>
+
+<section class="step" data-step="4">
+<p class="kick"><span class="mono">STEP 04</span><span>음악</span></p><h1 class="q">어떤 음악으로 만들까요?</h1><p class="qs">장르를 고르면 세부 느낌을 고를 수 있어요.</p>
+<span class="lbl">장르</span><div class="chips" id="genChips" role="radiogroup" aria-label="장르"></div>
+<div class="block" id="detailBlock" hidden><span class="lbl">세부 느낌 <span class="opt">(선택)</span></span><div class="chips" id="detChips" role="radiogroup" aria-label="세부 느낌"></div></div>
+<p class="note" id="leaveNote" hidden>사연에 어울리는 장르로 골라 드릴게요.</p>
+<div class="block"><span class="lbl">보컬 성별</span><div class="seg" id="vocChips" role="radiogroup" aria-label="보컬 성별">
+<button type="button" class="chip" data-v="여자" role="radio">여자</button><button type="button" class="chip" data-v="남자" role="radio">남자</button><button type="button" class="chip" data-v="상관없음" role="radio">상관없음</button></div></div>
+</section>
+
+<section class="step" data-step="5">
+<p class="kick"><span class="mono">STEP 05</span><span>그분은</span></p><h1 class="q" id="q5">그분의 특별한 점을 알려 주세요.</h1><p class="qs">성격, 말버릇, 좋아하는 것, 고마운 점 무엇이든 좋아요.</p>
+<textarea id="traits" maxlength="600" placeholder="예: 늘 먼저 웃어 주는 사람이에요. 힘든 날에도 괜찮다고 말해 주고, 된장찌개를 정말 잘 끓여요."></textarea>
+<div class="cnt"><span>한두 문장이면 충분해요.</span><span id="c5">0 / 최소 5자</span></div>
+</section>
+
+<section class="step" data-step="6">
+<p class="kick"><span class="mono">STEP 06</span><span>기억</span></p><h1 class="q">함께한 기억을 들려주세요.</h1><p class="qs">장면이 구체적일수록 가사가 생생해져요. 언제, 어디서, 무엇을 했는지 떠오르는 대로 적어 주세요.</p>
+<textarea id="memories" maxlength="1500" placeholder="예: 신혼 때 옥탑방에서 살았는데, 여름밤마다 옥상에 돗자리를 깔고 수박을 먹으며 별을 봤어요."></textarea>
+<div class="cnt"><span>최소 15자</span><span id="c6">0 / 15자</span></div>
+<div class="block"><label class="lbl" for="keywords">꼭 넣고 싶은 단어나 장소 <span class="opt">(선택)</span></label>
+<input type="text" id="keywords" maxlength="200" placeholder="예: 옥탑방, 수박, 제주도 여행"><p class="hint">쉼표로 구분해 주세요.</p></div>
+</section>
+
+<section class="step" data-step="7">
+<p class="kick"><span class="mono">STEP 07</span><span>한마디</span></p><h1 class="q">마지막으로 전하고 싶은 말이 있나요?</h1><p class="qs">노래의 마지막 부분에 담고 싶은 말을 적어 주세요. 없으면 넘어가도 돼요.</p>
+<textarea id="message" maxlength="800" placeholder="예: 그동안 표현 못 해서 미안하고, 늘 고마워요. 앞으로도 오래오래 곁에 있어 줘요."></textarea>
+<div class="cnt"><span>선택 사항이에요.</span><span id="c7">0자</span></div>
+</section>
+
+<section class="step" data-step="8">
+<p class="kick"><span class="mono">STEP 08</span><span>확인</span></p><h1 class="q">신청 내용을 확인해 주세요.</h1><p class="qs">고칠 부분이 있으면 ‘수정하기’를 눌러 주세요.</p>
+<dl class="sum" id="sum"></dl>
+<div class="sec"><h2>노래 받으실 곳</h2><p class="qs">완성되면 1분 미리듣기 링크를 보내 드려요.</p>
+<p class="note" id="repeatNote" hidden><b>한 곡 더 만들기</b> 재구매 혜택이 적용돼요. 같은 아이디와 비밀번호로 신청해 주세요.</p>
+<p class="note" id="loginNote" hidden><b></b> 계정으로 로그인돼 있어요. 이 계정으로 신청돼요. 비밀번호는 다시 넣지 않아도 돼요. <a href="#" id="logout">다른 번호로 신청하기 (로그아웃)</a></p>
+<span class="lbl">받는 방법</span><div class="seg two" id="methChips" role="radiogroup" aria-label="받는 방법">
+<button type="button" class="chip" data-v="phone" role="radio">휴대폰 (추천)</button><button type="button" class="chip" data-v="email" role="radio">이메일</button></div>
+<div class="more" id="phoneWrap"><input type="tel" id="phone" inputmode="numeric" maxlength="13" placeholder="010-1234-5678" autocomplete="tel" aria-label="휴대폰 번호"></div>
+<div class="more" id="emailWrap" hidden><input type="email" id="email" maxlength="120" placeholder="example@email.com" autocomplete="email" aria-label="이메일"></div>
+<p class="hint">고른 휴대폰 번호 또는 이메일이 아이디가 돼요.</p>
+<div class="field"><label class="lbl" for="name">신청자 이름</label><input type="text" id="name" maxlength="40" placeholder="신청하시는 분 이름" autocomplete="name"><p class="hint">노래에는 나오지 않아요.</p></div>
+<div class="field" id="pinField"><span class="lbl">비밀번호 4자리</span><div class="pin"><input type="password" id="pin" inputmode="numeric" maxlength="4" placeholder="숫자 4자리" aria-label="비밀번호" autocomplete="new-password"><input type="password" id="pin2" inputmode="numeric" maxlength="4" placeholder="한 번 더" aria-label="비밀번호 확인" autocomplete="new-password"></div>
+<p class="hint">나중에 ‘내 노래 찾기’에서 아이디와 이 비밀번호로 노래를 확인해요.</p></div>
+<details class="privacy"><summary>[필수] 개인정보 수집·이용 안내 보기</summary><ul><li>수집 목적: 맞춤 노래 제작, 주문·제작 안내 문자(접수 완료·미리듣기 링크) 또는 이메일, 결제 안내, 간편 회원(내 노래 찾기), 고객 문의 답변</li><li>수집 항목: 신청자 이름, 휴대폰 번호 또는 이메일(아이디), 비밀번호(암호화한 값만 저장), 받는 분 이름(선택)·관계, 목적, 이야기(특별한 점·기억·전하고 싶은 말), 원하는 분위기, 보컬 성별</li><li>보유 기간: 제작 정보와 원곡은 구매확정 즉시 삭제해요. 구매하지 않은 신청은 30일 뒤 삭제해요. 구매하신 경우 주문자 이름·연락처·결제내역만 전자상거래법에 따라 5년간 보관해요. 회원 정보는 탈퇴(삭제 요청) 시 바로 삭제해요.</li><li>동의하지 않으실 수 있지만, 그 경우 노래 신청이 어려워요.</li><li>문의·삭제 요청: bloome.korea@gmail.com · <a href="../privacy.html">개인정보처리방침</a></li></ul></details>
+<div class="checks">
+<label class="check"><input type="checkbox" id="consent"><span>개인정보 수집·이용 동의 <em>(필수)</em></span></label>
+<label class="check" id="signupRow"><input type="checkbox" id="signup"><span>간편 회원가입 동의 <em>(필수)</em><small>아이디: 위에서 고른 휴대폰 번호 또는 이메일 · 비밀번호: 숫자 4자리</small></span></label>
+<label class="check"><input type="checkbox" id="marketing"><span>광고성 정보 수신 동의 <span class="opt">(선택)</span><small>할인·이벤트 소식을 문자 또는 이메일로 받아요. 동의하지 않아도 신청과 미리듣기에는 영향이 없어요. 오후 9시~오전 8시에는 보내지 않아요.</small></span></label></div>
+<input type="text" id="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+<div class="submitrow"><button type="button" class="btn line" id="back8">뒤로</button><button type="submit" class="btn primary" id="submit" disabled>무료로 노래 만들기</button></div>
+<p class="why" id="why"></p>
+<p class="fnote">금액은 1분 미리듣기 다음 화면에서 확인할 수 있어요</p>
+</div>
+<div class="sec"><p class="mono">SAMPLE TRACKS</p><h2 style="margin-top:8px">먼저 만든 노래를 들어 보세요</h2><p class="qs">실제 사연으로 만든 샘플곡이에요. 옆으로 넘겨 보세요.</p>
+<div class="carousel"><div class="tcard" data-track><div class="cover c1"><span>BS</span><b>01</b></div><div class="tinfo"><b>옥탑방 로미오와 줄리엣</b><span>남편이 아내에게 · 연애하던 기억</span></div>
+<div class="tctl"><button type="button" class="pbtn" data-play="../assets/preview1.mp3" aria-label="옥탑방 로미오와 줄리엣 미리듣기"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button><span class="time"><span class="t-now">00:00</span> / 00:18</span><div class="bar"><i></i></div></div></div><div class="tcard" data-track><div class="cover c2"><span>BS</span><b>02</b></div><div class="tinfo"><b>주인공이던 우리</b><span>동기가 입사 동기들에게 · 입사 동기 모임</span></div>
+<div class="tctl"><button type="button" class="pbtn" data-play="../assets/preview2.mp3" aria-label="주인공이던 우리 미리듣기"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button><span class="time"><span class="t-now">00:00</span> / 00:18</span><div class="bar"><i></i></div></div></div><div class="tcard" data-track><div class="cover c3"><span>BS</span><b>03</b></div><div class="tinfo"><b>나와 결혼해 줄래</b><span>남자친구가 혜정 씨에게 · 프러포즈</span></div>
+<div class="tctl"><button type="button" class="pbtn" data-play="../assets/preview3.mp3" aria-label="나와 결혼해 줄래 미리듣기"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button><span class="time"><span class="t-now">00:00</span> / 00:18</span><div class="bar"><i></i></div></div></div><div class="tcard" data-track><div class="cover c4"><span>BS</span><b>04</b></div><div class="tinfo"><b>오늘도 정말 고마워요</b><span>아내가 남편 명우 씨에게 · 고마운 마음</span></div>
+<div class="tctl"><button type="button" class="pbtn" data-play="../assets/preview4.mp3" aria-label="오늘도 정말 고마워요 미리듣기"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button><span class="time"><span class="t-now">00:00</span> / 00:16</span><div class="bar"><i></i></div></div></div><div class="tcard" data-track><div class="cover c5"><span>BS</span><b>05</b></div><div class="tinfo"><b>이번엔 내가 곁에 있을게요</b><span>딸이 아빠에게 · 칠순 생신 · 응원</span></div>
+<div class="tctl"><button type="button" class="pbtn" data-play="../assets/preview5.mp3" aria-label="이번엔 내가 곁에 있을게요 미리듣기"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button><span class="time"><span class="t-now">00:00</span> / 00:18</span><div class="bar"><i></i></div></div></div></div></div>
+<div class="sec"><h2>이런 걸 받으실 수 있어요</h2><ul class="get">
+<li><span>01</span>받는 분의 이름과 함께한 기억으로 쓴 가사의 노래</li>
+<li><span>02</span>완성되면 문자(또는 메일)로 오는 1분 미리듣기 링크</li>
+<li><span>03</span>들어 보고 마음에 들 때 받는 전체곡 MP3</li>
+<li><span>04</span>휴대폰 번호(또는 이메일)와 비밀번호로 언제든 ‘내 노래 찾기’</li></ul>
+<p class="foot">블루메 송 스튜디오 · 문의 bloome.korea@gmail.com · <a href="../privacy.html">개인정보처리방침</a></p></div>
+</section>
+</form>
+</main>
+<nav class="nav" aria-label="단계 이동"><div class="in"><button type="button" class="btn line" id="prev">뒤로</button><button type="button" class="btn primary" id="next" disabled>다음</button></div></nav>
+<script src="../assets/config.js?v=open1"></script><script src="../assets/api.js"></script>
+<script>window.CREATE_DONE_URL="../done.html";window.CREATE_CFG={"REL": ["아내", "남편", "여자친구", "남자친구", "약혼자", "엄마", "아빠", "할머니", "할아버지", "딸", "아들", "손주", "형제·자매·남매", "친구", "선생님", "동료", "나 자신"], "OCC": ["생일", "칠순·환갑", "결혼기념일", "프러포즈", "결혼식", "고마워서", "미안해서", "사랑해서", "응원", "위로", "수능", "졸업·입학", "그냥 이유없이"], "GEN": {"발라드": ["피아노 발라드", "어쿠스틱 발라드", "밴드 발라드"], "어쿠스틱": ["통기타로 잔잔하게", "밝은 포크", "카페 어쿠스틱"], "트로트": ["신나는 트로트", "느린 정통 트로트", "세미 트로트"], "댄스": ["밝은 K-pop 댄스", "레트로 디스코", "시티팝"], "R&B/소울": ["부드러운 R&B", "그루비한 소울", "재즈 느낌"], "인디": ["따뜻한 인디 팝", "몽환적인 드림팝", "감성 포크"], "록/밴드": ["청량한 밴드", "웅장한 록 발라드", "신나는 펑크 록"], "CCM": ["잔잔한 찬양", "밝은 워십", "합창 느낌"], "맡길게요": []}};</script>
+<script src="assets/create.js?v=dark1"></script>
+</body></html>
