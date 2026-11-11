@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko" class="dk">
+<head>
+<meta charset="utf-8"><meta name="theme-color" content="#0F1012">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>무료주문 완료 | 블루메 송 스튜디오</title>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:#303633;background:#f3f4f3;font-family:"Noto Serif KR",serif;line-height:1.8;word-break:keep-all;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.045' filter='url(%23n)'/%3E%3C/svg%3E");min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit}
+header{padding:14px 20px;border-bottom:1px solid #d2d8d3;background:#f3f4f3ef}
+.logo{font-size:20px;text-decoration:none;font-weight:700}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:28px 18px 48px}
+.card{width:100%;max-width:440px;background:#fffef9;border:1px solid #d8ded9;box-shadow:0 8px 28px #45321f18;padding:28px 22px 26px;text-align:center;position:relative}
+.hand{font-family:'Nanum Pen Script',cursive;font-size:26px;color:#6e6059;display:inline-block;transform:rotate(-2deg);margin-bottom:4px}
+h1{font-size:26px;line-height:1.4;letter-spacing:-1px;margin:8px 0 10px}
+p{font-size:16px;color:#56605a;margin:8px 0}
+.sub{font-family:'Nanum Pen Script',cursive;font-size:28px;color:#8a3b2e;margin:6px 0 18px;line-height:1.35}
+.small{font-size:14px;color:#717a74}
+.actions{display:grid;gap:10px;margin-top:22px}
+.btn,button.btn{display:inline-block;border:0;border-radius:3px;background:#645a54;color:#fff;padding:14px 20px;text-decoration:none;font-family:inherit;font-size:16px;cursor:pointer;width:100%}
+.btn.secondary{background:none;border:1px solid #b4a58b;color:#4d4335}
+.btn.ghost{background:#e8ece9;color:#303633}
+.btn.share{background:#3e463e}
+.prepay-note{margin:14px 0 0;padding:14px;background:#f4faf7;border:1px solid #00704a;font-size:15px;text-align:left}
+.closed-state{text-align:center;padding:40px 20px}
+.closed-state h2{font-size:24px;margin-bottom:10px}
+footer{padding:20px;text-align:center;font-size:12px;color:#8a938c}
+footer .ai-note{font-size:11px;color:#9aa49d;margin-top:8px}
+
+/* Composer animation */
+.stage{position:relative;width:220px;height:180px;margin:8px auto 6px}
+.composer{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:120px;height:130px}
+.composer .body{position:absolute;left:34px;top:52px;width:52px;height:48px;background:#e8dcc8;border-radius:18px 18px 10px 10px}
+.composer .head{position:absolute;left:42px;top:22px;width:36px;height:36px;background:#f3e4d0;border-radius:50%;
+  box-shadow:inset -4px -2px 0 #e4c9a8}
+.composer .hair{position:absolute;left:40px;top:16px;width:40px;height:18px;background:#4a3f38;border-radius:16px 16px 4px 4px}
+.composer .eye{position:absolute;top:36px;width:4px;height:4px;background:#3a322c;border-radius:50%}
+.composer .eye.l{left:50px}.composer .eye.r{left:64px}
+.composer .smile{position:absolute;left:52px;top:44px;width:14px;height:7px;border-bottom:2px solid #8a5b46;border-radius:0 0 10px 10px}
+.composer .arm{position:absolute;top:58px;width:10px;height:36px;background:#e8dcc8;border-radius:6px;transform-origin:top center}
+.composer .arm.l{left:28px;animation:armL 1.2s ease-in-out infinite}
+.composer .arm.r{right:28px;left:auto;animation:armR 1.2s ease-in-out infinite}
+.composer .baton{position:absolute;top:-2px;right:-2px;width:3px;height:28px;background:#645a54;border-radius:2px;transform:rotate(18deg)}
+.composer .leg{position:absolute;bottom:0;width:14px;height:28px;background:#6e6059;border-radius:4px}
+.composer .leg.l{left:40px}.composer .leg.r{left:66px}
+.piano{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:160px;height:28px;background:#3e463e;border-radius:4px 4px 2px 2px;overflow:hidden}
+.piano:before{content:'';position:absolute;inset:4px 6px 0;background:repeating-linear-gradient(90deg,#fffef9 0 10px,#3e463e 10px 12px,#fffef9 12px 22px,#3e463e 22px 24px);opacity:.95}
+.note{position:absolute;font-size:22px;color:#8a3b2e;opacity:0;animation:floatNote 2.4s ease-in infinite}
+.note.n1{left:18px;bottom:70px;animation-delay:.1s}
+.note.n2{left:160px;bottom:80px;animation-delay:.7s;font-size:18px;color:#9b5a43}
+.note.n3{left:40px;bottom:100px;animation-delay:1.3s;font-size:16px;color:#645a54}
+.note.n4{left:140px;bottom:110px;animation-delay:1.9s;font-size:20px}
+@keyframes armL{0%,100%{transform:rotate(12deg)}50%{transform:rotate(-18deg)}}
+@keyframes armR{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(22deg)}}
+@keyframes floatNote{0%{opacity:0;transform:translateY(8px) scale(.8)}15%{opacity:1}55%{opacity:.85}100%{opacity:0;transform:translateY(-78px) scale(1.15)}}
+@media(prefers-reduced-motion:reduce){.composer .arm,.note{animation:none}.note{opacity:.55}}
+
+.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(20px);background:#3e463e;color:#fff;padding:12px 18px;border-radius:999px;font-size:15px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+[hidden]{display:none!important}
+</style><link rel="stylesheet" href="assets/dark-pages.css?v=dk1">
+</head>
+<body>
+<header class="dkh"><div class="in"><a class="mark" href="index.html" aria-label="블루메 송 스튜디오 홈">BLOOME SONG<small>STUDIO</small></a><a class="back" href="status.html">내 노래 찾기</a></div></header>
+<main>
+  <div class="card" id="done-main">
+    <span class="hand">REQUEST RECEIVED · 신청 완료</span>
+    <h1 id="done-title">무료주문 완료!<br>감사합니다.</h1>
+    <p id="done-lead">곧 문자 혹은 이메일로 보내드릴게요.</p>
+    <p class="sub" id="done-sub">노래가 벌써 만들어지고 있어요~</p>
+    <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="small" id="done-eta"></p>
+    <div class="prepay-note" id="prepay-box" hidden>
+      무료 미리듣기는 처음 한 번만 드려요. 이번 노래는 결제 후 만들어 드려요.
+      <a class="btn" id="prepay-link" href="checkout.html" style="margin-top:12px">결제하러 가기</a>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn share" id="btn-share" data-share>친구에게 공유하기</button>
+      <a class="btn ghost" id="btn-more" href="create.html">노래 더 만들기</a>
+      <button type="button" class="btn secondary" id="btn-close">닫기</button>
+    </div>
+  </div>
+  <div class="closed-state" id="done-closed" hidden>
+    <h2>이용해 주셔서 고마워요</h2>
+    <p>이 탭을 닫아 주셔도 괜찮아요.<br>노래가 준비되면 문자 또는 이메일로 알려 드릴게요.</p>
+    <p style="margin-top:20px"><a class="btn" href="./" style="display:inline-block;width:auto;padding:12px 22px">홈으로 가기</a></p>
+  </div>
+</main>
+<footer class="dkf"><div class="in"><a class="mark" href="index.html" aria-label="블루메 송 스튜디오">BLOOME SONG<small>STUDIO</small></a><p class="ko-name">블루메 송 스튜디오</p><p>상호 <span data-biz="NAME">블루메</span> · 대표 <span data-biz="CEO">조은정</span> · 사업자등록번호 <span data-biz="REG_NO"></span><br>주소 <span data-biz="ADDRESS">경기도 성남시 수정구 위례서일로 34, 1층 112호 (창곡동, 위례성희프라자)</span><br>문의 <a href="mailto:bloome.korea@gmail.com">bloome.korea@gmail.com</a> · <a href="privacy.html">개인정보처리방침</a></p><p class="ai">※ 노래는 고객님의 사연으로 가사를 쓰고 음악 제작 도구로 만들어요. 이 페이지의 노래, 사진, 영상은 AI로 만든 연출을 포함해요.</p></div></footer>
+<div class="toast" id="share-toast" role="status" aria-live="polite">링크가 복사됐어요</div>
+<script src="../assets/config.js"></script>
+<script src="../assets/share.js"></script><script src="../assets/site.js?v=open1"></script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var method = q.get('m') === 'email' ? 'email' : 'phone';
+  var prepay = q.get('prepay') === '1';
+  var orderId = q.get('o') || '';
+  var C = window.BLOOME_CONFIG || {};
+  var eta = C.PREVIEW_ETA || '미리듣기는 1시간~24시간 안에 보내드려요';
+  var channel = method === 'email' ? '이메일' : '문자';
+
+  if (prepay) {
+    document.getElementById('done-title').innerHTML = '신청이 접수됐어요.<br>고마워요!';
+    document.getElementById('done-lead').textContent = '무료 미리듣기는 처음 한 번만 드려요. 이번 노래는 결제 후 만들어 드려요.';
+    document.getElementById('done-sub').textContent = '결제가 확인되면 바로 만들기 시작해요';
+    document.getElementById('done-eta').textContent = '금액은 다음 화면에서 확인할 수 있어요.';
+    var box = document.getElementById('prepay-box');
+    box.hidden = false;
+    var link = document.getElementById('prepay-link');
+    if (orderId) link.href = 'checkout.html?o=' + encodeURIComponent(orderId);
+  } else {
+    document.getElementById('done-eta').textContent = eta + '. 준비되면 ' + channel + '로 바로 들을 수 있는 링크를 보내 드려요.';
+  }
+
+  document.getElementById('btn-close').addEventListener('click', function () {
+    window.close();
+    setTimeout(function () {
+      // 스크립트로 연 창이 아니면 close가 막혀 그대로 남아요 → 감사 안내로 바꿉니다.
+      if (!window.closed) {
+        document.getElementById('done-main').hidden = true;
+        document.getElementById('done-closed').hidden = false;
+      }
+    }, 250);
+  });
+})();
+</script>
+</body>
+</html>
