@@ -1,0 +1,131 @@
+/* Bloome Song Studio — dark skin for the v1 chat.js widget (and share toast).
+   Loaded after chat.js on every dark page so it wins over the light CSS chat.js injects.
+   Root v1 pages are untouched: they never load this file. */
+html.dk{
+  --bc-ok:#8FD3B0;--bc-okb:rgba(143,211,176,.08);--bc-bad:#FF9E9E;
+}
+html.dk body button#bc-btn,
+html.dk body #bc-btn{
+  background:var(--acc,#F2B84B)!important;
+  border:2px solid var(--bg,#0F1012)!important;
+  color:var(--acc-ink,#14130F)!important;
+  box-shadow:0 6px 16px rgba(0,0,0,.45)!important;
+  top:auto!important;
+  bottom:calc(16px + env(safe-area-inset-bottom))!important;
+  right:16px!important;
+  left:auto!important;
+  animation:none!important;
+  transform:none!important;
+  font-size:0!important;
+  border-radius:50%!important;
+}
+html.dk body #bc-btn:hover{background:#e3aa42!important;box-shadow:0 8px 20px rgba(0,0,0,.55)!important}
+html.dk body #bc-btn:focus-visible{outline:2px solid var(--acc,#F2B84B)!important;outline-offset:3px!important}
+html.dk body #bc-btn svg{color:var(--acc-ink,#14130F)}
+html.dk body #bc-btn svg circle{fill:var(--acc,#F2B84B)!important}
+@media (max-width:600px){
+  html.dk body button#bc-btn,
+  html.dk body #bc-btn{width:48px!important;height:48px!important;max-width:48px!important;max-height:48px!important;right:12px!important}
+  html.dk body #bc-btn svg{width:22px;height:22px}
+}
+/* landing sticky CTA: sit in the reserved right padding of the bar */
+html.dk body.sticky-on #bc-btn{bottom:calc(11px + env(safe-area-inset-bottom))!important}
+/* create page: keep the button above the fixed 다음/이전 bar */
+html.dk body.create #bc-btn{bottom:calc(var(--navh,76px) + 12px + env(safe-area-inset-bottom))!important}
+
+html.dk #bc-panel{
+  background:var(--s1,#17181B)!important;
+  border:1px solid var(--line,#2A2C31)!important;
+  border-radius:6px!important;
+  font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important;
+  box-shadow:0 12px 40px rgba(0,0,0,.6)!important;
+  color:var(--tx,#F1F1EE)!important;
+}
+html.dk #bc-head{
+  background:var(--s2,#1A1C20)!important;
+  color:var(--tx,#F1F1EE)!important;
+  border-bottom:1px solid var(--line,#2A2C31)!important;
+}
+html.dk #bc-head b{font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important;font-weight:700;color:var(--tx,#F1F1EE)!important}
+html.dk #bc-head button,
+html.dk #bc-close{
+  background:none!important;
+  border:0!important;
+  color:var(--tx2,#C9CACE)!important;
+  width:auto!important;
+  box-shadow:none!important;
+  font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important;
+  font-weight:400!important;
+}
+html.dk #bc-log{background:var(--bg,#0F1012)!important}
+html.dk .bc-m{font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important}
+html.dk .bc-bot{background:var(--s2,#1A1C20)!important;border:1px solid var(--line,#2A2C31)!important;color:var(--tx2,#C9CACE)!important}
+html.dk .bc-me{background:var(--acc,#F2B84B)!important;color:var(--acc-ink,#14130F)!important;border:0!important}
+html.dk .bc-m a{color:var(--acc,#F2B84B)!important;font-weight:700}
+html.dk .bc-chips button{
+  background:transparent!important;
+  border:1px solid var(--line2,#5C6068)!important;
+  color:var(--tx,#F1F1EE)!important;
+  font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important;
+  font-weight:500!important;
+  border-radius:4px!important;
+  width:auto!important;
+}
+html.dk .bc-chips button:hover{border-color:var(--acc,#F2B84B)!important;color:var(--acc,#F2B84B)!important}
+html.dk #bc-foot{background:var(--s1,#17181B)!important;border-top:1px solid var(--line,#2A2C31)!important}
+html.dk #bc-form input,
+html.dk #bc-inq input,
+html.dk #bc-inq textarea{
+  background:var(--bg,#0F1012)!important;
+  color:var(--tx,#F1F1EE)!important;
+  border:1px solid var(--line2,#5C6068)!important;
+  border-radius:4px!important;
+  font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important;
+  caret-color:var(--acc,#F2B84B);
+}
+html.dk #bc-form input::placeholder,
+html.dk #bc-inq input::placeholder,
+html.dk #bc-inq textarea::placeholder{color:#6E727A!important}
+html.dk #bc-form input:focus,
+html.dk #bc-inq input:focus,
+html.dk #bc-inq textarea:focus{outline:none!important;border-color:var(--acc,#F2B84B)!important}
+html.dk #bc-form button{
+  background:var(--tx,#F1F1EE)!important;
+  color:var(--acc-ink,#14130F)!important;
+  border:0!important;
+  border-radius:4px!important;
+  font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important;
+  font-weight:700!important;
+  width:auto!important;
+}
+html.dk #bc-human,
+html.dk #bc-inq .send{
+  background:var(--acc,#F2B84B)!important;
+  color:var(--acc-ink,#14130F)!important;
+  font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important;
+  font-weight:700!important;
+  border:0!important;
+  border-radius:4px!important;
+  box-shadow:none!important;
+}
+html.dk #bc-kakao{font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important;border-radius:4px!important}
+html.dk #bc-inq label{color:var(--tx2,#C9CACE)!important;font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important}
+html.dk #bc-inq .cancel{
+  background:var(--s3,#20232A)!important;
+  color:var(--tx,#F1F1EE)!important;
+  border:1px solid var(--line2,#5C6068)!important;
+  border-radius:4px!important;
+  font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important;
+  font-weight:600!important;
+}
+html.dk .bc-ans{background:var(--bc-okb)!important;color:var(--bc-ok)!important}
+html.dk .bc-err{color:var(--bc-bad)!important}
+html.dk .bc-small{color:var(--mute,#A3A5AB)!important}
+
+/* share.js toast (inline styles lose to these !important rules) */
+html.dk #share-toast,
+html.dk .toast{
+  background:var(--tx,#F1F1EE)!important;
+  color:var(--acc-ink,#14130F)!important;
+  font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important;
+}
