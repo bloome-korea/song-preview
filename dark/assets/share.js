@@ -2,8 +2,6 @@
 (function () {
   var HOME = 'https://bloomelove.com/song-preview/dark/';
   var TITLE = '블루메 송 스튜디오 | 사연으로 만드는 맞춤 노래';
-  var TEXT = '그 사람 이름이 나오는 노래를 선물해 보세요.';
-
   function ensureToast() {
     var t = document.getElementById('share-toast');
     if (t) return t;
@@ -58,7 +56,7 @@
 
   function share() {
     if (navigator.share) {
-      navigator.share({ title: TITLE, text: TEXT, url: HOME }).catch(function (err) {
+      navigator.share({ title: TITLE, url: HOME }).catch(function (err) {
         if (err && err.name === 'AbortError') return;
         copyLink();
       });

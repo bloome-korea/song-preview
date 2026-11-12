@@ -129,3 +129,17 @@ html.dk .toast{
   color:var(--acc-ink,#14130F)!important;
   font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)!important;
 }
+
+html.dk #bc-inq .bc-sms-note{
+  margin:10px 0 0;padding:10px 12px;background:var(--s2,#1A1C20);border:1px solid var(--line,#2A2C31);
+  border-radius:6px;color:var(--tx2,#C9CACE);font-size:15px;line-height:1.55;
+  font-family:var(--sans,"IBM Plex Sans KR",system-ui,sans-serif)
+}
+
+html.dk #bc-log .bc-m:has(#bc-inq){max-width:100%;margin-bottom:0;padding:10px 12px}
+html.dk #bc-inq label{margin:6px 0 0}
+html.dk #bc-inq input,html.dk #bc-inq textarea{margin-top:4px;padding:9px 11px}
+html.dk #bc-inq textarea{min-height:0;rows:auto}
+html.dk #bc-inq .bc-sms-note{margin:8px 0 0;padding:8px 10px;font-size:14px;line-height:1.45}
+html.dk #bc-inq .bc-row{margin-top:8px}
+html.dk #bc-inq .bc-row button{padding:11px}
