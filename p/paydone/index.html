@@ -16,14 +16,15 @@ p{font-size:15px;line-height:1.75;color:#6b625a;margin:0 0 12px}
 <div class="c">
   <h1>결제가 완료됐어요</h1>
   <p id="msg">고마워요. 내 노래 페이지로 돌아가 전체곡을 받아 주세요.</p>
-  <a class="btn" id="go" href="../../status.html">내 노래 페이지로 가기</a>
+  <a class="btn" id="go" href="https://bloomesong.com/status.html">내 노래 페이지로 가기</a>
   <p class="note" id="note">잠시 뒤 자동으로 이동해요.</p>
 </div>
 <script>
 (function(){
-  // v5: PayApp returnurl = /p/paydone/?o=접수번호 → status.html?paid=접수번호 (서버 결제 재확인 후 전체곡 다운로드 표시)
+  // PayApp returnurl = /p/paydone/?o=접수번호 → 다크 사이트 status.html?paid=접수번호
+  // 절대 주소: 예전 bloomelove returnurl 로 들어와도 bloomesong.com 다크로 보냄.
   var o=(new URLSearchParams(location.search).get('o')||'').toUpperCase().replace(/[^A-Z0-9-]/g,'');
-  var url='../../status.html'+(o?'?paid='+encodeURIComponent(o):'');
+  var url='https://bloomesong.com/status.html'+(o?'?paid='+encodeURIComponent(o):'');
   document.getElementById('go').href=url;
   setTimeout(function(){location.replace(url)},1500);
 })();
