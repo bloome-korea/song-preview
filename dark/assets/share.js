@@ -1,6 +1,6 @@
 /* Bloome Song — 친구에게 공유하기 (홈·완료 페이지 공통) */
 (function () {
-  var HOME = 'https://bloomelove.com/song-preview/dark/';
+  var HOME = 'https://bloomesong.com/';
   var TITLE = '블루메 송 스튜디오 | 사연으로 만드는 맞춤 노래';
   function ensureToast() {
     var t = document.getElementById('share-toast');
