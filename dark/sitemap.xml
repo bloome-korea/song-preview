@@ -8,6 +8,30 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://bloomesong.com/guide/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bloomesong.com/guide/birthday-song-gift/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bloomesong.com/guide/anniversary-song-gift/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bloomesong.com/guide/proposal-wedding-song/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://bloomesong.com/privacy.html</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>yearly</changefreq>
