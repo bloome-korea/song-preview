@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="1만원 상품권">
+  <!-- larger card so ₩10,000 stays legible at 72px -->
+  <rect x="14" y="48" width="172" height="108" rx="12" fill="#14130F"/>
+  <rect x="14" y="48" width="172" height="108" rx="12" fill="none" stroke="#F2B84B" stroke-width="2.2"/>
+  <rect x="21" y="55" width="158" height="94" rx="8" fill="none" stroke="#F2B84B" stroke-opacity=".4" stroke-width="1.2"/>
+  <path d="M30 66h16M30 66v16" fill="none" stroke="#F2B84B" stroke-width="1.5" stroke-linecap="round" opacity=".85"/>
+  <path d="M170 66h-16M170 66v16" fill="none" stroke="#F2B84B" stroke-width="1.5" stroke-linecap="round" opacity=".85"/>
+  <path d="M30 138h16M30 138v-16" fill="none" stroke="#F2B84B" stroke-width="1.5" stroke-linecap="round" opacity=".85"/>
+  <path d="M170 138h-16M170 138v-16" fill="none" stroke="#F2B84B" stroke-width="1.5" stroke-linecap="round" opacity=".85"/>
+  <text x="100" y="86" text-anchor="middle" fill="#F2B84B" font-family="ui-monospace, 'IBM Plex Mono', 'Courier New', monospace" font-size="11" letter-spacing="3.4">GIFT CARD</text>
+  <path d="M52 98h96" stroke="#F2B84B" stroke-width="1.1" opacity=".5"/>
+  <text x="100" y="130" text-anchor="middle" fill="#F1F1EE" font-family="ui-sans-serif, 'IBM Plex Sans', system-ui, sans-serif" font-size="32" font-weight="700">₩ 10,000</text>
+</svg>

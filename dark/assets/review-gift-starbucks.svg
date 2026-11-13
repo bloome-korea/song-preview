@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="스타벅스 1잔">
+  <ellipse cx="100" cy="170" rx="44" ry="8" fill="#000" opacity=".4"/>
+  <!-- cup body: brighter forest green so it reads on dark backgrounds -->
+  <path d="M66 84h68l-8 66c-.8 6.6-6.4 11.5-13.1 11.5H87.1c-6.7 0-12.3-4.9-13.1-11.5Z" fill="#1A6B4A"/>
+  <path d="M74 94c2.2 24 3.4 43 4.6 55.8.3 2.8 2.7 5 5.5 5h3c-3.2-16-5.6-38-7.2-60.8Z" fill="#2A855E"/>
+  <!-- drink surface -->
+  <ellipse cx="100" cy="84" rx="32" ry="6.5" fill="#4A2C18"/>
+  <!-- sleeve -->
+  <path d="M69.6 112h60.8l-1.8 16H71.4Z" fill="#EBD6A8"/>
+  <path d="M70.6 118h58.6" stroke="#C4A56A" stroke-width="1.3" opacity=".85"/>
+  <path d="M71.2 123h57.2" stroke="#F2B84B" stroke-width="1.1" opacity=".7"/>
+  <!-- lid -->
+  <rect x="62" y="73" width="76" height="11" rx="3.2" fill="#E8E0D4"/>
+  <rect x="68" y="65.5" width="64" height="10" rx="4.2" fill="#F4EEE4"/>
+  <rect x="86" y="59" width="28" height="8.5" rx="4" fill="#E8E0D4"/>
+  <ellipse cx="100" cy="60.2" rx="5.4" ry="2.3" fill="#1A6B4A" opacity=".7"/>
+  <path d="M70 78.5h60" stroke="#C9B79A" stroke-width="1" opacity=".75"/>
+  <!-- steam -->
+  <path d="M88 54c0-8 7-8 7-16" fill="none" stroke="#C9CACE" stroke-width="1.8" stroke-linecap="round" opacity=".5"/>
+  <path d="M100 52c0-9 7-9 7-17" fill="none" stroke="#C9CACE" stroke-width="1.8" stroke-linecap="round" opacity=".4"/>
+  <path d="M112 54c0-7 6-8 6-15" fill="none" stroke="#C9CACE" stroke-width="1.8" stroke-linecap="round" opacity=".35"/>
+</svg>
