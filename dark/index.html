@@ -150,13 +150,15 @@ hr.sep{border:0;border-top:1px solid var(--line)}
 .ctacard .fnote{margin-top:-6px}
 .ctacard .sub{font-size:15px}
 /* event */
-.rewards{display:grid;gap:12px}
-.rw{display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:center;background:var(--s1);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
-.rw img{width:52px;height:52px;object-fit:cover;border-radius:var(--r);background:#fff}
-.rw img.card30{object-fit:cover;object-position:30% 50%}
-.rw span{display:block;font-size:13px;color:var(--mute)}
-.rw b{display:block;font-size:22px;margin-top:4px}
-.rw.hl{border-color:var(--acc)}.rw.hl span{color:var(--acc)}
+.rewards{display:grid;gap:14px;margin-top:8px}
+.ev-cards{display:grid;gap:14px;margin-top:24px}
+.ev-card{background:var(--s1);border:1px solid var(--line);border-radius:8px;padding:22px 18px 20px;text-align:center}
+.ev-card.hl{border-color:var(--acc)}
+.ev-card img{width:120px;height:120px;object-fit:contain;margin:0 auto 14px;display:block;border-radius:12px}
+.ev-card span{display:block;font-size:13px;color:var(--mute)}
+.ev-card b{display:block;font-size:22px;margin:6px 0 4px;color:var(--tx);letter-spacing:-.02em}
+.ev-card .note{font-size:14px;color:var(--tx2);margin-top:6px;font-weight:400}
+#event .head p.sub{margin-top:4px;max-width:36em}
 /* faq */
 .faq{border-top:1px solid var(--line2)}
 .faq div{padding:22px 0;border-bottom:1px solid var(--line)}
@@ -189,7 +191,7 @@ footer .ai{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
  .flowform{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:64px;align-items:start}
  .two{grid-template-columns:1fr 1fr}
  form{padding:36px}
- .rewards{grid-template-columns:repeat(3,1fr)}
+ .ev-cards{grid-template-columns:repeat(2,1fr);gap:20px}
  .faq{display:grid;grid-template-columns:1fr 1fr;column-gap:48px}
  .sticky{display:none}footer{padding-bottom:56px}
 }
@@ -303,7 +305,13 @@ body #bc-btn,body button#bc-btn{background:#F2B84B;border-color:#0F1012;color:#1
 </div></section>
 
 <section id="event"><div class="wrap">
-<div class="head" style="margin-bottom:0"><p class="mono">EVENT</p><h2>정성스러운 후기를 남겨주시면 선물을 드려요.</h2></div>
+<div class="head"><p class="mono">EVENT</p>
+<h2>사진을 포함해 정성스럽게 남겨 주시면, 무조건 스타벅스 1잔을 드려요.</h2>
+<p class="sub">단, 사진에는 인물이 있어야 해요. 영상으로 후기를 남겨 주시면 1만원 상품권 혜택도 있어요.</p></div>
+<div class="ev-cards">
+<article class="ev-card hl"><img src="assets/review-gift-starbucks.svg" alt="스타벅스 1잔"><span>사진 포함 정성 리뷰</span><b>스타벅스 1잔</b><p class="note">사진에는 인물이 있어야 해요</p></article>
+<article class="ev-card"><img src="assets/review-gift-voucher.svg" alt="1만원 상품권"><span>영상 포함 리뷰</span><b>1만원 상품권</b><p class="note">노래를 듣는 모습을 영상으로 남겨 주세요</p></article>
+</div>
 </div></section>
 
 <section id="faq"><div class="wrap">

@@ -164,7 +164,7 @@ footer{padding:30px 22px;background:#35362f;color:#e5eae6;font-size:16px}footer 
   // checkout_v2: 전체곡을 받은 주문 → 완료 페이지(리뷰·구매확정)로
   if(o.paid&&(o.delivered||o.purchaseConfirmed||['완료','구매확정','정리완료'].indexOf(o.status)>=0)){var rc=add(a,'div','');rc.className='rv-cta';
    if(o.reviewed)add(rc,'p','리뷰를 남겨 주셔서 고마워요.').style.margin='0';
-   else{add(rc,'p','노래는 어떠셨나요? 정성스러운 후기를 남겨주시면 선물을 드려요.');var rl=document.createElement('a');rl.className='btn';rl.textContent='리뷰 남기기';rl.href=B.thanksUrl(o.orderId);rc.appendChild(rl)}}
+   else{add(rc,'p','노래는 어떠셨나요? 사진을 포함해 정성스럽게 남겨 주시면 스타벅스 1잔을 드려요. 사진에는 인물이 있어야 해요.');var rl=document.createElement('a');rl.className='btn';rl.textContent='리뷰 남기기';rl.href=B.thanksUrl(o.orderId);rc.appendChild(rl)}}
   if(o.paid){var rp=document.createElement('a');rp.className='btn repeat';rp.textContent='한 곡 더 만들기 — 지금 신청하면 9,900원';rp.href='create.html?repeat=1';a.appendChild(rp);
    add(a,'p','같은 아이디로 신청하시면 미리듣기 후 시간과 관계없이 9,900원으로 받을 수 있어요.').className='small'}
   var ref=add(a,'p','접수번호(참고용) '+o.orderId);ref.className='ref';return a}
