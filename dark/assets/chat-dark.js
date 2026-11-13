@@ -83,7 +83,7 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });
   panel.querySelector('#bc-form').onsubmit = function (e) { e.preventDefault(); var i = panel.querySelector('#bc-text'), t = i.value.trim(); if (!t) return; i.value = ''; say(t, 'me'); answer(t); };
 
-  // 고객센터 연결: 문의 내용 + 회신 번호 → 문자 앱(sms:)만 연다. 메일·inquiry API 는 호출하지 않음.
+  // 고객센터 연결: 문의 내용(+ 이름 선택, 페이지 경로) → 문자 앱(sms:)만 연다. 메일·inquiry API 는 호출하지 않음.
   var SMS_TO = '01024527054', SMS_DISP = '010-2452-7054';
   function isIOS(ua) {
     ua = ua || navigator.userAgent || '';
@@ -97,19 +97,6 @@
     if (!arguments.length && navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) return true;
     return false;
   }
-  function fmtPhone(v) {
-    var d = String(v || '').replace(/\D/g, '').slice(0, 11);
-    return d.length > 7 ? d.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3') : d;
-  }
-  function savedPhone() {
-    try {
-      var uid = (B.get('uid') || ''), d = uid.replace(/\D/g, '');
-      if (/^01[016789]\d{7,8}$/.test(d)) return fmtPhone(d);
-      var c = JSON.parse(localStorage.getItem('bloome_create_v1') || '{}');
-      if (c.phone) return c.phone;
-    } catch (e) {}
-    return '';
-  }
   function savedName() {
     try { var c = JSON.parse(localStorage.getItem('bloome_create_v1') || '{}'); return c.name || ''; } catch (e) { return ''; }
   }
@@ -120,8 +107,8 @@
     var el = document.querySelector('[data-order]');
     return el ? (el.getAttribute('data-order') || '') : '';
   }
-  function smsBody(msg, phone, name, path, order) {
-    var parts = ['[블루메 송 스튜디오 문의] ' + msg, '회신번호: ' + phone];
+  function smsBody(msg, name, path, order) {
+    var parts = ['[블루메 송 스튜디오 문의] ' + msg];
     if (name) parts.push('이름: ' + name);
     var pg = path || '';
     if (order) pg += '(' + order + ')';
@@ -136,14 +123,12 @@
 
   panel.querySelector('#bc-human').onclick = function () {
     if (panel.querySelector('#bc-inq')) return;
-    var box = say('문의 내용과 회신 받을 번호를 적어 주세요.');
+    var box = say('문의 내용을 적어 주세요.');
     var f = document.createElement('form'); f.id = 'bc-inq'; f.noValidate = true;
     f.innerHTML = '<label>문의 내용<textarea name="message" rows="3" maxlength="2000" required></textarea></label>' +
-      '<label>회신 받을 전화번호<input name="phone" inputmode="tel" maxlength="20" autocomplete="tel" placeholder="010-1234-5678" required></label>' +
       '<label>이름 <span class="bc-small">(선택)</span><input name="name" maxlength="40" autocomplete="name"></label>' +
       '<p class="bc-sms-note" hidden>휴대폰에서 이용해 주세요. 또는 ' + SMS_DISP + '로 문자 주세요.</p>' +
       '<div class="bc-err" hidden></div><div class="bc-row"><button type="button" class="cancel">취소</button><button type="submit" class="send">보내기</button></div>';
-    var sp = savedPhone(); if (sp) f.phone.value = sp;
     var sn = savedName(); if (sn) f.name.value = sn;
     var note = f.querySelector('.bc-sms-note');
     if (!isMobile()) note.hidden = false;
@@ -159,18 +144,13 @@
     try { box.scrollIntoView({block:'start', inline:'nearest'}); } catch (e) { log.scrollTop = 0; }
     f.message.focus();
     f.querySelector('.cancel').onclick = function () { box.remove(); restoreFoot(); };
-    f.phone.addEventListener('input', function () {
-      var d = f.phone.value.replace(/\D/g, '').slice(0, 11);
-      f.phone.value = d.length > 7 ? d.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3') : d.length > 3 ? d.slice(0, 3) + '-' + d.slice(3) : d;
-    });
     f.onsubmit = function (e) {
       e.preventDefault();
       var er = f.querySelector('.bc-err'); er.hidden = true;
-      var msg = f.message.value.trim(), phone = fmtPhone(f.phone.value), name = f.name.value.trim();
+      var msg = f.message.value.trim(), name = f.name.value.trim();
       if (msg.length < 2) { er.hidden = false; er.textContent = '문의 내용을 적어 주세요.'; return; }
-      if (!/^01[016789]\d{7,8}$/.test(phone.replace(/\D/g, ''))) { er.hidden = false; er.textContent = '회신 받을 전화번호를 다시 확인해 주세요.'; return; }
       if (!isMobile()) { note.hidden = false; er.hidden = false; er.textContent = '휴대폰에서 이용해 주세요. 또는 ' + SMS_DISP + '로 문자 주세요.'; return; }
-      var body = smsBody(msg, phone, name, location.pathname || '', knownOrder());
+      var body = smsBody(msg, name, location.pathname || '', knownOrder());
       var url = smsUrl(body);
       window.__bloomeSmsUrl = url;
       window.__bloomeSmsBody = body;
