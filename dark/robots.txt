@@ -1,0 +1,21 @@
+# bloomesong.com
+# GitHub: bloome-korea/song-preview 의 dark/robots.txt
+# Worker가 https://bloomesong.com/robots.txt 로 프록시합니다.
+#
+# /p/ 만 Disallow 합니다. 고객 토큰·결제 반환 경로라 수집 자체를 막습니다.
+# status/checkout/thanks/done/create 는 Disallow 하지 않습니다.
+# (Disallow 하면 크롤러가 noindex 메타를 읽지 못해, 링크로 주소만 색인될 수 있습니다.)
+# 그 페이지들은 HTML에 noindex,nofollow 를 유지합니다.
+# /p 만으로는 Disallow 하지 마세요. /privacy.html 이 같이 막힙니다.
+
+User-agent: *
+Allow: /
+Disallow: /p/
+Disallow: /p$
+
+User-agent: Yeti
+Allow: /
+Disallow: /p/
+Disallow: /p$
+
+Sitemap: https://bloomesong.com/sitemap.xml
