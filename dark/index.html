@@ -161,7 +161,7 @@ hr.sep{border:0;border-top:1px solid var(--line)}
 .ev-card span{display:block;font-size:13px;color:var(--mute)}
 .ev-card b{display:block;font-size:22px;margin:6px 0 4px;color:var(--tx);letter-spacing:-.02em}
 .ev-card .note{font-size:14px;color:var(--tx2);margin-top:6px;font-weight:400}
-#event .head p.sub{margin-top:4px;max-width:36em}
+#donate .head p.sub{margin-top:4px;max-width:36em}html.dk .home-give{max-width:560px;margin:18px auto 0}
 /* faq */
 .faq{border-top:1px solid var(--line2)}
 .faq div{padding:22px 0;border-bottom:1px solid var(--line)}
@@ -323,7 +323,7 @@ body #bc-btn,body button#bc-btn{background:#F2B84B;border-color:#0F1012;color:#1
 </head><body>
 <div class="topbar">지금 무료로 만들어 드려요</div>
 <header><div class="wrap"><a class="mark" href="#" aria-label="블루메 송 스튜디오">BLOOME SONG<small>STUDIO</small></a>
-<nav><a class="hide-m" href="#samples">샘플곡</a><a class="hide-m" href="#event">리뷰 이벤트</a><a class="ytn" href="https://www.youtube.com/@bloomesong" target="_blank" rel="noopener" aria-label="블루메 송 유튜브 채널"><i class="yti" aria-hidden="true"></i><span class="hide-s">유튜브</span></a><a class="find" href="status.html">내 노래 찾기</a><a class="btn line" href="create.html">무료로 만들어 보기</a></nav></div></header>
+<nav><a class="hide-m" href="#samples">샘플곡</a><a class="hide-m" href="#donate">후원하기</a><a class="ytn" href="https://www.youtube.com/@bloomesong" target="_blank" rel="noopener" aria-label="블루메 송 유튜브 채널"><i class="yti" aria-hidden="true"></i><span class="hide-s">유튜브</span></a><a class="find" href="status.html">내 노래 찾기</a><a class="btn line" href="create.html">무료로 만들어 보기</a></nav></div></header>
 <main>
 <section class="hero"><div class="wrap grid">
 <div><p class="mono kick"><span>CUSTOM SONG STUDIO —</span><span class="ko">블루메송 · 맞춤 노래 제작</span></p>
@@ -429,14 +429,11 @@ body #bc-btn,body button#bc-btn{background:#F2B84B;border-color:#0F1012;color:#1
 <a class="btn primary block" href="create.html">무료로 만들어 보기</a><p class="fnote">지금은 무료로 만들어 드려요</p></div>
 </div></section>
 
-<section id="event"><div class="wrap">
-<div class="head"><p class="mono">EVENT</p>
-<h2>사진을 포함해 정성스럽게 남겨 주시면, 무조건 스타벅스 1잔을 드려요.</h2>
-<p class="sub">단, 사진에는 인물이 있어야 해요. 영상으로 후기를 남겨 주시면 1만원 상품권 혜택도 있어요.</p></div>
-<div class="ev-cards">
-<article class="ev-card hl"><img src="assets/review-gift-starbucks.svg" alt="스타벅스 1잔"><span>사진 포함 정성 리뷰</span><b>스타벅스 1잔</b><p class="note">사진에는 인물이 있어야 해요</p></article>
-<article class="ev-card"><img src="assets/review-gift-voucher.svg" alt="1만원 상품권"><span>영상 포함 리뷰</span><b>1만원 상품권</b><p class="note">노래를 듣는 모습을 영상으로 남겨 주세요</p></article>
-</div>
+<section id="donate"><div class="wrap">
+<div class="head"><p class="mono">DONATE</p>
+<h2>제작자에게 커피 한 잔</h2>
+<p class="sub">노래가 마음에 드셨다면 작은 후원 부탁해요.<br>많은 사람들에게 노래를 선물할 힘이 생길 것 같아요!</p></div>
+<div id="donate-box" class="give home-give" aria-label="후원하기"></div>
 </div></section>
 
 <section id="faq"><div class="wrap">
@@ -472,5 +469,5 @@ body #bc-btn,body button#bc-btn{background:#F2B84B;border-color:#0F1012;color:#1
  box.innerHTML=R.map(function(r,i){return '<figure class="rv"><div class="rv-top"><span class="av" aria-hidden="true">'+avHtml(r,i)+'</span><div><span class="mono">'+esc(r.song||'REVIEW')+'</span><h3 class="tt">'+esc(r.title)+'</h3></div></div><blockquote class="q">“'+esc(r.quote)+'”</blockquote><figcaption class="who">'+esc(r.name)+'</figcaption></figure>'}).join('')})();
 var rf=document.getElementById('request-form');if(rf)rf.addEventListener('submit',function(e){e.preventDefault()});
 })();</script><script src="assets/wave.js?v=dark4"></script><div id="share-toast" role="status" aria-live="polite">링크가 복사됐어요</div>
-<script>(function(){var q=location.search;if(q)document.querySelectorAll('a[href="create.html"]').forEach(function(a){a.href='create.html'+q})})();</script><script src="../assets/config.js?v=open1"></script><script src="../assets/api.js"></script><script src="../assets/site.js?v=open1"></script><script src="assets/share.js?v=dk10"></script><script src="assets/chat-dark.js?v=dk13"></script><link rel="stylesheet" href="assets/chat-dark.css?v=dk9"><script src="assets/dark-copy.js?v=dk8"></script>
+<script>(function(){var q=location.search;if(q)document.querySelectorAll('a[href="create.html"]').forEach(function(a){a.href='create.html'+q})})();</script><script src="../assets/config.js?v=open1"></script><script src="../assets/api.js"></script><script src="../assets/site.js?v=open1"></script><script src="assets/share.js?v=dk10"></script><script src="assets/donate.js?v=free2"></script><script src="assets/chat-dark.js?v=dk14"></script><link rel="stylesheet" href="assets/chat-dark.css?v=dk9"><script src="assets/dark-copy.js?v=dk8"></script>
 </body></html>
