@@ -125,11 +125,37 @@ body.s8 main{padding-bottom:48px}
 .get li span{font-family:var(--mono);font-size:13px;color:var(--acc);padding-top:2px}
 .foot{margin-top:32px;font-size:12px;color:var(--mute);text-align:center}
 .foot a{color:var(--mute)}
+
+/* free: 영상 방식 선택 */
+.vt .q{margin-top:10px}
+.vt-card{display:block;width:100%;text-align:left;padding:0;margin:0 0 14px;background:var(--s1);border:1px solid var(--line);border-radius:6px;overflow:hidden;cursor:pointer;color:var(--tx);font:inherit}
+.vt-card[aria-pressed=true]{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
+.vt-art{position:relative;display:block}.vt-art img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.vt-badge{position:absolute;left:10px;top:10px;background:rgba(15,16,18,.82);border:1px solid var(--line2);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--tx)}
+.vt-badge.acc{border-color:var(--acc);color:var(--acc)}
+.vt-tx{display:block;padding:14px 16px 16px}.vt-tx .mono{color:var(--acc)}
+.vt-tx b{display:block;font-size:19px;line-height:1.4;margin:6px 0}.vt-d{display:block;font-size:15px;color:var(--tx2);line-height:1.6}
+.vt-tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;border:1px solid var(--line2);border-radius:3px;padding:2px 8px;color:var(--tx2)}.vt-tag.free{border-color:var(--acc);color:var(--acc)}
+.vt-yt{display:flex;align-items:center;justify-content:center;gap:8px;margin:6px 0 10px;font-size:14px;color:var(--tx2)}
+.yti{display:inline-block;width:20px;height:14px;border-radius:4px;background:#FF3B30;position:relative;flex:none}.yti:after{content:'';position:absolute;left:8px;top:3.5px;border-left:6px solid #fff;border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
+body.vt-open .nav{display:none}
+.vt-pill{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute);margin:0 0 6px}.vt-pill b{color:var(--tx);font-weight:600}
+.vt-pill button{background:none;border:0;color:var(--acc);font-size:13px;text-decoration:underline;cursor:pointer;padding:4px 0}
 </style></head><body class="create">
 <header><div class="hrow"><a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>홈으로</a>
 <a class="mark" href="index.html" aria-label="블루메 송 스튜디오">BLOOME SONG<small>STUDIO</small></a>
 <span class="count" aria-live="polite">8단계 중 <b id="stepNo">1</b>단계</span></div><div class="prog"><i id="progBar"></i></div></header>
 <main>
+<section id="vt-gate" class="vt" hidden aria-labelledby="vt-q">
+<p class="kick"><span class="mono">START</span><span>영상 방식</span></p><h1 class="q" id="vt-q">어떤 영상으로 만들까요?</h1><p class="qs">두 가지 중 하나를 골라 주세요.</p>
+<button type="button" class="vt-card" data-vt="photo" aria-pressed="false"><span class="vt-art"><img src="assets/vt_photo.jpg" alt="" width="800" height="450"><span class="vt-badge">🔒 비공개 · 다운로드 전용</span></span>
+<span class="vt-tx"><span class="mono">OPTION 01</span><b>내 사진·영상으로 만들기</b><span class="vt-d">내 사진과 영상은 유튜브에 업로드되지 않고, 따로 다운로드받을 수 있는 형태로만 저장돼요.</span><span class="vt-tag">별도 비용 발생</span></span></button>
+<button type="button" class="vt-card" data-vt="image" aria-pressed="false"><span class="vt-art"><img src="assets/vt_image.jpg" alt="블루메 송 유튜브 음악영상의 그림 장면" width="800" height="600"><span class="vt-badge acc">▶ 유튜브 업로드</span></span>
+<span class="vt-tx"><span class="mono">OPTION 02</span><b>예쁜 이미지로 만들기</b><span class="vt-d">유튜브에 업로드되지만, 예쁜 이미지를 따로 그려서 누군지 알 수 없는 감동적인 영상으로 제작돼요.</span><span class="vt-tag free">무료</span></span></button>
+<a class="vt-yt" href="https://www.youtube.com/@bloomesong" target="_blank" rel="noopener"><i class="yti"></i>유튜브 채널에서 예시 영상 보기</a>
+</section>
+<p class="vt-pill" id="vt-pill" hidden>영상 방식 <b></b> <button type="button">바꾸기</button></p>
+
 <form id="create" novalidate autocomplete="on">
 
 <section class="step" data-step="1">
@@ -231,6 +257,6 @@ body.s8 main{padding-bottom:48px}
 <nav class="nav" aria-label="단계 이동"><div class="in"><button type="button" class="btn line" id="prev">뒤로</button><button type="button" class="btn primary" id="next" disabled>다음</button></div></nav>
 <script src="../assets/config.js?v=open1"></script><script src="../assets/api.js"></script>
 <script>window.CREATE_DONE_URL="done.html";window.CREATE_CFG={"REL": ["아내", "남편", "여자친구", "남자친구", "약혼자", "엄마", "아빠", "할머니", "할아버지", "딸", "아들", "손주", "형제·자매·남매", "친구", "선생님", "동료", "나 자신"], "OCC": ["생일", "칠순·환갑", "결혼기념일", "프러포즈", "결혼식", "고마워서", "미안해서", "사랑해서", "응원", "위로", "수능", "졸업·입학", "그냥 이유없이"], "GEN": {"발라드": ["피아노 발라드", "어쿠스틱 발라드", "밴드 발라드"], "어쿠스틱": ["통기타로 잔잔하게", "밝은 포크", "카페 어쿠스틱"], "트로트": ["신나는 트로트", "느린 정통 트로트", "세미 트로트"], "댄스": ["밝은 K-pop 댄스", "레트로 디스코", "시티팝"], "R&B/소울": ["부드러운 R&B", "그루비한 소울", "재즈 느낌"], "인디": ["따뜻한 인디 팝", "몽환적인 드림팝", "감성 포크"], "록/밴드": ["청량한 밴드", "웅장한 록 발라드", "신나는 펑크 록"], "CCM": ["잔잔한 찬양", "밝은 워십", "합창 느낌"], "맡길게요": []}};</script>
-<script src="assets/create.js?v=dark4"></script><script src="assets/wave.js?v=dark4"></script>
+<script src="assets/create.js?v=free1"></script><script src="assets/create-video.js?v=free1"></script><script src="assets/wave.js?v=dark4"></script>
 <script src="assets/chat-dark.js?v=dk13"></script><link rel="stylesheet" href="assets/chat-dark.css?v=dk9"><script src="assets/dark-copy.js?v=dk8"></script>
 </body></html>
