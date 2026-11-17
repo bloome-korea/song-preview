@@ -110,6 +110,7 @@
       phone: m === 'phone' ? S.phone.trim() : '', email: m === 'email' ? S.email.trim() : '',
       pin: $('pin').value, pin2: $('pin2').value, signup: S.signup, consent: S.consent, marketing: S.marketing,
       website: $('website').value, utm: utm(), repeat: 0,
+      video_type: (window.BLOOME_VIDEO && window.BLOOME_VIDEO.get()) || '',   // free: photo | image
       /* 다음 백엔드 변경용 세부 항목 (지금 서버는 무시하고 story만 저장) */
       detail: { callStyle: S.call || 'name', nickname: S.call === 'nick' ? S.nickname.trim() : '', callTitle: S.call === 'title' ? S.calltitle.trim() : '',
         genre: S.genre, genreDetail: S.detail, traits: S.traits.trim(), memories: S.memories.trim(), keywords: S.keywords.trim(), message: S.message.trim(), form: 'create_v1' }
@@ -178,7 +179,7 @@
     if (!noPush) history.pushState({ step: n }, '', location.search + '#step-' + n);
   }
   $('next').addEventListener('click', function () { if (!valid(S.step)) return; if (S.from8) { S.from8 = false; go(8); } else go(S.step + 1); });
-  $('prev').addEventListener('click', function () { if (S.step === 1) { location.href = 'index.html'; return; } S.from8 = false; go(S.step - 1, true); });
+  $('prev').addEventListener('click', function () { if (S.step === 1) { if (window.BLOOME_VIDEO) { window.BLOOME_VIDEO.open(); return; } location.href = 'index.html'; return; } S.from8 = false; go(S.step - 1, true); });
   $('back8').addEventListener('click', function () { go(7, true); });
   window.addEventListener('popstate', function (e) { var n = (e.state && e.state.step) || 1; go(n, n < S.step, true); });
   /* ---------- 제출: BLOOME(api.js)가 있으면 실제 신청, 없으면(시안) alert ---------- */
