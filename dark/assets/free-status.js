@@ -118,13 +118,16 @@
     var b = add(row, 'button', null, 'fp-btn'); b.type = 'button'; b.setAttribute('aria-label', '전체곡 재생');
     b.innerHTML = '<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg><i class="fp-spin" aria-hidden="true"></i>';
     var meta = add(row, 'div', null, 'fp-meta'); add(meta, 'b', o.title || (o.hasSong2 ? n + '번 곡' : '전체곡')); var tm = add(meta, 'span', '전체곡 · 눌러서 듣기', 'fp-time');
+    // 재생 중 애니메이션: 이퀄라이저 막대 + 떠오르는 음표 + 버튼 빛 번짐 (CSS 는 status.html, .fplayer.playing)
+    var eq = add(row, 'div', null, 'fp-eq'); eq.setAttribute('aria-hidden', 'true'); eq.innerHTML = '<i></i><i></i><i></i><i></i><i></i>';
+    var notes = add(w, 'div', null, 'fp-notes'); notes.setAttribute('aria-hidden', 'true'); notes.innerHTML = '<span>♪</span><span>♫</span><span>♪</span><span>♬</span><span>♪</span><span>♫</span>';
     var bar = add(w, 'div', null, 'fp-bar'); var fill = add(bar, 'i');
     var msg = add(w, 'p', '', 'small fp-msg');
     // 다운로드 버튼 없음. 오디오 요소는 처음부터 만들어 두고(같은 요소를 계속 씀) controlslist 로 기본 메뉴의 다운로드도 숨김
     var au = document.createElement('audio'); au.preload = 'auto'; au.setAttribute('playsinline', ''); au.setAttribute('webkit-playsinline', ''); au.setAttribute('controlslist', 'nodownload noplaybackrate'); w.appendChild(au);
     var st = { loaded: false, loading: null, want: false, userPaused: false, blocked: false }, endedOnce = false;
     function real() { return st.loaded && au.src && au.src.indexOf('data:audio/wav') !== 0; }
-    function sync() { var on = real() && !au.paused; b.classList.toggle('on', on); b.setAttribute('aria-label', on ? '일시정지' : '전체곡 재생'); }
+    function sync() { var on = real() && !au.paused; b.classList.toggle('on', on); w.classList.toggle('playing', on); b.setAttribute('aria-label', on ? '일시정지' : '전체곡 재생'); }
     function busy(v) { b.classList.toggle('busy', v); w.classList.toggle('loading', v); if (v) tm.textContent = '노래 불러오는 중…'; }
     ['play', 'pause', 'ended', 'playing'].forEach(function (ev) { au.addEventListener(ev, sync); });
     au.addEventListener('playing', function () { if (real()) { st.blocked = false; w.classList.remove('blocked'); msg.textContent = ''; players.forEach(function (p) { if (p.au !== au) p.au.pause(); }); } });
@@ -206,7 +209,7 @@
       var q = $('yt-q'), ans = $('yt-ans'), btns = $('yt-btns');
       box.dataset.state = state || 'ask';
       q.hidden = state === 'ok' || state === 'no';
-      q.textContent = '유튜브 영상편지로 올려 드릴까요?';
+      q.textContent = state === 'no1' ? '유튜브에 업로드하면 평생 들으실 수 있어요!' : '유튜브 영상편지로 올려 드릴까요?';
       ans.hidden = !state; ans.textContent = state ? YT_TEXT[state] : '';
       btns.hidden = state === 'ok' || state === 'no';
       $('yt-redo').hidden = !(state === 'ok' || state === 'no');
