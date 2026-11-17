@@ -206,7 +206,7 @@
       var q = $('yt-q'), ans = $('yt-ans'), btns = $('yt-btns');
       box.dataset.state = state || 'ask';
       q.hidden = state === 'ok' || state === 'no';
-      q.textContent = state === 'no1' ? '그래도 유튜브 영상편지로 올려 드릴까요?' : '유튜브 영상편지로 올려 드릴까요?';
+      q.textContent = '유튜브 영상편지로 올려 드릴까요?';
       ans.hidden = !state; ans.textContent = state ? YT_TEXT[state] : '';
       btns.hidden = state === 'ok' || state === 'no';
       $('yt-redo').hidden = !(state === 'ok' || state === 'no');
